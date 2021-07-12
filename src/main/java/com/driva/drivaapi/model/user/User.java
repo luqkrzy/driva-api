@@ -1,10 +1,14 @@
 package com.driva.drivaapi.model.user;
 
+import com.driva.drivaapi.config.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -14,17 +18,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_app",
@@ -34,20 +43,45 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator( name = "user_id_sq", sequenceName = "user_id_sq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sq")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "first name can't be blank")
     @Size(max = 20)
+    @Pattern(regexp = Constants.USERNAME_REGEX)
+    @Column(name = "username", nullable = false, length = 20)
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
+    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String firstName;
+
+    @NotBlank(message = "last name can't be blank")
+    @Size(max = 50)
+    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
+    @Column(name = "last_name", nullable = false, length = 50)
+    private String lastName;
+
     @Email
+    @NotBlank(message = "email can't be blank")
+    @Size(min = 5, max = 50)
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
-    @NotBlank
+    @NotNull(message = "phone number can't be null")
+    @Column(name = "phone_number", nullable = false)
+    private Integer phoneNumber;
+
+    @Column(name = "created_date", columnDefinition = "timestamp default now()")
+    private Instant createdDate;
+
+    @JsonIgnore
+    @NotBlank(message = "password can't be blank")
     @Size(max = 120)
+    @Column(name = "password", length = 120, nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -58,9 +92,5 @@ public class User {
             inverseForeignKey = @ForeignKey(name = "fk_role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
+
 }

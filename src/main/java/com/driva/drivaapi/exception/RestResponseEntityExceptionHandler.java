@@ -38,7 +38,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         fieldErrors.forEach(fieldError ->
                 errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage())
         );
-        final ApiException apiException = new ApiException(errors);
+        final ApiException apiException = new ApiException(errors, HttpStatus.BAD_REQUEST);
         return handleExceptionInternal(ex, apiException, headers, HttpStatus.BAD_REQUEST, request);
     }
 

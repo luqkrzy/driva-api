@@ -74,7 +74,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
+        User user = User.builder()
+                .username(signUpRequest.getUsername())
+                .firstName(signUpRequest.getFirstName())
+                .lastName(signUpRequest.getLastName())
+                .email(signUpRequest.getEmail())
+                .phoneNumber((signUpRequest.getPhoneNumber()))
+                .password(encoder.encode(signUpRequest.getPassword()))
+                .build();
+
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
         checkUserRoles(strRoles, roles);
