@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.Set;
 
 @Getter
@@ -37,12 +38,17 @@ public class SignupRequest {
     private String lastName;
 
     @Email
+    @Pattern(regexp = Constants.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     private String email;
 
-    @NotNull(message = "phone number can't be null")
-    private Integer phoneNumber;
+    @Pattern(regexp = Constants.PHONE_REGEX, message = "phone number should have 9-13 digits without space")
+    @NotBlank(message = "phone number can't be blank")
+    private String phoneNumber;
+
+    @NotNull
+    private Instant createdDate = Instant.now();
 
     @NotBlank(message = "password can't be blank")
     @Size(max = 120)

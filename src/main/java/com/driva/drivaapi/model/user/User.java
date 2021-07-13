@@ -65,7 +65,7 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    @Email
+    @Pattern(regexp = Constants.EMAIL_REGEX, message = "wrong")
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)

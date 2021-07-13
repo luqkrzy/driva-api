@@ -78,8 +78,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .username(signUpRequest.getUsername())
                 .firstName(signUpRequest.getFirstName())
                 .lastName(signUpRequest.getLastName())
-                .email(signUpRequest.getEmail())
-                .phoneNumber((signUpRequest.getPhoneNumber()))
+                .email(signUpRequest.getEmail().toLowerCase())
+                .phoneNumber(Integer.parseInt(signUpRequest.getPhoneNumber()))
+                .createdDate(signUpRequest.getCreatedDate())
                 .password(encoder.encode(signUpRequest.getPassword()))
                 .build();
 
