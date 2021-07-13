@@ -98,7 +98,7 @@ public class User {
     private Set<Instructor> instructors;
 
     @OneToMany(mappedBy = "userId")
-    private Set<Morderator> morderators;
+    private Set<Moderator> moderators;
 
     @OneToMany(mappedBy = "userId")
     private Set<Student> students;

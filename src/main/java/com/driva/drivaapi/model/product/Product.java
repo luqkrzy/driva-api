@@ -63,6 +63,11 @@ public class Product {
     @OneToMany(mappedBy = "productId")
     private List<Lesson> lessons;
 
+    @NotNull(message = "price can't be null")
+    @Positive(message = "price should be positive digit")
+    @Column(name = "price",  nullable = false)
+    private Double price;
+
 
 
 }

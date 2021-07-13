@@ -22,12 +22,12 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "morderator")
-public class Morderator {
+@Table(name = "moderator")
+public class Moderator {
 
     @Id
-    @SequenceGenerator( name = "morderator_id_sq", sequenceName = "morderator_id_sq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "morderator_id_sq")
+    @SequenceGenerator( name = "moderator_id_sq", sequenceName = "moderator_id_sq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moderator_id_sq")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
