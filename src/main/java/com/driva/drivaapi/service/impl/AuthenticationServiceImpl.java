@@ -104,7 +104,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                             .orElseThrow(() -> new UserRoleNotFoundException(String.format("Error: '%s' role is not found.", role)));
                     roles.add(adminRole);
                 }
-                case "morderator" -> {
+                case "moderator" -> {
                     Role modRole = roleRepository.findByName(UserRole.ROLE_MODERATOR)
                             .orElseThrow(() -> new UserRoleNotFoundException(String.format("Error: '%s' role is not found.", role)));
                     roles.add(modRole);
