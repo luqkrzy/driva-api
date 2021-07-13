@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -65,7 +66,8 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    @Pattern(regexp = Constants.EMAIL_REGEX, message = "wrong")
+    @Email
+    @Pattern(regexp = Constants.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)
@@ -92,5 +94,16 @@ public class User {
             inverseForeignKey = @ForeignKey(name = "fk_role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "userId")
+    private Set<Instructor> instructors;
+
+    @OneToMany(mappedBy = "userId")
+    private Set<Morderator> morderators;
+
+    @OneToMany(mappedBy = "userId")
+    private Set<Student> students;
+
+    @OneToMany(mappedBy = "userId")
+    private Set<Admin> admins;
 
 }
