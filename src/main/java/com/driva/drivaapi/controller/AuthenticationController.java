@@ -24,8 +24,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @Transactional
-    @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return authenticationService.authenticateUser(loginRequest);
     }

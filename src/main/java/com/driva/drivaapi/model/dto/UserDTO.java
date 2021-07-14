@@ -1,7 +1,7 @@
 package com.driva.drivaapi.model.dto;
 
 import com.driva.drivaapi.config.Constants;
-import lombok.AllArgsConstructor;
+import com.driva.drivaapi.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +12,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class UserDTO {
 
     @NotBlank(message = "first name can't be blank")
@@ -61,5 +61,15 @@ public class UserDTO {
                 ", createdDate=" + createdDate +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public UserDTO(User user) {
+        this.username = user.getUsername();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.phoneNumber = Integer.toString(user.getPhoneNumber());
+        this.createdDate = user.getCreatedDate();
+        this.roles = user.getRoles().stream().map(u -> u.getName().name()).collect(Collectors.toSet());
     }
 }
