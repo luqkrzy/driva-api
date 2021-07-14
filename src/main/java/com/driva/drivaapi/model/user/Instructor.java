@@ -35,7 +35,7 @@ public class Instructor {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id",
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
     private User userId;
 

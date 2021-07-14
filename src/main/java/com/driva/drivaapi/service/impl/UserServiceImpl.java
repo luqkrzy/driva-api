@@ -2,6 +2,7 @@ package com.driva.drivaapi.service.impl;
 
 import com.driva.drivaapi.mapper.UserMapper;
 import com.driva.drivaapi.model.dto.UserDTO;
+import com.driva.drivaapi.model.user.UserRole;
 import com.driva.drivaapi.repository.UserRepository;
 import com.driva.drivaapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.usersToUserDTOs(userRepository.findAll());
 
 
+    }
+
+    @Override
+    public List<UserDTO> findAllByRole(UserRole role) {
+        return userMapper.usersToUserDTOs(userRepository.findAllByRoles_name(role));
     }
 }
