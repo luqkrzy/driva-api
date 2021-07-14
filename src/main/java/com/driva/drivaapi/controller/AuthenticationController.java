@@ -2,7 +2,7 @@ package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.security.payload.request.LoginRequest;
 import com.driva.drivaapi.security.payload.request.SignupRequest;
-import com.driva.drivaapi.service.AuthenticationService;
+import com.driva.drivaapi.security.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

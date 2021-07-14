@@ -1,4 +1,4 @@
-package com.driva.drivaapi.service;
+package com.driva.drivaapi.security.service;
 
 import com.driva.drivaapi.security.payload.request.LoginRequest;
 import com.driva.drivaapi.security.payload.request.SignupRequest;

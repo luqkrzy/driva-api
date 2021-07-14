@@ -1,6 +1,6 @@
 package com.driva.drivaapi.security.jwt;
 
-import com.driva.drivaapi.security.service.UserDetailsImpl;
+import com.driva.drivaapi.security.service.impl.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

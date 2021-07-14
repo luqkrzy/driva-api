@@ -86,6 +86,7 @@ public class User {
     @Column(name = "password", length = 120, nullable = false)
     private String password;
 
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles_list",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -105,5 +106,6 @@ public class User {
 
     @OneToMany(mappedBy = "userId")
     private Set<Admin> admins;
+
 
 }

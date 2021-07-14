@@ -1,8 +1,8 @@
-package com.driva.drivaapi.security.payload.request;
+package com.driva.drivaapi.model.dto;
 
 import com.driva.drivaapi.config.Constants;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
@@ -15,22 +15,22 @@ import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class SignupRequest {
+@AllArgsConstructor
+public class UserDTO {
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 20)
-    @Pattern(regexp = Constants.USERNAME_REGEX ,message="allowed only letters and numbers, no special signs")
+    @Pattern(regexp = Constants.USERNAME_REGEX, message = "allowed only letters and numbers, no special signs")
     private String username;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX,message="allowed only letters")
+    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX, message = "allowed only letters")
     private String firstName;
 
     @NotBlank(message = "last name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX ,message="allowed only letters")
+    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX, message = "allowed only letters")
     private String lastName;
 
     @Email
@@ -44,11 +44,8 @@ public class SignupRequest {
     private String phoneNumber;
 
     @NotNull
-    private Instant createdDate = Instant.now();
+    private Instant createdDate;
 
-    @NotBlank(message = "password can't be blank")
-    @Size(max = 120)
-    private String password;
 
     @Size(max = 5)
     private Set<String> roles;
@@ -62,7 +59,6 @@ public class SignupRequest {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", createdDate=" + createdDate +
-                ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
     }

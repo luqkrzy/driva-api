@@ -1,4 +1,4 @@
-package com.driva.drivaapi.service.impl;
+package com.driva.drivaapi.security.service.impl;
 
 import com.driva.drivaapi.exception.UserRoleNotFoundException;
 import com.driva.drivaapi.model.user.Role;
@@ -11,8 +11,7 @@ import com.driva.drivaapi.security.payload.request.LoginRequest;
 import com.driva.drivaapi.security.payload.request.SignupRequest;
 import com.driva.drivaapi.security.payload.response.JwtResponse;
 import com.driva.drivaapi.security.payload.response.MessageResponse;
-import com.driva.drivaapi.security.service.UserDetailsImpl;
-import com.driva.drivaapi.service.AuthenticationService;
+import com.driva.drivaapi.security.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,10 +1,10 @@
 package com.driva.drivaapi.security;
 
 
-import com.driva.drivaapi.security.jwt.JwtAuthenticationEntryPoint;
 import com.driva.drivaapi.security.jwt.AuthTokenFilter;
+import com.driva.drivaapi.security.jwt.JwtAuthenticationEntryPoint;
 import com.driva.drivaapi.security.jwt.JwtUtils;
-import com.driva.drivaapi.security.service.UserDetailsServiceImpl;
+import com.driva.drivaapi.security.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

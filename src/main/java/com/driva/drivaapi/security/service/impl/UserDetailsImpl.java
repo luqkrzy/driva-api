@@ -1,4 +1,4 @@
-package com.driva.drivaapi.security.service;
+package com.driva.drivaapi.security.service.impl;
 
 import com.driva.drivaapi.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
+
     private static final long serialVersionUID = 1L;
 
     private final Long id;
@@ -21,9 +22,9 @@ public class UserDetailsImpl implements UserDetails {
     private final String email;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
