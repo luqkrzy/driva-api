@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "driva.app.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Description for driva.app.jwtSecret."
+    },
+    {
+      "name": "driva.app.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Description for driva.app.jwtExpirationMs."
+    }
+  ]
+}

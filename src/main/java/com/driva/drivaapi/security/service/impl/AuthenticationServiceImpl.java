@@ -12,6 +12,7 @@ import com.driva.drivaapi.security.payload.request.SignupRequest;
 import com.driva.drivaapi.security.payload.response.JwtResponse;
 import com.driva.drivaapi.security.payload.response.MessageResponse;
 import com.driva.drivaapi.security.service.AuthenticationService;
+import com.driva.drivaapi.util.CapitalizeFirstLetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -75,9 +76,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         User user = User.builder()
-                .username(signUpRequest.getUsername())
-                .firstName(signUpRequest.getFirstName())
-                .lastName(signUpRequest.getLastName())
+                .username(signUpRequest.getUsername().toLowerCase())
+                .firstName(CapitalizeFirstLetter.capitalize(signUpRequest.getFirstName()))
+                .lastName(CapitalizeFirstLetter.capitalize(signUpRequest.getLastName()))
                 .email(signUpRequest.getEmail().toLowerCase())
                 .phoneNumber(Integer.parseInt(signUpRequest.getPhoneNumber()))
                 .createdDate(signUpRequest.getCreatedDate())
