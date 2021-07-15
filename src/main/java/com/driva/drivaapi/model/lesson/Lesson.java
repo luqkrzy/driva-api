@@ -33,6 +33,7 @@ public class Lesson {
     @Id
     @SequenceGenerator( name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_id_sq")
+    @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

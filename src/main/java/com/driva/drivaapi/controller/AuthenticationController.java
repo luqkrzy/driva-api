@@ -24,13 +24,13 @@ public class AuthenticationController {
 
     @Transactional
     @PostMapping(path = "/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return authenticationService.authenticateUser(loginRequest);
     }
 
     @PostMapping(path = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> registerUser(@RequestBody @Valid SignupRequest signUpRequest) {
+    ResponseEntity<?> registerUser(@RequestBody @Valid SignupRequest signUpRequest) {
         System.out.println(signUpRequest);
         return authenticationService.registerUser(signUpRequest);
 

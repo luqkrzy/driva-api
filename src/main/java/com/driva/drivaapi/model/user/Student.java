@@ -1,6 +1,7 @@
 package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.config.Constants;
+import com.driva.drivaapi.model.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -19,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,12 +34,11 @@ public class Student {
     @Id
     @SequenceGenerator(name = "student_id_sq", sequenceName = "student_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_id_sq")
+    @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
-    // @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    // @JoinColumn(name = "student_id", referencedColumnName = "id",
-    //         foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
-    // private User userId;
+    @OneToMany(mappedBy = "studentId")
+    private List<Product> products;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)

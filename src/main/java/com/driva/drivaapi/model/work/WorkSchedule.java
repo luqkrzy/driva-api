@@ -33,6 +33,7 @@ public class WorkSchedule {
     @Id
     @SequenceGenerator( name = "work_id_sq", sequenceName = "work_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_id_sq")
+    @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -49,14 +50,4 @@ public class WorkSchedule {
     @Column(name ="time_end")
     private Instant timeEnd;
 
-    @Override
-    public String toString() {
-        return "WorkSchedule{" +
-                "id=" + id +
-                ", instructorId=" + instructorId +
-                ", date=" + date +
-                ", timeStart=" + timeStart +
-                ", timeEnd=" + timeEnd +
-                '}';
-    }
 }

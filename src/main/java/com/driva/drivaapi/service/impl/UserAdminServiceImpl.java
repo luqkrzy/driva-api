@@ -1,7 +1,7 @@
 package com.driva.drivaapi.service.impl;
 
 import com.driva.drivaapi.mapper.UserMapper;
-import com.driva.drivaapi.model.dto.UserDTO;
+import com.driva.drivaapi.mapper.dto.UserDTO;
 import com.driva.drivaapi.model.user.UserRole;
 import com.driva.drivaapi.repository.UserRepository;
 import com.driva.drivaapi.service.UserAdminService;
@@ -19,6 +19,6 @@ public class UserAdminServiceImpl implements UserAdminService {
 
     @Override
     public List<UserDTO> findAllAdmins() {
-        return userMapper.usersToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_ADMIN));
+        return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_ADMIN));
     }
 }

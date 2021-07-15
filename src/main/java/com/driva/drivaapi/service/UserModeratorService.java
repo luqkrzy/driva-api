@@ -1,6 +1,6 @@
 package com.driva.drivaapi.service;
 
-import com.driva.drivaapi.model.dto.UserDTO;
+import com.driva.drivaapi.mapper.dto.UserDTO;
 
 import java.util.List;
 

@@ -28,7 +28,7 @@ public class StudentController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public List<Student> getAllStudents() {
+    List<Student> getAllStudents() {
         return studentService.findAllStudents();
 
     }
@@ -36,7 +36,7 @@ public class StudentController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Student createStudent(@RequestBody @Valid Student student) {
+    Student createStudent(@RequestBody @Valid Student student) {
         return studentService.save(student);
     }
 

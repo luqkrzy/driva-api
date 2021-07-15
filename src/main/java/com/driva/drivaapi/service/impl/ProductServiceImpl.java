@@ -1,5 +1,7 @@
 package com.driva.drivaapi.service.impl;
 
+import com.driva.drivaapi.mapper.ProductMapper;
+import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.repository.ProductRepository;
 import com.driva.drivaapi.service.ProductService;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
     public List<Product> getAllProducts() {
@@ -22,7 +25,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product) {
-        return productRepository.save(product);
+    public ProductDTO save(ProductDTO productDTO) {
+        Product product = productRepository.save(productMapper.productDTOtoEntity(productDTO));
+        return productMapper.entityToUserDTO(product);
     }
 }

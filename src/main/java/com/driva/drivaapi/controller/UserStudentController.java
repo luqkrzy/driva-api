@@ -1,6 +1,6 @@
 package com.driva.drivaapi.controller;
 
-import com.driva.drivaapi.model.dto.UserDTO;
+import com.driva.drivaapi.mapper.dto.UserDTO;
 import com.driva.drivaapi.service.UserStudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,22 +1,22 @@
 package com.driva.drivaapi.mapper;
 
-import com.driva.drivaapi.model.dto.UserDTO;
+import com.driva.drivaapi.mapper.dto.UserDTO;
 import com.driva.drivaapi.model.user.User;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class UserMapper {
 
-    public UserDTO userToUserDTO(User user) {
+    public UserDTO entityToUserDTO(User user) {
         return new UserDTO(user);
     }
 
-    public List<UserDTO> usersToUserDTOs(List<User> users) {
-        return users.stream().filter(Objects::nonNull).map(this::userToUserDTO).collect(Collectors.toList());
+    public List<UserDTO> entitiesToUserDTOs(List<User> users) {
+        return users.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
     }
 
 }

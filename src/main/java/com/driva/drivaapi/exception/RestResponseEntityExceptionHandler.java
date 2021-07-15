@@ -36,6 +36,22 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     }
 
+    @ExceptionHandler(value = ProductTypeNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ExceptionMessage handleUserRoleNotFoundException(ProductTypeNotFoundException exception, WebRequest webRequest) {
+        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+
+    }
+
+    @ExceptionHandler(value = StudentNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ExceptionMessage handleUserRoleNotFoundException(StudentNotFoundException exception, WebRequest webRequest) {
+        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+
+    }
+
     @NonNull
     protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull final MethodArgumentNotValidException ex, @NonNull final HttpHeaders headers,
                                                                   @NonNull final HttpStatus status, @NonNull final WebRequest request) {

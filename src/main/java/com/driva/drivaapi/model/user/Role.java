@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,7 +36,7 @@ public class Role {
     private UserRole name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> user;
+    private Set<User> user = new HashSet<>();
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-package com.driva.drivaapi.model.dto;
+package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.config.Constants;
 import com.driva.drivaapi.model.user.User;

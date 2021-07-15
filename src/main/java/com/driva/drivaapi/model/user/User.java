@@ -30,6 +30,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +50,7 @@ public class User {
     @Id
     @SequenceGenerator( name = "user_id_sq", sequenceName = "user_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sq")
+    @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
     @NotBlank(message = "first name can't be blank")
@@ -110,11 +112,12 @@ public class User {
     // @OneToMany(mappedBy = "userId")
     // private Set<Admin> admins;
 
-    @OneToMany(mappedBy = "instructorId")
-    private List<Lesson> lessons;
 
     @OneToMany(mappedBy = "instructorId")
-    private List<WorkSchedule> workSchedules;
+    private List<Lesson> lessons = new ArrayList<>();
+
+    @OneToMany(mappedBy = "instructorId")
+    private List<WorkSchedule> workSchedules = new ArrayList<>();
 
 
 }

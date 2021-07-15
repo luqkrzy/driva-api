@@ -1,7 +1,7 @@
 package com.driva.drivaapi.service.impl;
 
 import com.driva.drivaapi.mapper.UserMapper;
-import com.driva.drivaapi.model.dto.UserDTO;
+import com.driva.drivaapi.mapper.dto.UserDTO;
 import com.driva.drivaapi.model.user.UserRole;
 import com.driva.drivaapi.repository.UserRepository;
 import com.driva.drivaapi.service.UserService;
@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> findAll() {
-        return userMapper.usersToUserDTOs(userRepository.findAll());
+        return userMapper.entitiesToUserDTOs(userRepository.findAll());
 
 
     }
 
     @Override
     public List<UserDTO> findAllByRole(UserRole role) {
-        return userMapper.usersToUserDTOs(userRepository.findAllByRoles_name(role));
+        return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(role));
     }
 }

@@ -35,6 +35,7 @@ public class ProductType {
     @Id
     @SequenceGenerator( name = "product_type_id_sq", sequenceName = "product_type_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_type_id_sq")
+    @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
     @NotBlank(message = "name can't be blank")
