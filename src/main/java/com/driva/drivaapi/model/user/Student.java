@@ -62,7 +62,7 @@ public class Student {
     private Integer phoneNumber;
 
     @Column(name = "created_by")
-    private Integer createdBy;
+    private Long createdBy;
 
     @Column(name = "created_date", columnDefinition = "timestamp default now()")
     private Instant createdDate;

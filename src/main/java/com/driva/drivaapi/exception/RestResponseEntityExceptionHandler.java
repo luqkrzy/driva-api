@@ -28,6 +28,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     }
 
+    @ExceptionHandler(value = StudentAlreadyExistException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    protected ExceptionMessage handleUserRoleNotFoundException(StudentAlreadyExistException exception, WebRequest webRequest) {
+        return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+
+    }
+
     @NonNull
     protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull final MethodArgumentNotValidException ex, @NonNull final HttpHeaders headers,
                                                                   @NonNull final HttpStatus status, @NonNull final WebRequest request) {
