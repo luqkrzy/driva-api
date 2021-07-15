@@ -1,14 +1,12 @@
-package com.driva.drivaapi.model.user;
+package com.driva.drivaapi.model.user.old;
 
-import com.driva.drivaapi.model.lesson.Lesson;
-import com.driva.drivaapi.model.work.WorkSchedule;
+import com.driva.drivaapi.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -16,34 +14,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.List;
 
-@Entity
+// @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "instructor")
-public class Instructor {
+@Table(name = "moderator")
+public class Moderator {
 
     @Id
-    @SequenceGenerator( name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_id_sq")
+    @SequenceGenerator( name = "moderator_id_sq", sequenceName = "moderator_id_sq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moderator_id_sq")
     private Long id;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "instructor_id", referencedColumnName = "id",
+    @JoinColumn(name = "moderator_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
     private User userId;
 
-
-    @OneToMany(mappedBy = "instructorId")
-    private List<Lesson> lessons;
-
-    @OneToMany(mappedBy = "instructorId")
-    private List<WorkSchedule> workSchedules;
 
 }

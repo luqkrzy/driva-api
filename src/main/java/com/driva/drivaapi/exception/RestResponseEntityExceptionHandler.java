@@ -42,7 +42,4 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, apiException, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-
-
-
 }

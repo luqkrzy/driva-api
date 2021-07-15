@@ -1,7 +1,7 @@
 package com.driva.drivaapi.model.work;
 
 
-import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +38,7 @@ public class WorkSchedule {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "instructor_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_instructor_id"), nullable = false)
-    private Instructor instructorId;
+    private User instructorId;
 
     @Column(name = "date")
     private LocalDate date;

@@ -1,7 +1,7 @@
 package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.model.dto.UserDTO;
-import com.driva.drivaapi.service.StudentService;
+import com.driva.drivaapi.service.UserAdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +12,15 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/students")
-public class StudentController {
+@RequestMapping("api/admins")
+public class UserAdminController {
 
-    private final StudentService studentService;
+    private final UserAdminService userAdminService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    List<UserDTO> getAllUsers() {
-        return studentService.findAllStudents();
+    @PreAuthorize("hasRole('ADMIN')")
+    List<UserDTO> getAllAdmins() {
+        return userAdminService.findAllAdmins();
 
     }
-
 }

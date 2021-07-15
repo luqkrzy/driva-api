@@ -4,7 +4,7 @@ import com.driva.drivaapi.model.dto.UserDTO;
 
 import java.util.List;
 
-public interface AdminService {
+public interface UserStudentService {
 
-    List<UserDTO> findAllAdmins();
+    List<UserDTO> findAllStudents();
 }

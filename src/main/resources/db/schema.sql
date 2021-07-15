@@ -1,6 +1,6 @@
 create table if not exists product_category
 (
-    id   integer     not null
+    id integer not null
         constraint product_category_pkey
             primary key,
     name varchar(20) not null
@@ -22,63 +22,17 @@ create table if not exists product_type
             references product_category
 );
 
-create extension citext;
-create table if not exists user_app
-(
-    id           bigint       not null
-        constraint user_app_pkey
-            primary key,
-    created_date timestamp default now(),
-    email        citext       not null
-        constraint user_email_unique
-            unique,
-    first_name   varchar(50)  not null,
-    last_name    varchar(50)  not null,
-    password     varchar(120) not null,
-    phone_number integer      not null,
-    username     varchar(20)  not null
-        constraint user_username_unique
-            unique
-);
-
-create table if not exists admin
-(
-    id      bigint not null
-        constraint admin_pkey
-            primary key,
-    user_id bigint not null
-        constraint fk_user_id
-            references user_app
-);
-
-create table if not exists instructor
-(
-    id      bigint not null
-        constraint instructor_pkey
-            primary key,
-    user_id bigint not null
-        constraint fk_product_id
-            references user_app
-);
-
-create table if not exists moderator
-(
-    id      bigint not null
-        constraint moderator_pkey
-            primary key,
-    user_id bigint not null
-        constraint fk_product_id
-            references user_app
-);
-
 create table if not exists student
 (
-    id      bigint not null
+    id           bigint      not null
         constraint student_pkey
             primary key,
-    user_id bigint not null
-        constraint fk_product_id
-            references user_app
+    created_by   integer,
+    created_date timestamp default now(),
+    email        varchar(50) not null,
+    first_name   varchar(50) not null,
+    last_name    varchar(50) not null,
+    phone_number integer     not null
 );
 
 create table if not exists product
@@ -98,6 +52,24 @@ create table if not exists product
             references student
 );
 
+create table if not exists user_app
+(
+    id           bigint       not null
+        constraint user_app_pkey
+            primary key,
+    created_date timestamp default now(),
+    email        varchar(50)  not null
+        constraint user_email_unique
+            unique,
+    first_name   varchar(50)  not null,
+    last_name    varchar(50)  not null,
+    password     varchar(120) not null,
+    phone_number integer      not null,
+    username     varchar(20)  not null
+        constraint user_username_unique
+            unique
+);
+
 create table if not exists lesson
 (
     id            bigint not null
@@ -108,7 +80,7 @@ create table if not exists lesson
     time_start    timestamp,
     instructor_id bigint not null
         constraint fk_instructor_id
-            references instructor,
+            references user_app,
     product_id    bigint not null
         constraint fk_product_id
             references product
@@ -147,5 +119,15 @@ create table if not exists work_schedule
     time_start    timestamp,
     instructor_id bigint not null
         constraint fk_instructor_id
-            references instructor
+            references user_app
 );
+
+
+INSERT INTO user_role(name)
+VALUES ('ROLE_ADMIN');
+INSERT INTO user_role(name)
+VALUES ('ROLE_MODERATOR');
+INSERT INTO user_role(name)
+VALUES ('ROLE_STUDENT');
+INSERT INTO user_role(name)
+VALUES ('ROLE_INSTRUCTOR');

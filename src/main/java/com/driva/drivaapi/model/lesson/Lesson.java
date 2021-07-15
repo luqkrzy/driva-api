@@ -1,10 +1,8 @@
 package com.driva.drivaapi.model.lesson;
 
 import com.driva.drivaapi.model.product.Product;
-import com.driva.drivaapi.model.user.Instructor;
-import com.driva.drivaapi.model.user.Student;
+import com.driva.drivaapi.model.user.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,7 +43,7 @@ public class Lesson {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
     @JoinColumn(name = "instructor_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_instructor_id"))
-    private Instructor instructorId;
+    private User instructorId;
 
     @Column(name = "date")
     private LocalDate date;

@@ -1,6 +1,8 @@
 package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.config.Constants;
+import com.driva.drivaapi.model.lesson.Lesson;
+import com.driva.drivaapi.model.work.WorkSchedule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +31,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -88,24 +91,30 @@ public class User {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles_list",
+    @JoinTable(name = "user_roles_list",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             foreignKey = @ForeignKey(name = "fk_user_id"),
             inverseForeignKey = @ForeignKey(name = "fk_role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "userId")
-    private Set<Instructor> instructors;
+    // @OneToMany(mappedBy = "userId")
+    // private Set<Instructor> instructors;
+    //
+    // @OneToMany(mappedBy = "userId")
+    // private Set<Moderator> moderators;
+    //
+    // @OneToMany(mappedBy = "userId")
+    // private Set<Student> students;
+    //
+    // @OneToMany(mappedBy = "userId")
+    // private Set<Admin> admins;
 
-    @OneToMany(mappedBy = "userId")
-    private Set<Moderator> moderators;
+    @OneToMany(mappedBy = "instructorId")
+    private List<Lesson> lessons;
 
-    @OneToMany(mappedBy = "userId")
-    private Set<Student> students;
-
-    @OneToMany(mappedBy = "userId")
-    private Set<Admin> admins;
+    @OneToMany(mappedBy = "instructorId")
+    private List<WorkSchedule> workSchedules;
 
 
 }
