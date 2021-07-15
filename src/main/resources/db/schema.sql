@@ -1,33 +1,22 @@
-create table if not exists product_category
+create table product_type
 (
-    id integer not null
-        constraint product_category_pkey
-            primary key,
-    name varchar(20) not null
-        constraint product_category_name_unique
-            unique
-);
-
-create table if not exists product_type
-(
-    id            bigint           not null
+    id               bigint           not null
         constraint product_type_pkey
             primary key,
-    base_price    double precision not null,
-    description   varchar(255)     not null,
-    lessons_hours integer          not null,
-    name          varchar(50)      not null,
-    category_id   integer          not null
-        constraint fk_product_category_id
-            references product_category
+    base_price       double precision not null,
+    description      varchar(255)     not null,
+    lessons_hours    integer          not null,
+    name             varchar(50)      not null,
+    product_category varchar(20)      not null
 );
 
-create table if not exists student
+
+create table student
 (
     id           bigint      not null
         constraint student_pkey
             primary key,
-    created_by   integer,
+    created_by   bigint,
     created_date timestamp default now(),
     email        varchar(50) not null,
     first_name   varchar(50) not null,
@@ -35,7 +24,8 @@ create table if not exists student
     phone_number integer     not null
 );
 
-create table if not exists product
+
+create table product
 (
     id              bigint           not null
         constraint product_pkey
@@ -52,7 +42,8 @@ create table if not exists product
             references student
 );
 
-create table if not exists user_app
+
+create table user_app
 (
     id           bigint       not null
         constraint user_app_pkey
@@ -70,7 +61,8 @@ create table if not exists user_app
             unique
 );
 
-create table if not exists lesson
+
+create table lesson
 (
     id            bigint not null
         constraint lesson_pkey
@@ -86,7 +78,8 @@ create table if not exists lesson
             references product
 );
 
-create table if not exists user_role
+
+create table user_role
 (
     id   serial not null
         constraint user_role_pkey
@@ -96,7 +89,8 @@ create table if not exists user_role
             unique
 );
 
-create table if not exists user_roles_list
+
+create table user_roles_list
 (
     user_id bigint  not null
         constraint fk_user_id
@@ -109,7 +103,7 @@ create table if not exists user_roles_list
 );
 
 
-create table if not exists work_schedule
+create table work_schedule
 (
     id            bigint not null
         constraint work_schedule_pkey
@@ -122,7 +116,6 @@ create table if not exists work_schedule
             references user_app
 );
 
-
 INSERT INTO user_role(name)
 VALUES ('ROLE_ADMIN');
 INSERT INTO user_role(name)
@@ -131,3 +124,4 @@ INSERT INTO user_role(name)
 VALUES ('ROLE_STUDENT');
 INSERT INTO user_role(name)
 VALUES ('ROLE_INSTRUCTOR');
+

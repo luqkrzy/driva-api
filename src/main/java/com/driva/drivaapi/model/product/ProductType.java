@@ -9,14 +9,13 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -44,22 +43,22 @@ public class ProductType {
     private String name;
 
     @NotBlank(message = "description can't be blank")
-    @Column(name = "description",  nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @NotBlank(message = "category can't be blank")
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_product_category_id"), nullable = false)
-    private ProductCategory categoryId;
+    @NotBlank(message = "product category can't be blank")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_category", length = 20, nullable = false)
+    private ProductCategory productCategory;
 
     @NotNull(message = "price can't be null")
     @Positive(message = "price should be positive digit")
-    @Column(name = "base_price",  nullable = false)
+    @Column(name = "base_price", nullable = false)
     private Double basePrice;
 
     @NotNull(message = "lesson hours can't be null")
     @Positive(message = "hours should be positive digit")
-    @Column(name = "lessons_hours",  nullable = false)
+    @Column(name = "lessons_hours", nullable = false)
     private Integer lessonsHours;
 
     @OneToMany(mappedBy = "productTypeId", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

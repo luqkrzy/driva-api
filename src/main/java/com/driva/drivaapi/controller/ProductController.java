@@ -4,9 +4,16 @@ package com.driva.drivaapi.controller;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -17,11 +24,19 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
 
-
     private final ProductService productService;
 
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Product createStudent(@RequestBody @Valid Product product) {
+        return productService.save(product);
     }
 
 

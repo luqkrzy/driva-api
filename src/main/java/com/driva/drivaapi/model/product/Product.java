@@ -45,7 +45,7 @@ public class Product {
     private ProductType productTypeId;
 
     @NotNull(message = "student id can't be null")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id_ID", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"))
     private Student studentId;
 

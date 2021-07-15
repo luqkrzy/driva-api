@@ -25,12 +25,6 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Student createStudent(@RequestBody @Valid Student student) {
-        return studentService.save(student);
-    }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
@@ -38,6 +32,15 @@ public class StudentController {
         return studentService.findAllStudents();
 
     }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Student createStudent(@RequestBody @Valid Student student) {
+        return studentService.save(student);
+    }
+
+
 
 
 }
