@@ -58,7 +58,8 @@ public class Product {
     @JsonBackReference(value = "studentProducts")
     @NotNull(message = "student id can't be null")
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"))
+    @JoinColumn(name = "student_id", nullable = false,
+            referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"))
     private Student studentId;
 
     @Positive(message = "hours should be a positive digit")

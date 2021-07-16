@@ -1,5 +1,6 @@
 package com.driva.drivaapi.mapper;
 
+import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Student;
@@ -19,12 +20,12 @@ import java.util.stream.Collectors;
 public class StudentMapper {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     public Student studentDTOtoEntity(StudentDTO studentDTO) {
-        List<Product> products = productRepository.findAllByStudentId_Id(studentDTO.getId());
+
         UserDetailsImpl principal = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return Student.builder()
-                .products(products)
                 .firstName(studentDTO.getFirstName())
                 .lastName(studentDTO.getLastName())
                 .email(studentDTO.getEmail())
@@ -35,7 +36,11 @@ public class StudentMapper {
     }
 
     public StudentDTO entityToStudentDTO(Student student) {
-        return new StudentDTO(student);
+        StudentDTO studentDTO = new StudentDTO(student);
+        List<Product> products = student.getProducts();
+        List<ProductDTO> productDTOs = productMapper.entitiesToProductDTOs(products);
+        studentDTO.setProducts(productDTOs);
+        return studentDTO;
     }
 
     public List<StudentDTO> entitiesToStudentDTOs(List<Student> students) {

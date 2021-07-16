@@ -45,10 +45,6 @@ public class Student {
     @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
-    @JsonManagedReference(value = "studentProducts")
-    @OneToMany(mappedBy = "studentId")
-    private List<Product> products;
-
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
     @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
@@ -77,6 +73,14 @@ public class Student {
 
     @Column(name = "created_date", columnDefinition = "timestamp default now()")
     private Instant createdDate;
+
+    @JsonManagedReference(value = "studentProducts")
+    @OneToMany(mappedBy = "studentId")
+    private List<Product> products;
+
+    // @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    // @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"), nullable = true)
+    // private User userId;
 
 
 }

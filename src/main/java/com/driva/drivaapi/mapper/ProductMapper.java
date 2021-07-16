@@ -27,9 +27,21 @@ public class ProductMapper {
         return new ProductDTO(product);
     }
 
+
     public List<ProductDTO> entitiesToProductDTOs(List<Product> products) {
+        if (products == null) {
+            return null;
+        }
         return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
     }
+
+    public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs) {
+        if (productDTOs == null) {
+            return null;
+        }
+        return productDTOs.stream().map(this::productDTOtoEntity).collect(Collectors.toList());
+    }
+
 
     public Product productDTOtoEntity(ProductDTO productDTO) {
 

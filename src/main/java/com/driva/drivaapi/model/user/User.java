@@ -106,8 +106,8 @@ public class User {
     // @OneToMany(mappedBy = "userId")
     // private Set<Moderator> moderators;
     //
-    // @OneToMany(mappedBy = "userId")
-    // private Set<Student> students;
+    // @OneToOne(mappedBy = "userId")
+    // private Student student;
     //
     // @OneToMany(mappedBy = "userId")
     // private Set<Admin> admins;

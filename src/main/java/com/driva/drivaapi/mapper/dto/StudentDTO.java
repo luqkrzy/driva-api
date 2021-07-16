@@ -18,10 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class StudentDTO {
 
-
     private Long id;
-
-    private List<String> products;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
@@ -47,13 +44,19 @@ public class StudentDTO {
 
     private Instant createdDate;
 
+    private Long userId;
+
+    private List<ProductDTO> products;
+
     public StudentDTO(Student student) {
         this.id = student.getId();
+        // this.products = student.getProducts();
         this.firstName = student.getFirstName();
         this.lastName = student.getLastName();
         this.email = student.getEmail();
         this.phoneNumber = Integer.toString(student.getPhoneNumber());
         this.createdBy = student.getCreatedBy();
         this.createdDate = student.getCreatedDate();
+        this.userId = student.getId();
     }
 }
