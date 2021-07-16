@@ -2,7 +2,11 @@ package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.config.Constants;
 import com.driva.drivaapi.model.product.Product;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +33,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "student")
+@Builder
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Student {
 
     @Id
@@ -37,6 +45,7 @@ public class Student {
     @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
+    @JsonManagedReference(value = "studentProducts")
     @OneToMany(mappedBy = "studentId")
     private List<Product> products;
 

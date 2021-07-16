@@ -27,7 +27,7 @@ public class ProductMapper {
         return new ProductDTO(product);
     }
 
-    public List<ProductDTO> entitiesToProductDTO(List<Product> products) {
+    public List<ProductDTO> entitiesToProductDTOs(List<Product> products) {
         return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
     }
 

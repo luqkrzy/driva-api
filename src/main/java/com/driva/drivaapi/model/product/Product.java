@@ -2,6 +2,10 @@ package com.driva.drivaapi.model.product;
 
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.user.Student;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +37,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "product")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Product {
 
     @Id
@@ -41,12 +48,14 @@ public class Product {
     @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
+    @JsonBackReference(value = "prodType")
     @NotNull(message = "product type id can't be blank")
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_type_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_product_type_id"), nullable = false)
     private ProductType productTypeId;
 
+    @JsonBackReference(value = "studentProducts")
     @NotNull(message = "student id can't be null")
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"))
@@ -63,6 +72,7 @@ public class Product {
     @Column(name = "is_paid")
     private Boolean isPaid;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "productId")
     private List<Lesson> lessons = new ArrayList<>();
 

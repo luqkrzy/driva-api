@@ -1,5 +1,6 @@
 package com.driva.drivaapi.controller;
 
+import com.driva.drivaapi.mapper.dto.StudentDTO;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class StudentController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    List<Student> getAllStudents() {
+    List<StudentDTO> getAllStudents() {
         return studentService.findAllStudents();
 
     }
@@ -36,7 +37,7 @@ public class StudentController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
-    Student createStudent(@RequestBody @Valid Student student) {
+    StudentDTO createStudent(@RequestBody @Valid StudentDTO student) {
         return studentService.save(student);
     }
 

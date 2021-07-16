@@ -1,5 +1,6 @@
 package com.driva.drivaapi.service;
 
+import com.driva.drivaapi.mapper.dto.StudentDTO;
 import com.driva.drivaapi.model.user.Student;
 
 import java.util.List;
@@ -12,10 +13,10 @@ public interface StudentService {
     /**
      * Save a student.
      *
-     * @param student the entity to save.
+     * @param studentDTO the entity to save.
      * @return the persisted entity.
      */
-    Student save(Student student);
+    StudentDTO save(StudentDTO studentDTO);
 
-    List<Student> findAllStudents();
+    List<StudentDTO> findAllStudents();
 }

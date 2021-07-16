@@ -1,6 +1,10 @@
 package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.config.Constants;
+import com.driva.drivaapi.model.user.Student;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +13,9 @@ import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class StudentDTO {
 
 
@@ -40,5 +47,13 @@ public class StudentDTO {
 
     private Instant createdDate;
 
-
+    public StudentDTO(Student student) {
+        this.id = student.getId();
+        this.firstName = student.getFirstName();
+        this.lastName = student.getLastName();
+        this.email = student.getEmail();
+        this.phoneNumber = Integer.toString(student.getPhoneNumber());
+        this.createdBy = student.getCreatedBy();
+        this.createdDate = student.getCreatedDate();
+    }
 }

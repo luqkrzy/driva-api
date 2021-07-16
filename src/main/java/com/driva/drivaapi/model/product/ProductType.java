@@ -1,6 +1,9 @@
 package com.driva.drivaapi.model.product;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +33,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "product_type")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ProductType {
 
     @Id
@@ -62,6 +68,7 @@ public class ProductType {
     @Column(name = "lessons_hours", nullable = false)
     private Integer lessonsHours;
 
+    @JsonManagedReference(value = "prodType")
     @OneToMany(mappedBy = "productTypeId", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Product> products;
 

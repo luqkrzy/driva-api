@@ -2,6 +2,9 @@ package com.driva.drivaapi.model.lesson;
 
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +31,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "lesson")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Lesson {
 
     @Id
@@ -36,6 +42,7 @@ public class Lesson {
     @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
