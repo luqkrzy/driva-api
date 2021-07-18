@@ -1,6 +1,6 @@
 package com.driva.drivaapi.model.user;
 
-import com.driva.drivaapi.config.Constants;
+import com.driva.drivaapi.constant.ValidationRegexConstants;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.work.WorkSchedule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +21,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -48,31 +47,30 @@ import java.util.Set;
 public class User {
 
     @Id
-    @SequenceGenerator( name = "user_id_sq", sequenceName = "user_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sq")
     @Column(name = "id", columnDefinition = "BIGSERIAL")
     private Long id;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 20)
-    @Pattern(regexp = Constants.USERNAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.USERNAME_REGEX)
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
     @NotBlank(message = "last name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Email
-    @Pattern(regexp = Constants.EMAIL_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)
@@ -106,12 +104,13 @@ public class User {
     // @OneToMany(mappedBy = "userId")
     // private Set<Moderator> moderators;
     //
-    // @OneToOne(mappedBy = "userId")
-    // private Student student;
-    //
     // @OneToMany(mappedBy = "userId")
     // private Set<Admin> admins;
 
+    // @OneToOne
+    // @MapsId
+    // @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_user_id"))
+    // private Student student;
 
     @OneToMany(mappedBy = "instructorId")
     private List<Lesson> lessons = new ArrayList<>();

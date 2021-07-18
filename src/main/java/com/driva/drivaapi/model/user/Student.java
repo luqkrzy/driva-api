@@ -1,6 +1,6 @@
 package com.driva.drivaapi.model.user;
 
-import com.driva.drivaapi.config.Constants;
+import com.driva.drivaapi.constant.ValidationRegexConstants;
 import com.driva.drivaapi.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -42,23 +42,23 @@ public class Student {
     @Id
     @SequenceGenerator(name = "student_id_sq", sequenceName = "student_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_id_sq")
-    @Column(name = "id", columnDefinition = "BIGSERIAL")
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
     @NotBlank(message = "last name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Email
-    @Pattern(regexp = Constants.EMAIL_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)
@@ -80,6 +80,9 @@ public class Student {
 
     // @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     // @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"), nullable = true)
+    // private User userId;
+
+    // @OneToOne(mappedBy = "student")
     // private User userId;
 
 

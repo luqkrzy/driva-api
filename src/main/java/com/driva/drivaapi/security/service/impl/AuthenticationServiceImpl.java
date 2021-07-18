@@ -61,6 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     }
 
+
     @Transactional
     public ResponseEntity<?> registerUser(@RequestBody @Valid SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {

@@ -1,6 +1,6 @@
 package com.driva.drivaapi.security.payload.request;
 
-import com.driva.drivaapi.config.Constants;
+import com.driva.drivaapi.constant.ValidationRegexConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,26 +20,26 @@ public class SignupRequest {
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 20)
-    @Pattern(regexp = Constants.USERNAME_REGEX ,message="allowed only letters and numbers, no special signs")
+    @Pattern(regexp = ValidationRegexConstants.USERNAME_REGEX, message = "allowed only letters and numbers, no special signs")
     private String username;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX,message="allowed only letters")
+    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX, message = "allowed only letters")
     private String firstName;
 
     @NotBlank(message = "last name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = Constants.FIRST_LAST_NAME_REGEX ,message="allowed only letters")
+    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX, message = "allowed only letters")
     private String lastName;
 
     @Email
-    @Pattern(regexp = Constants.EMAIL_REGEX)
+    @Pattern(regexp = ValidationRegexConstants.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     private String email;
 
-    @Pattern(regexp = Constants.PHONE_REGEX, message = "phone number should have 9-13 digits without space")
+    @Pattern(regexp = ValidationRegexConstants.PHONE_REGEX, message = "phone number should have 9-13 digits without space")
     @NotBlank(message = "phone number can't be blank")
     private String phoneNumber;
 

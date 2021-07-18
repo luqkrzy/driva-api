@@ -31,7 +31,6 @@ public class AuthenticationController {
     @PostMapping(path = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> registerUser(@RequestBody @Valid SignupRequest signUpRequest) {
-        System.out.println(signUpRequest);
         return authenticationService.registerUser(signUpRequest);
 
     }
