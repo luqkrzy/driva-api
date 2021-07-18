@@ -1,6 +1,6 @@
 package com.driva.drivaapi.model.user;
 
-import com.driva.drivaapi.constant.ValidationRegexConstants;
+import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.work.WorkSchedule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,24 +53,24 @@ public class User {
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 20)
-    @Pattern(regexp = ValidationRegexConstants.USERNAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.USERNAME_REGEX)
     @Column(name = "username", nullable = false, length = 20)
     private String username;
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.FIRST_LAST_NAME_REGEX)
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
     @NotBlank(message = "last name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.FIRST_LAST_NAME_REGEX)
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Email
-    @Pattern(regexp = ValidationRegexConstants.EMAIL_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)

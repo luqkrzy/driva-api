@@ -32,6 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtUtils jwtUtils;
 
+    private static final String[] PUBLIC_URLS = {
+            "/api/auth/**",
+            "/v3/api-docs/**",
+            "/v2/api-docs",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**"};
+
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter(jwtUtils, userDetailsService);
@@ -60,8 +68,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
+                .authorizeRequests().antMatchers(PUBLIC_URLS).permitAll()
+                // .antMatchers("/api/test/**").permitAll()
+                // .antMatchers("/swagger-ui/**").permitAll()
+                // .antMatchers("/swagger-resources/**").permitAll()
+                // .antMatchers("/webjars/**").permitAll()
+                // .antMatchers("/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

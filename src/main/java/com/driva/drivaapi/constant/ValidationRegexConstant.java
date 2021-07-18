@@ -1,6 +1,6 @@
 package com.driva.drivaapi.constant;
 
-public final class ValidationRegexConstants {
+public final class ValidationRegexConstant {
 
     public static final String FIRST_LAST_NAME_REGEX = "^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*";
     public static final String USERNAME_REGEX = "^[A-Za-z0-9]*";

@@ -1,6 +1,6 @@
 package com.driva.drivaapi.model.user;
 
-import com.driva.drivaapi.constant.ValidationRegexConstants;
+import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -47,18 +47,18 @@ public class Student {
 
     @NotBlank(message = "first name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.FIRST_LAST_NAME_REGEX)
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
     @NotBlank(message = "last name can't be blank")
     @Size(max = 50)
-    @Pattern(regexp = ValidationRegexConstants.FIRST_LAST_NAME_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.FIRST_LAST_NAME_REGEX)
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
     @Email
-    @Pattern(regexp = ValidationRegexConstants.EMAIL_REGEX)
+    @Pattern(regexp = ValidationRegexConstant.EMAIL_REGEX)
     @NotBlank(message = "email can't be blank")
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)
