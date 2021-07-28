@@ -2,6 +2,7 @@ package com.driva.drivaapi.security;
 
 
 import com.driva.drivaapi.security.jwt.AuthTokenFilter;
+import com.driva.drivaapi.security.jwt.JwtAccessDeniedHandler;
 import com.driva.drivaapi.security.jwt.JwtAuthenticationEntryPoint;
 import com.driva.drivaapi.security.jwt.JwtUtils;
 import com.driva.drivaapi.security.service.impl.UserDetailsServiceImpl;
@@ -30,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtUtils jwtUtils;
 
     private static final String[] PUBLIC_URLS = {
@@ -64,18 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .cors().and()
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers(PUBLIC_URLS).permitAll()
-                // .antMatchers("/api/test/**").permitAll()
-                // .antMatchers("/swagger-ui/**").permitAll()
-                // .antMatchers("/swagger-resources/**").permitAll()
-                // .antMatchers("/webjars/**").permitAll()
-                // .antMatchers("/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated();
-
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable().cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().antMatchers(PUBLIC_URLS).permitAll().anyRequest().authenticated().and().exceptionHandling().accessDeniedHandler(jwtAccessDeniedHandler).authenticationEntryPoint(jwtAuthenticationEntryPoint).and().addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
