@@ -1,30 +1,27 @@
 package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.mapper.dto.UserDTO;
+import com.driva.drivaapi.security.service.impl.UserDetailsImpl;
 import com.driva.drivaapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-/**
- * REST controller for managing {@link UserDTO}.
- */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/users")
-public class UserController {
+@RequestMapping("api")
+public class AccountController {
 
     private final UserService userService;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    List<UserDTO> getAllUsers() {
-        return userService.findAll();
+    @GetMapping("/account")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('INSTRUCTOR')")
+    UserDTO getAccount() {
+        UserDetailsImpl principal = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userService.findById(principal.getId());
     }
-
 
 }

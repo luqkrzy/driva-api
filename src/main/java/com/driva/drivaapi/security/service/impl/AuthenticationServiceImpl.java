@@ -45,19 +45,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWT_TOKEN_HEADER, jwt);
-
         return ResponseEntity.ok().headers(httpHeaders).body(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
-
-
     }
 
 

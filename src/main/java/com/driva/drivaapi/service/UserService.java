@@ -10,4 +10,6 @@ public interface UserService {
     List<UserDTO> findAll();
 
     List<UserDTO> findAllByRole(UserRole role);
+
+    UserDTO findById(Long id);
 }

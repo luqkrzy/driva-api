@@ -22,12 +22,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> findAll() {
         return userMapper.entitiesToUserDTOs(userRepository.findAll());
-
-
     }
 
     @Override
     public List<UserDTO> findAllByRole(UserRole role) {
         return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(role));
+    }
+
+    @Override
+    public UserDTO findById(Long id) {
+        return userMapper.entityToUserDTO(userRepository.getById(id));
     }
 }
