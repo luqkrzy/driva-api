@@ -59,7 +59,7 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "product_type_id", referencedColumnName = "id")
     private ProductType productType;
 

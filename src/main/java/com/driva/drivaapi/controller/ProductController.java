@@ -28,6 +28,12 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    Product getProduct(@PathVariable Long id) {
+        return productService.getProduct(id);
+    }
+
     @PostMapping("/students/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)

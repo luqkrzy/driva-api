@@ -2,6 +2,7 @@ package com.driva.drivaapi.model.product;
 
 public enum ProductCategory {
 
-    A, B, C
+    KURS, LEKCJA
+
 
 }

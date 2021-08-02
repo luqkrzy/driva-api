@@ -10,4 +10,6 @@ public interface ProductService {
     List<Product> getAllProducts();
 
     Product save(Long studentId, ProductDTO product);
+
+    Product getProduct(Long id);
 }

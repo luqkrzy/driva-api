@@ -1,5 +1,6 @@
 package com.driva.drivaapi.service.impl;
 
+import com.driva.drivaapi.exception.ProductNotFoundException;
 import com.driva.drivaapi.mapper.ProductMapper;
 import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.model.product.Product;
@@ -30,5 +31,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(mappedProduct);
     }
 
-
+    @Override
+    public Product getProduct(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found, id: " + id));
+    }
 }
