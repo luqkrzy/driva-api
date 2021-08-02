@@ -48,9 +48,9 @@ public class StudentDTO {
 
     private List<ProductDTO> products;
 
-    public StudentDTO(Student student) {
+    public StudentDTO(Student student, List<ProductDTO> productDTOs) {
         this.id = student.getId();
-        // this.products = student.getProducts();
+        this.products = productDTOs;
         this.firstName = student.getFirstName();
         this.lastName = student.getLastName();
         this.email = student.getEmail();

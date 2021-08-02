@@ -35,29 +35,20 @@ public class ProductMapper {
         return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
     }
 
-    public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs) {
+    public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
         if (productDTOs == null) {
             return null;
         }
-        return productDTOs.stream().map(this::productDTOtoEntity).collect(Collectors.toList());
+        return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
     }
 
 
-    public Product productDTOtoEntity(ProductDTO productDTO) {
+    public Product productDTOtoEntity(Long studentId, ProductDTO productDTO) {
 
-        ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId())
-                .orElseThrow(() -> new ProductTypeNotFoundException(String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
-        Student student = studentRepository.findById(productDTO.getStudentId())
-                .orElseThrow(() -> new StudentNotFoundException(String.format("Student with id: %d does not exist", productDTO.getStudentId())));
+        ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId()).orElseThrow(() -> new ProductTypeNotFoundException(String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(String.format("Student with id: %d does not exist", studentId)));
 
-        return Product.builder()
-                .productTypeId(productType)
-                .studentId(student)
-                .hoursLeft(productDTO.getHoursLeft())
-                .bookOnline(productDTO.getBookOnline())
-                .isPaid(productDTO.getIsPaid())
-                .price(productDTO.getPrice())
-                .build();
+        return Product.builder().productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft()).bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice()).build();
     }
 
 }

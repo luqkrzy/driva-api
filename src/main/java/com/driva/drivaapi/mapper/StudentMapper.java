@@ -36,9 +36,9 @@ public class StudentMapper {
     }
 
     public StudentDTO entityToStudentDTO(Student student) {
-        StudentDTO studentDTO = new StudentDTO(student);
         List<Product> products = student.getProducts();
         List<ProductDTO> productDTOs = productMapper.entitiesToProductDTOs(products);
+        StudentDTO studentDTO = new StudentDTO(student, productDTOs);
         studentDTO.setProducts(productDTOs);
         return studentDTO;
     }

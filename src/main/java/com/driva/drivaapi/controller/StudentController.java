@@ -6,12 +6,7 @@ import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,22 +21,28 @@ public class StudentController {
 
     private final StudentService studentService;
 
-
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    List<StudentDTO> getAllStudents() {
+    List<Student> getAllStudents() {
         return studentService.findAllStudents();
-
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
-    StudentDTO createStudent(@RequestBody @Valid StudentDTO student) {
+    Student createStudent(@RequestBody @Valid StudentDTO student) {
         return studentService.save(student);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    Student getStudent(@PathVariable Long id) {
+        return studentService.findStudent(id);
+    }
 
-
-
+    //    @GetMapping("/{id}")
+    //    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    //    StudentDTO getStudentOld(@PathVariable Long id) {
+    //        return studentService.findStudent(id);
+    //    }
 }

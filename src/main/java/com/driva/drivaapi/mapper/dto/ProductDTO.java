@@ -1,6 +1,7 @@
 package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.model.product.Product;
+import com.driva.drivaapi.model.product.ProductType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,8 +23,6 @@ public class ProductDTO {
     @Positive(message = "product type must be positive digit")
     private Long productTypeId;
 
-    @NotNull(message = "student id can't be null")
-    @Positive(message = "student must be positive digit")
     private Long studentId;
 
     @Positive(message = "hours should be a positive digit")
@@ -40,13 +39,15 @@ public class ProductDTO {
     @Positive(message = "price should be positive digit")
     private Double price;
 
+    private ProductType productType;
+
     public ProductDTO(Product product) {
         this.id = product.getId();
-        this.productTypeId = product.getProductTypeId().getId();
-        this.studentId = product.getStudentId().getId();
+        this.productTypeId = product.getProductType().getId();
         this.hoursLeft = product.getHoursLeft();
         this.bookOnline = product.getBookOnline();
         this.isPaid = product.getIsPaid();
         this.price = product.getPrice();
+        this.productType = product.getProductType();
     }
 }

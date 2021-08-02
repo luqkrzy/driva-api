@@ -9,5 +9,5 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
-    ProductDTO save(ProductDTO product);
+    Product save(Long studentId, ProductDTO product);
 }

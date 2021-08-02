@@ -16,7 +16,11 @@ public interface StudentService {
      * @param studentDTO the entity to save.
      * @return the persisted entity.
      */
-    StudentDTO save(StudentDTO studentDTO);
+    Student save(StudentDTO studentDTO);
 
-    List<StudentDTO> findAllStudents();
+    List<Student> findAllStudents();
+
+    StudentDTO findStudentOld(Long id);
+
+    Student findStudent(Long id);
 }
