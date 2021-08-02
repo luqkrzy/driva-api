@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     public static final String JWT_TOKEN_HEADER = "Jwt-Token";
@@ -55,7 +56,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
 
-    @Transactional
     public ResponseEntity<?> registerUser(@RequestBody @Valid SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));

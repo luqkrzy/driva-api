@@ -7,10 +7,12 @@ import com.driva.drivaapi.repository.UserRepository;
 import com.driva.drivaapi.service.UserAdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserAdminServiceImpl implements UserAdminService {
 
