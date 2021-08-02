@@ -19,4 +19,12 @@ public class UserMapper {
         return users.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
     }
 
+    public User userDTOtoEntity(UserDTO userDTO) {
+        return new User(userDTO);
+    }
+
+    public User updateUser(UserDTO userDTO, User user) {
+        return user.updateUser(userDTO);
+    }
+
 }

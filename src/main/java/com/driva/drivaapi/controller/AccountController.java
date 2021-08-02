@@ -6,9 +6,9 @@ import com.driva.drivaapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +22,12 @@ public class AccountController {
     UserDTO getAccount() {
         UserDetailsImpl principal = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userService.findById(principal.getId());
+    }
+
+    @PatchMapping("/account")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('INSTRUCTOR')")
+    UserDTO updateAccount(@Valid @RequestBody UserDTO userDTO) {
+        return userService.updateUser(userDTO);
     }
 
 }

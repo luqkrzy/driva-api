@@ -3,6 +3,7 @@ package com.driva.drivaapi.mapper.dto;
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.model.user.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.*;
@@ -12,13 +13,13 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDTO {
 
     @NotNull
     @Positive(message = "id must be positive integer")
     private Long id;
 
-    @NotBlank(message = "first name can't be blank")
     @Size(max = 20)
     @Pattern(regexp = ValidationRegexConstant.USERNAME_REGEX, message = "allowed only letters and numbers, no special signs")
     private String username;
@@ -43,11 +44,11 @@ public class UserDTO {
     @NotBlank(message = "phone number can't be blank")
     private String phoneNumber;
 
-    @NotNull
     private Instant createdDate;
 
     @Size(max = 5)
     private Set<String> roles;
+
 
     public UserDTO(User user) {
         this.id = user.getId();

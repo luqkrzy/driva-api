@@ -1,33 +1,14 @@
 package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.constant.ValidationRegexConstant;
+import com.driva.drivaapi.mapper.dto.UserDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.work.WorkSchedule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -77,7 +58,7 @@ public class User {
     private String email;
 
     @NotNull(message = "phone number can't be null")
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private Integer phoneNumber;
 
     @Column(name = "created_date", columnDefinition = "timestamp default now()")
@@ -86,7 +67,7 @@ public class User {
     @JsonIgnore
     @NotBlank(message = "password can't be blank")
     @Size(max = 120)
-    @Column(name = "password", length = 120, nullable = false)
+    @Column(name = "password", length = 120)
     private String password;
 
 
@@ -118,5 +99,20 @@ public class User {
     @OneToMany(mappedBy = "instructorId")
     private List<WorkSchedule> workSchedules = new ArrayList<>();
 
+    public User(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.username = userDTO.getUsername();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
+        this.email = userDTO.getEmail();
+        this.phoneNumber = Integer.parseInt(userDTO.getPhoneNumber());
+    }
 
+    public User updateUser(UserDTO userDTO) {
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
+        this.email = userDTO.getEmail();
+        this.phoneNumber = Integer.parseInt(userDTO.getPhoneNumber());
+        return this;
+    }
 }

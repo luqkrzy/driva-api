@@ -12,4 +12,6 @@ public interface UserService {
     List<UserDTO> findAllByRole(UserRole role);
 
     UserDTO findById(Long id);
+
+    UserDTO updateUser(UserDTO userDTO);
 }
