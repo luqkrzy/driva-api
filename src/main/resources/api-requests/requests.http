@@ -1,0 +1,107 @@
+### register
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "luq",
+  "firstName": "Lukasz",
+  "lastName": "Krzyżanowski",
+  "email": "luqa@wp.pl",
+  "phoneNumber": "123456789",
+  "password": "123456",
+  "roles": [
+    "admin"
+  ]
+}
+
+### login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "luq",
+  "password": "123456"
+}
+
+### get all users
+GET http://localhost:8080/api/users
+Authorization: Bearer  {{token}}
+
+### Create Student
+POST http://localhost:8080/api/students
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firstName": "Paul",
+  "lastName": "Jones",
+  "email": "paul2@wp.pl",
+  "phoneNumber": "123456789"
+}
+
+### Create product
+POST http://localhost:8080/api/products/students/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "productTypeId": 1,
+  "studentId": 1,
+  "hoursLeft": 1002,
+  "bookOnline": false,
+  "isPaid": false,
+  "price": 80.99
+}
+
+### create student with products
+POST http://localhost:8080/api/students
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "products": [
+    {
+      "productTypeId": 1,
+      "studentId": 1,
+      "hoursLeft": 10,
+      "bookOnline": false,
+      "isPaid": true,
+      "price": 1999.99
+    },
+    {
+      "productTypeId": 2,
+      "studentId": 1,
+      "hoursLeft": 10,
+      "bookOnline": true,
+      "isPaid": false,
+      "price": 99.99
+    }
+  ],
+  "firstName": "Jpohn",
+  "lastName": "Kowalski",
+  "email": "new@wp.pl",
+  "phoneNumber": 123456789
+}
+
+### get student
+GET http://localhost:8080/api/students/1
+Authorization: Bearer {{token}}
+
+### get all students
+GET http://localhost:8080/api/students
+Authorization: Bearer {{token}}
+
+### get all products
+GET http://localhost:8080/api/products/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+###
+
+
+
+
+
+
+
+
