@@ -6,6 +6,7 @@ import com.driva.drivaapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,13 +39,18 @@ public class ProductController {
     Product getProduct(@PathVariable Long id) {
         return productService.find(id);
     }
-
+    
     @PostMapping("/students/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
     Product createProduct(@PathVariable(value = "id") final Long id, @RequestBody @Valid ProductDTO product) {
         return productService.save(id, product);
     }
-
-
+    
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteProduct(@PathVariable Long id) {
+        productService.delete(id);
+    }
 }

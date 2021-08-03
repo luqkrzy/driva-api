@@ -21,6 +21,5 @@ public class UserAdminController {
     @PreAuthorize("hasRole('ADMIN')")
     List<UserDTO> getAllAdmins() {
         return userAdminService.findAll();
-
     }
 }

@@ -45,10 +45,4 @@ public class StudentController {
     Student getStudent(@PathVariable Long id) {
         return studentService.find(id);
     }
-
-    //    @GetMapping("/{id}")
-    //    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    //    StudentDTO getStudentOld(@PathVariable Long id) {
-    //        return studentService.findStudent(id);
-    //    }
 }

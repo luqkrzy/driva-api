@@ -24,16 +24,21 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findAll() {
 	   return productRepository.findAll();
 	}
-
-    @Override
-    public Product save(Long studentId, ProductDTO product) {
-        Product mappedProduct = productMapper.productDTOtoEntity(studentId, product);
-        return productRepository.save(mappedProduct);
-    }
+   
+   @Override
+   public Product save(Long studentId, ProductDTO product) {
+	  Product mappedProduct = productMapper.productDTOtoEntity(studentId, product);
+	  return productRepository.save(mappedProduct);
+   }
    
    @Override
    public Product find(Long id) {
 	  return productRepository.findById(id)
 							  .orElseThrow(() -> new ProductNotFoundException("Product not found, id: " + id));
+   }
+   
+   @Override
+   public void delete(Long id) {
+	  productRepository.deleteById(id);
    }
 }

@@ -27,27 +27,27 @@ public class ProductTypeController {
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   public List<ProductType> getAllProductTypes() {
+   List<ProductType> getAllProductTypes() {
       return productTypeService.findAll();
    }
    
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   public ProductType findProduct(@PathVariable Long id) {
+   ProductType findProduct(@PathVariable Long id) {
       return productTypeService.find(id);
    }
    
    @PostMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
-   public ProductType createProductType(@RequestBody @Valid ProductType product) {
+   ProductType createProductType(@RequestBody @Valid ProductType product) {
       return productTypeService.save(product);
    }
    
    @DeleteMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(HttpStatus.NO_CONTENT)
-   public void deleteProductType(@PathVariable Long id) {
+   void deleteProductType(@PathVariable Long id) {
       productTypeService.delete(id);
    }
    
