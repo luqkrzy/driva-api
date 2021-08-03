@@ -115,12 +115,13 @@ Content-Type: application/json
 }
 
 ###
-# curl --location --request GET 'http://localhost:8080/api/product-type/1'
+# curl --location --request GET 'http://localhost:8080/api/product-type/5'
 #--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdXEiLCJpYXQiOjE2Mjc5MzQ4ODEsImV4cCI6MTYyODAyMTI4MX0.slEMYRYLDwxNgU4eOaTjBqf5G0Jx9aP6UDkjSD3EAHqUoOwqOH10ZMzEQj8eZzHSRWqEKblwzPB3j-reCmuupw'
-GET http://localhost:8080/api/product-type/dupa/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdXEiLCJpYXQiOjE2Mjc5MzQ4ODEsImV4cCI6MTYyODAyMTI4MX0.slEMYRYLDwxNgU4eOaTjBqf5G0Jx9aP6UDkjSD3EAHqUoOwqOH10ZMzEQj8eZzHSRWqEKblwzPB3j-reCmuupw
+GET http://localhost:8080/api/product-type/5
+Authorization: Bearer {{token}}
 
 ###
+
 
 
 

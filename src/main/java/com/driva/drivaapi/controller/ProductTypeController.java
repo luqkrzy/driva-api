@@ -31,9 +31,9 @@ public class ProductTypeController {
       return productTypeService.findAll();
    }
    
-   @GetMapping("{/id}")
+   @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   public ProductType getProductType(@PathVariable Long id) {
+   public ProductType findProduct(@PathVariable Long id) {
       return productTypeService.find(id);
    }
    
@@ -44,7 +44,7 @@ public class ProductTypeController {
       return productTypeService.save(product);
    }
    
-   @DeleteMapping("{/id}")
+   @DeleteMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(HttpStatus.NO_CONTENT)
    public void deleteProductType(@PathVariable Long id) {
