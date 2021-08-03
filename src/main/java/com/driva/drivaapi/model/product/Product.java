@@ -4,7 +4,6 @@ import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.user.Student;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -92,7 +91,7 @@ public class Product {
    //           inverseJoinColumns = {@JoinColumn(name = "product_type_id", referencedColumnName = "id")})
    //   private ProductType productType;
    
-   @JsonManagedReference
+//   @JsonManagedReference(value = "productLessons")
    @OneToMany(mappedBy = "productId")
    private List<Lesson> lessons = new ArrayList<>();
 }
