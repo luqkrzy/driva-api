@@ -16,14 +16,14 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-
-    private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
-
-    @Override
-	public List<Product> findAll() {
-	   return productRepository.findAll();
-	}
+   
+   private final ProductRepository productRepository;
+   private final ProductMapper productMapper;
+   
+   @Override
+   public List<Product> findAll() {
+	  return productRepository.findAll();
+   }
    
    @Override
    public Product save(Long studentId, ProductDTO product) {
@@ -33,12 +33,14 @@ public class ProductServiceImpl implements ProductService {
    
    @Override
    public Product find(Long id) {
-	  return productRepository.findById(id)
-							  .orElseThrow(() -> new ProductNotFoundException("Product not found, id: " + id));
+	  return productRepository.findById(id).orElseThrow(
+			  () -> new ProductNotFoundException("Product not found, id: " + id));
    }
    
    @Override
    public void delete(Long id) {
-	  productRepository.deleteById(id);
+	  Product product = productRepository.findById(id).orElseThrow(
+			  () -> new ProductNotFoundException("Product not found, id: " + id));
+	  productRepository.delete(product);
    }
 }
