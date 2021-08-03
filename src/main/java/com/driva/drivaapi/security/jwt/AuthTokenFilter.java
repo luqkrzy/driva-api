@@ -3,7 +3,6 @@ package com.driva.drivaapi.security.jwt;
 import com.driva.drivaapi.security.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,7 +42,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             log.error("Cannot set user authentication: {}", e.getMessage());
             response.setHeader("error", e.getMessage());
-            response.sendError(HttpStatus.FORBIDDEN.value());
         }
 
         filterChain.doFilter(request, response);
