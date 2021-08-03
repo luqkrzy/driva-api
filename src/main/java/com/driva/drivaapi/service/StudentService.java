@@ -17,10 +17,12 @@ public interface StudentService {
      * @return the persisted entity.
      */
     Student save(StudentDTO studentDTO);
-
+    
     List<Student> findAllStudents();
-
+    
     StudentDTO findStudentOld(Long id);
-
+    
     Student find(Long id);
+    
+    void delete(Long id);
 }

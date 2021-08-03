@@ -21,62 +21,67 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-
-    private final StudentRepository studentRepository;
-    private final ProductRepository productRepository;
-    private final StudentMapper studentMapper;
-    private final ProductMapper productMapper;
-
-    //    @Override
-    //    public StudentDTO save(StudentDTO studentDTO) {
-    //        if (studentRepository.existsByEmail(studentDTO.getEmail())) {
-    //            throw new StudentAlreadyExistException(String.format("Student with email: %s already exist", studentDTO.getEmail()));
-    //        }
-    //
-    //        Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
-    //        List<ProductDTO> productDTOSs = studentDTO.getProducts();
-    //        if (productDTOSs != null) {
-    //            List<Product> products = productMapper.productDTOsToEntities(productDTOSs);
-    //            productRepository.saveAll(products);
-    //            student.setProducts(products);
-    //        }
-    //
-    //        return studentMapper.entityToStudentDTO(student);
-    //    }
-
-    @Override
-    public Student save(StudentDTO studentDTO) {
-        if (studentRepository.existsByEmail(studentDTO.getEmail())) {
-            throw new StudentAlreadyExistException(String.format("Student with email: %s already exist", studentDTO.getEmail()));
-        }
-
-        Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
-        List<ProductDTO> productDTOSs = studentDTO.getProducts();
-        if (productDTOSs != null) {
-            List<Product> products = productMapper.productDTOsToEntities(productDTOSs, student.getId());
-            productRepository.saveAll(products);
-            student.setProducts(products);
-        }
-        return student;
-    }
-
-
-    @Override
-    public List<Student> findAllStudents() {
-        return studentRepository.findAll();
-    }
-
-    @Override
-    public StudentDTO findStudentOld(Long id) {
-        Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found, id: " + id));
-        return studentMapper.entityToStudentDTO(student);
-    }
-
-    @Override
-	public Student find(Long id) {
-	   return studentRepository.findById(id)
-							   .orElseThrow(() -> new StudentNotFoundException("Student not found, id: " + id));
-	}
-
-
+   
+   private final StudentRepository studentRepository;
+   private final ProductRepository productRepository;
+   private final StudentMapper studentMapper;
+   private final ProductMapper productMapper;
+   
+   //    @Override
+   //    public StudentDTO save(StudentDTO studentDTO) {
+   //        if (studentRepository.existsByEmail(studentDTO.getEmail())) {
+   //            throw new StudentAlreadyExistException(String.format("Student with email: %s already exist", studentDTO.getEmail()));
+   //        }
+   //
+   //        Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
+   //        List<ProductDTO> productDTOSs = studentDTO.getProducts();
+   //        if (productDTOSs != null) {
+   //            List<Product> products = productMapper.productDTOsToEntities(productDTOSs);
+   //            productRepository.saveAll(products);
+   //            student.setProducts(products);
+   //        }
+   //
+   //        return studentMapper.entityToStudentDTO(student);
+   //    }
+   
+   @Override
+   public Student save(StudentDTO studentDTO) {
+	  if (studentRepository.existsByEmail(studentDTO.getEmail())) {
+		 throw new StudentAlreadyExistException(
+				 String.format("Student with email: %s already exist", studentDTO.getEmail()));
+	  }
+	  
+	  Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
+	  List<ProductDTO> productDTOSs = studentDTO.getProducts();
+	  if (productDTOSs != null) {
+		 List<Product> products = productMapper.productDTOsToEntities(productDTOSs, student.getId());
+		 productRepository.saveAll(products);
+		 student.setProducts(products);
+	  }
+	  return student;
+   }
+   
+   @Override
+   public List<Student> findAllStudents() {
+	  return studentRepository.findAll();
+   }
+   
+   @Override
+   public StudentDTO findStudentOld(Long id) {
+	  Student student = studentRepository.findById(id).orElseThrow(
+			  () -> new StudentNotFoundException("Student not found, id: " + id));
+	  return studentMapper.entityToStudentDTO(student);
+   }
+   
+   @Override
+   public Student find(Long id) {
+	  return studentRepository.findById(id).orElseThrow(
+			  () -> new StudentNotFoundException("Student not found, id: " + id));
+   }
+   
+   @Override
+   public void delete(Long id) {
+	  Student student = find(id);
+	  studentRepository.delete(student);
+   }
 }

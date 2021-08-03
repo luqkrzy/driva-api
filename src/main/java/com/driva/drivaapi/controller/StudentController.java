@@ -6,6 +6,7 @@ import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,25 +25,32 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("api/students")
 public class StudentController {
-
+    
     private final StudentService studentService;
-
+    
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     List<Student> getAllStudents() {
         return studentService.findAllStudents();
     }
-
+    
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
     Student createStudent(@RequestBody @Valid StudentDTO student) {
         return studentService.save(student);
     }
-
+    
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     Student getStudent(@PathVariable Long id) {
         return studentService.find(id);
+    }
+    
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteProductType(@PathVariable Long id) {
+        studentService.delete(id);
     }
 }

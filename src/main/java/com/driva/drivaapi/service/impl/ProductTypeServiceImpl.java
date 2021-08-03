@@ -35,8 +35,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
    
    @Override
    public void delete(Long id) {
-	  ProductType productType = productTypeRepository.findById(id).orElseThrow(
-			  () -> new ProductTypeNotFoundException("Product Type not found, id: " + id));
+	  ProductType productType = find(id);
 	  productTypeRepository.delete(productType);
    }
    
