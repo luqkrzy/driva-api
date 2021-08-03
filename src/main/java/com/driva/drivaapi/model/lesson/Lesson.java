@@ -50,7 +50,8 @@ public class Lesson {
 
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "instructor_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_instructor_id"))
+    @JoinColumn(name = "instructor_id", nullable = false, referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_instructor_id"))
     private User instructorId;
 
     @Column(name = "date")

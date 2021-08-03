@@ -1,7 +1,7 @@
 package com.driva.drivaapi.controller;
 
-import com.driva.drivaapi.model.product.ProductType;
-import com.driva.drivaapi.service.ProductTypeService;
+import com.driva.drivaapi.model.lesson.Lesson;
+import com.driva.drivaapi.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,41 +20,41 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/product-type")
-public class ProductTypeController {
+@RequestMapping("api/lessons")
+public class LessonController {
    
-   private final ProductTypeService productTypeService;
+   private final LessonService lessonService;
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   List<ProductType> getAllProductTypes() {
-      return productTypeService.findAll();
+   List<Lesson> getAllLessons() {
+      return lessonService.findAll();
    }
    
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   ProductType findProduct(@PathVariable Long id) {
-      return productTypeService.find(id);
+   Lesson getLesson(@PathVariable Long id) {
+      return lessonService.find(id);
    }
    
    @PostMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
-   ProductType createProductType(@RequestBody @Valid ProductType product) {
-      return productTypeService.save(product);
+   Lesson createLesson(@RequestBody @Valid Lesson lesson) {
+      return lessonService.save(lesson);
    }
    
    @PutMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.OK)
-   ProductType updateProductType(@RequestBody @Valid ProductType product) {
-      return productTypeService.update(product);
+   Lesson updateLesson(@RequestBody @Valid Lesson lesson) {
+      return lessonService.update(lesson);
    }
    
    @DeleteMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(HttpStatus.NO_CONTENT)
-   void deleteProductType(@PathVariable Long id) {
-      productTypeService.delete(id);
+   void deleteLesson(@PathVariable Long id) {
+      lessonService.delete(id);
    }
 }

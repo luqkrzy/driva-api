@@ -41,21 +41,28 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     protected ExceptionMessage handleUserRoleNotFoundException(ProductTypeNotFoundException exception) {
         return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
     }
-
+    
     @ExceptionHandler(value = ProductNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected ExceptionMessage handleProductNotFoundException(ProductNotFoundException exception) {
         return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
     }
-
+    
+    @ExceptionHandler(value = LessonNotFoundException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ExceptionMessage handleLessonNotFoundException(LessonNotFoundException exception) {
+        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+    
     @ExceptionHandler(value = StudentNotFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected ExceptionMessage handleUserRoleNotFoundException(StudentNotFoundException exception) {
         return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
     }
-
+    
     @ExceptionHandler(value = AccessDeniedException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)

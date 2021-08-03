@@ -18,7 +18,7 @@ public interface StudentService {
      */
     Student save(StudentDTO studentDTO);
     
-    List<Student> findAllStudents();
+    List<Student> findAll();
     
     StudentDTO findStudentOld(Long id);
     

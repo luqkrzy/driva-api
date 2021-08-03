@@ -31,7 +31,13 @@ public class StudentController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     List<Student> getAllStudents() {
-        return studentService.findAllStudents();
+        return studentService.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    Student getStudent(@PathVariable Long id) {
+        return studentService.find(id);
     }
     
     @PostMapping
@@ -41,16 +47,10 @@ public class StudentController {
         return studentService.save(student);
     }
     
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    Student getStudent(@PathVariable Long id) {
-        return studentService.find(id);
-    }
-    
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteProductType(@PathVariable Long id) {
+    void deleteStudent(@PathVariable Long id) {
         studentService.delete(id);
     }
 }

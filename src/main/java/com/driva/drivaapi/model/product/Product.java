@@ -57,7 +57,8 @@ public class Product {
    @JsonBackReference(value = "studentProducts")
    @NotNull(message = "student id can't be null")
    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, optional = false)
-   @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"))
+   @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id",
+           foreignKey = @ForeignKey(name = "fk_student_id"))
    private Student studentId;
    
    @Positive(message = "hours should be a positive digit")
@@ -77,7 +78,8 @@ public class Product {
    private Double price;
    
    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-   @JoinColumn(name = "product_type_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_product_type_id"))
+   @JoinColumn(name = "product_type_id", referencedColumnName = "id",
+           foreignKey = @ForeignKey(name = "fk_product_type_id"))
    private ProductType productType;
    
    //    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
@@ -90,10 +92,7 @@ public class Product {
    //           inverseJoinColumns = {@JoinColumn(name = "product_type_id", referencedColumnName = "id")})
    //   private ProductType productType;
    
-   
    @JsonManagedReference
    @OneToMany(mappedBy = "productId")
    private List<Lesson> lessons = new ArrayList<>();
-   
-   
 }
