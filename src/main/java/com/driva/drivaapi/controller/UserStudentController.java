@@ -20,7 +20,7 @@ public class UserStudentController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     List<UserDTO> getAllUsers() {
-        return studentService.findAllStudents();
+        return studentService.findAll();
 
     }
 

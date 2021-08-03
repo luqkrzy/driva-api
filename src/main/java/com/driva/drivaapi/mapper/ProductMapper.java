@@ -18,37 +18,37 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class ProductMapper {
-
-    private final StudentRepository studentRepository;
-    private final ProductTypeRepository productTypeRepository;
-
-
-    public ProductDTO entityToUserDTO(Product product) {
-        return new ProductDTO(product);
-    }
-
-
-    public List<ProductDTO> entitiesToProductDTOs(List<Product> products) {
-        if (products == null) {
-            return null;
-        }
-        return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
-    }
-
-    public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
-        if (productDTOs == null) {
-            return null;
-        }
-        return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
-    }
-
-
-    public Product productDTOtoEntity(Long studentId, ProductDTO productDTO) {
-
-        ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId()).orElseThrow(() -> new ProductTypeNotFoundException(String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
-        Student student = studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(String.format("Student with id: %d does not exist", studentId)));
-
-        return Product.builder().productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft()).bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice()).build();
-    }
-
+   
+   private final StudentRepository studentRepository;
+   private final ProductTypeRepository productTypeRepository;
+   
+   public ProductDTO entityToUserDTO(Product product) {
+	  return new ProductDTO(product);
+   }
+   
+   public List<ProductDTO> entitiesToProductDTOs(List<Product> products) {
+	  if (products == null) {
+		 return null;
+	  } return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
+   }
+   
+   public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
+	  if (productDTOs == null) {
+		 return null;
+	  }
+	  return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
+   }
+   
+   public Product productDTOtoEntity(Long studentId, ProductDTO productDTO) {
+	  ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId()).orElseThrow(
+			  () -> new ProductTypeNotFoundException(
+					  String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
+	  Student student = studentRepository.findById(studentId).orElseThrow(
+			  () -> new StudentNotFoundException(String.format("Student with id: %d does not exist", studentId)));
+	  
+	  return Product.builder()
+					.productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft())
+					.bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice())
+					.build();
+   }
 }

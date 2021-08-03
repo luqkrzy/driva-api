@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserStudentService {
 
-    List<UserDTO> findAllStudents();
+    List<UserDTO> findAll();
 }

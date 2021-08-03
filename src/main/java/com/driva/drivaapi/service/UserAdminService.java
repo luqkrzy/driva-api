@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserAdminService {
 
-    List<UserDTO> findAllAdmins();
+    List<UserDTO> findAll();
 }

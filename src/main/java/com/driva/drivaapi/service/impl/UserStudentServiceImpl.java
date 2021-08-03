@@ -20,7 +20,7 @@ public class UserStudentServiceImpl implements UserStudentService {
     private final UserRepository userRepository;
 
     @Override
-    public List<UserDTO> findAllStudents() {
-        return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_STUDENT));
-    }
+	public List<UserDTO> findAll() {
+	   return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_STUDENT));
+	}
 }

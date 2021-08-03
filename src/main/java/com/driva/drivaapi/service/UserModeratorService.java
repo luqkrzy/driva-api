@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserModeratorService {
 
-    List<UserDTO> findAllModerators();
+    List<UserDTO> findAll();
 }

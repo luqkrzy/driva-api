@@ -20,8 +20,7 @@ public class UserModeratorServiceImpl implements UserModeratorService {
     private final UserRepository userRepository;
 
     @Override
-    public List<UserDTO> findAllModerators() {
-        return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_MODERATOR));
-
-    }
+	public List<UserDTO> findAll() {
+	   return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_MODERATOR));
+	}
 }

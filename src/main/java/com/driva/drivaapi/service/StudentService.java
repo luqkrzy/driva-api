@@ -22,5 +22,5 @@ public interface StudentService {
 
     StudentDTO findStudentOld(Long id);
 
-    Student findStudent(Long id);
+    Student find(Long id);
 }

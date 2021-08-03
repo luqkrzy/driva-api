@@ -21,18 +21,19 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+	public List<Product> findAll() {
+	   return productRepository.findAll();
+	}
 
     @Override
     public Product save(Long studentId, ProductDTO product) {
         Product mappedProduct = productMapper.productDTOtoEntity(studentId, product);
         return productRepository.save(mappedProduct);
     }
-
-    @Override
-    public Product getProduct(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found, id: " + id));
-    }
+   
+   @Override
+   public Product find(Long id) {
+	  return productRepository.findById(id)
+							  .orElseThrow(() -> new ProductNotFoundException("Product not found, id: " + id));
+   }
 }

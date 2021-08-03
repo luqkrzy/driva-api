@@ -20,7 +20,7 @@ public class UserModeratorController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     List<UserDTO> getAllUsers() {
-        return moderatorService.findAllModerators();
+        return moderatorService.findAll();
 
     }
 }

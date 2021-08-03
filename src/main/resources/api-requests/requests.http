@@ -96,7 +96,36 @@ GET http://localhost:8080/api/products/
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
+### get all ptoduct types
+GET http://localhost:8080/api/product-type
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### add product type
+POST http://localhost:8080/api/product-type
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "szkolenie 30H",
+  "description": "some description",
+  "productCategory": "KURS",
+  "basePrice": 2999.99,
+  "lessonsHours": 100
+}
+
 ###
+# curl --location --request GET 'http://localhost:8080/api/product-type/1'
+#--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdXEiLCJpYXQiOjE2Mjc5MzQ4ODEsImV4cCI6MTYyODAyMTI4MX0.slEMYRYLDwxNgU4eOaTjBqf5G0Jx9aP6UDkjSD3EAHqUoOwqOH10ZMzEQj8eZzHSRWqEKblwzPB3j-reCmuupw'
+GET http://localhost:8080/api/product-type/dupa/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdXEiLCJpYXQiOjE2Mjc5MzQ4ODEsImV4cCI6MTYyODAyMTI4MX0.slEMYRYLDwxNgU4eOaTjBqf5G0Jx9aP6UDkjSD3EAHqUoOwqOH10ZMzEQj8eZzHSRWqEKblwzPB3j-reCmuupw
+
+###
+
+
+
+
+
 
 
 

@@ -20,7 +20,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     private final UserRepository userRepository;
 
     @Override
-    public List<UserDTO> findAllAdmins() {
-        return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_ADMIN));
-    }
+	public List<UserDTO> findAll() {
+	   return userMapper.entitiesToUserDTOs(userRepository.findAllByRoles_name(UserRole.ROLE_ADMIN));
+	}
 }

@@ -1,13 +1,18 @@
 package com.driva.drivaapi.controller;
 
-
 import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,13 +30,13 @@ public class ProductController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     List<Product> getAllProducts() {
-        return productService.getAllProducts();
+        return productService.findAll();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     Product getProduct(@PathVariable Long id) {
-        return productService.getProduct(id);
+        return productService.find(id);
     }
 
     @PostMapping("/students/{id}")
