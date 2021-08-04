@@ -39,35 +39,42 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
    @ResponseBody
    @ResponseStatus(HttpStatus.CONFLICT)
    protected ExceptionMessage handleUserRoleNotFoundException(UserRoleExistsException exception) {
-	  return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+      return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
    }
    
    @ExceptionHandler(value = ProductTypeNotFoundException.class)
    @ResponseBody
    @ResponseStatus(HttpStatus.NOT_FOUND)
    protected ExceptionMessage handleUserRoleNotFoundException(ProductTypeNotFoundException exception) {
-	  return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
    }
-    
-    @ExceptionHandler(value = ProductNotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    protected ExceptionMessage handleProductNotFoundException(ProductNotFoundException exception) {
-        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
-    }
-    
-    @ExceptionHandler(value = LessonNotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    protected ExceptionMessage handleLessonNotFoundException(LessonNotFoundException exception) {
-        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
-    }
-    
-    @ExceptionHandler(value = StudentNotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    protected ExceptionMessage handleUserRoleNotFoundException(StudentNotFoundException exception) {
-        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   
+   @ExceptionHandler(value = InstrucorNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleInstructorFoundException(InstrucorNotFoundException exception) {
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = ProductNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleProductNotFoundException(ProductNotFoundException exception) {
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = LessonNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleLessonNotFoundException(LessonNotFoundException exception) {
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = StudentNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleUserRoleNotFoundException(StudentNotFoundException exception) {
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
     }
     
     @ExceptionHandler(value = AccessDeniedException.class)

@@ -2,7 +2,7 @@ package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.mapper.dto.UserDTO;
-import com.driva.drivaapi.model.work.WorkSchedule;
+import com.driva.drivaapi.model.work.WorkDay;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -120,7 +120,7 @@ public class User {
    //      private Lesson lesson;
    
    @OneToMany(mappedBy = "instructorId")
-   private List<WorkSchedule> workSchedules = new ArrayList<>();
+   private List<WorkDay> workSchedules = new ArrayList<>();
    
    public User(UserDTO userDTO) {
 	  this.id = userDTO.getId();

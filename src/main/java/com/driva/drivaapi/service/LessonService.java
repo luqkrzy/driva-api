@@ -10,6 +10,8 @@ public interface LessonService {
    
    LessonDTO find(Long id);
    
+   List<LessonDTO> findLessonsByInstructorId(Long id);
+   
    LessonDTO save(LessonDTO lesson);
    
    Lesson update(Lesson lesson);

@@ -32,6 +32,12 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
+   public List<LessonDTO> findLessonsByInstructorId(Long id) {
+	  final List<Lesson> lessons = lessonRepository.findByInstructorId(id);
+	  return lessonMapper.entitiesToLessonDTOs(lessons);
+   }
+   
+   @Override
    public LessonDTO save(LessonDTO lesson) {
 	  final Lesson lessonEntity = lessonRepository.save(lessonMapper.lessonDTOtoEntity(lesson));
 	  return lessonMapper.entityToLessonDTO(lessonEntity);
