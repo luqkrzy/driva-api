@@ -21,7 +21,5 @@ public class UserStudentController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     List<UserDTO> getAllUsers() {
         return studentService.findAll();
-
     }
-
 }

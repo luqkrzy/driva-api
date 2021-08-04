@@ -10,6 +10,7 @@ import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.repository.ProductRepository;
 import com.driva.drivaapi.repository.StudentRepository;
+import com.driva.drivaapi.service.ProductTypeService;
 import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class StudentServiceImpl implements StudentService {
    
    private final StudentRepository studentRepository;
    private final ProductRepository productRepository;
+   private final ProductTypeService productTypeService;
    private final StudentMapper studentMapper;
    private final ProductMapper productMapper;
    
@@ -50,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
 		 throw new StudentAlreadyExistException(
 				 String.format("Student with email: %s already exist", studentDTO.getEmail()));
 	  }
-	  
+   
 	  Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
 	  List<ProductDTO> productDTOSs = studentDTO.getProducts();
 	  if (productDTOSs != null) {

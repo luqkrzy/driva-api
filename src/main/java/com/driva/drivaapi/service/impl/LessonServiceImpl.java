@@ -1,6 +1,8 @@
 package com.driva.drivaapi.service.impl;
 
 import com.driva.drivaapi.exception.LessonNotFoundException;
+import com.driva.drivaapi.mapper.LessonMapper;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.repository.LessonRepository;
 import com.driva.drivaapi.service.LessonService;
@@ -14,6 +16,7 @@ import java.util.List;
 public class LessonServiceImpl implements LessonService {
    
    private final LessonRepository lessonRepository;
+   private final LessonMapper lessonMapper;
    
    @Override
    public List<Lesson> findAll() {
@@ -27,8 +30,9 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
-   public Lesson save(Lesson lesson) {
-	  return lessonRepository.save(lesson);
+   public LessonDTO save(LessonDTO lesson) {
+	  final Lesson lessonEntity = lessonRepository.save(lessonMapper.lessonDTOtoEntity(lesson));
+	  return lessonMapper.entityToLessonDTO(lessonEntity);
    }
    
    @Override

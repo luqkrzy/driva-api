@@ -63,25 +63,28 @@ public class Student {
     @Size(min = 5, max = 50)
     @Column(name = "email", nullable = false, length = 50)
     private String email;
-
+    
     @NotNull(message = "phone number can't be null")
     @Column(name = "phone_number", nullable = false)
     private Integer phoneNumber;
-
+    
     @Column(name = "created_by")
     private Long createdBy;
-
+    
     @Column(name = "created_date", columnDefinition = "timestamp default now()")
     private Instant createdDate;
-
+    
+    @Column(name = "user_id")
+    private Long userId;
+    
     @JsonManagedReference(value = "studentProducts")
     @OneToMany(mappedBy = "studentId")
     private List<Product> products;
-
+    
     // @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     // @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"), nullable = true)
     // private User userId;
-
+    
     // @OneToOne(mappedBy = "student")
     // private User userId;
 

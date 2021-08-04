@@ -1,7 +1,8 @@
 package com.driva.drivaapi.model.lesson;
 
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.product.Product;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,14 +20,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "lesson")
 //@JsonIdentityInfo(
 //		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -39,7 +37,7 @@ public class Lesson {
    @Column(name = "id", columnDefinition = "BIGSERIAL")
    private Long id;
    
-   //   @JsonBackReference(value = "productLessons")
+   @JsonBackReference(value = "productLessons")
    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
    @JoinColumn(name = "product_id", referencedColumnName = "id",
            foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
@@ -60,11 +58,19 @@ public class Lesson {
    private Long instructorId;
    
    @Column(name = "date")
-   private Date date;
+   private String date;
    
    @Column(name = "time_start")
-   private LocalDateTime timeStart;
+   private String timeStart;
    
    @Column(name = "time_end")
-   private LocalDateTime timeEnd;
+   private String timeEnd;
+   
+   public Lesson(LessonDTO lessonDTO) {
+      this.id = lessonDTO.getId();
+      this.instructorId = lessonDTO.getInstructorId();
+      this.date = lessonDTO.getDate();
+      this.timeStart = lessonDTO.getTimeStart();
+      this.timeEnd = lessonDTO.getTimeEnd();
+   }
 }

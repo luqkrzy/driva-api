@@ -1,5 +1,6 @@
 package com.driva.drivaapi.service;
 
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface LessonService {
    
    Lesson find(Long id);
    
-   Lesson save(Lesson lesson);
+   LessonDTO save(LessonDTO lesson);
    
    Lesson update(Lesson lesson);
    

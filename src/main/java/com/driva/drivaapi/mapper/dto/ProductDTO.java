@@ -17,23 +17,25 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
-
+    
     @Positive(message = "product must be positive digit")
     private Long id;
-
-    @NotNull(message = "product type id can't be blank")
+    
+    @NotNull(message = "product type id can't be null")
     @Positive(message = "product type must be positive digit")
     private Long productTypeId;
-
+    
+    @NotNull(message = "product type id can't be blank")
+    @Positive(message = "student id must be positive digit")
     private Long studentId;
-
+    
     @Positive(message = "hours should be a positive digit")
     @NotNull(message = "hours left  can't null")
     private Integer hoursLeft;
-
+    
     @Column(name = "book_online")
     private Boolean bookOnline;
-
+    
     @Column(name = "is_paid")
     private Boolean isPaid;
 

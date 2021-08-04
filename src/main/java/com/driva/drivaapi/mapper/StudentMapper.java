@@ -4,7 +4,6 @@ import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Student;
-import com.driva.drivaapi.repository.ProductRepository;
 import com.driva.drivaapi.security.service.impl.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,20 +18,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StudentMapper {
 
-    private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
     public Student studentDTOtoEntity(StudentDTO studentDTO) {
 
         UserDetailsImpl principal = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return Student.builder()
-                .firstName(studentDTO.getFirstName())
-                .lastName(studentDTO.getLastName())
-                .email(studentDTO.getEmail())
-                .phoneNumber(Integer.parseInt(studentDTO.getPhoneNumber()))
-                .createdBy(principal.getId())
-                .createdDate(Instant.now())
-                .build();
+                      .firstName(studentDTO.getFirstName())
+                      .lastName(studentDTO.getLastName())
+                      .email(studentDTO.getEmail())
+                      .phoneNumber(Integer.parseInt(studentDTO.getPhoneNumber()))
+                      .createdBy(principal.getId())
+                      .createdDate(Instant.now())
+                      .userId(studentDTO.getUserId())
+                      .build();
     }
 
     public StudentDTO entityToStudentDTO(Student student) {

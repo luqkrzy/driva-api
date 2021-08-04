@@ -1,5 +1,6 @@
 package com.driva.drivaapi.controller;
 
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.service.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,7 @@ public class LessonController {
    @PostMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
-   Lesson createLesson(@RequestBody Lesson lesson) {
+   LessonDTO createLesson(@RequestBody @Valid LessonDTO lesson) {
       return lessonService.save(lesson);
    }
    
