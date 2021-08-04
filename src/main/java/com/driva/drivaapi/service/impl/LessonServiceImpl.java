@@ -19,8 +19,9 @@ public class LessonServiceImpl implements LessonService {
    private final LessonMapper lessonMapper;
    
    @Override
-   public List<Lesson> findAll() {
-	  return lessonRepository.findAll();
+   public List<LessonDTO> findAll() {
+	  final List<Lesson> lessons = lessonRepository.findAll();
+	  return lessonMapper.entitiesToLessonDTOs(lessons);
    }
    
    @Override

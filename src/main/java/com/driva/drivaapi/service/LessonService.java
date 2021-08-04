@@ -6,7 +6,7 @@ import com.driva.drivaapi.model.lesson.Lesson;
 import java.util.List;
 
 public interface LessonService {
-   List<Lesson> findAll();
+   List<LessonDTO> findAll();
    
    LessonDTO find(Long id);
    

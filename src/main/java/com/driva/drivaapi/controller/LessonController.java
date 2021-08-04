@@ -28,7 +28,7 @@ public class LessonController {
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   List<Lesson> getAllLessons() {
+   List<LessonDTO> getAllLessons() {
       return lessonService.findAll();
    }
    
