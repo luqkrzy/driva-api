@@ -34,7 +34,7 @@ public class LessonController {
    
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   Lesson getLesson(@PathVariable Long id) {
+   LessonDTO getLesson(@PathVariable Long id) {
       return lessonService.find(id);
    }
    

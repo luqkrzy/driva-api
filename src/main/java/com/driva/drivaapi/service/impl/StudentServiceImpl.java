@@ -54,9 +54,9 @@ public class StudentServiceImpl implements StudentService {
 	  }
    
 	  Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
-	  List<ProductDTO> productDTOSs = studentDTO.getProducts();
-	  if (productDTOSs != null) {
-		 List<Product> products = productMapper.productDTOsToEntities(productDTOSs, student.getId());
+	  List<ProductDTO> productDTOS = studentDTO.getProducts();
+	  if (productDTOS != null) {
+		 List<Product> products = productMapper.productDTOsToEntities(productDTOS, student.getId());
 		 productRepository.saveAll(products);
 		 student.setProducts(products);
 	  }
@@ -77,6 +77,7 @@ public class StudentServiceImpl implements StudentService {
    
    @Override
    public Student find(Long id) {
+   
 	  return studentRepository.findById(id).orElseThrow(
 			  () -> new StudentNotFoundException("Student not found, id: " + id));
    }

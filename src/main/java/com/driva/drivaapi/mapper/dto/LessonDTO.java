@@ -34,6 +34,8 @@ public class LessonDTO {
    @NotBlank(message = "date can't be blank")
    private String timeEnd;
    
+   private InstructorInfo instructorInfo;
+   
    public LessonDTO(Lesson lesson) {
       this.id = lesson.getId();
       this.productId = lesson.getId();

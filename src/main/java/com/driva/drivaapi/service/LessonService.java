@@ -8,7 +8,7 @@ import java.util.List;
 public interface LessonService {
    List<Lesson> findAll();
    
-   Lesson find(Long id);
+   LessonDTO find(Long id);
    
    LessonDTO save(LessonDTO lesson);
    

@@ -10,7 +10,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,13 +38,15 @@ public class ProductDTO {
     
     @Column(name = "is_paid")
     private Boolean isPaid;
-
+    
     @NotNull(message = "price can't be null")
     @Positive(message = "price should be positive digit")
     private Double price;
-
+    
     private ProductType productType;
-
+    
+    private List<LessonDTO> lessons;
+    
     public ProductDTO(Product product) {
         this.id = product.getId();
         this.productTypeId = product.getProductType().getId();

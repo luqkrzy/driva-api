@@ -87,6 +87,5 @@ public class Student {
     
     // @OneToOne(mappedBy = "student")
     // private User userId;
-
-
 }
+

@@ -24,9 +24,10 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
-   public Lesson find(Long id) {
-	  return lessonRepository.findById(id).orElseThrow(
+   public LessonDTO find(Long id) {
+	  final Lesson lesson = lessonRepository.findById(id).orElseThrow(
 			  () -> new LessonNotFoundException("Lesson does not exist, id: " + id));
+	  return lessonMapper.entityToLessonDTO(lesson);
    }
    
    @Override
@@ -42,7 +43,6 @@ public class LessonServiceImpl implements LessonService {
    
    @Override
    public void delete(Long id) {
-	  final Lesson lesson = find(id);
-	  lessonRepository.delete(lesson);
+	  lessonRepository.deleteById(id);
    }
 }

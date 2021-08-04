@@ -25,32 +25,32 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("api/students")
 public class StudentController {
-    
-    private final StudentService studentService;
-    
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    List<Student> getAllStudents() {
-        return studentService.findAll();
-    }
-    
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    Student getStudent(@PathVariable Long id) {
-        return studentService.find(id);
-    }
-    
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    Student createStudent(@RequestBody @Valid StudentDTO student) {
-        return studentService.save(student);
-    }
-    
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteStudent(@PathVariable Long id) {
-        studentService.delete(id);
-    }
+   
+   private final StudentService studentService;
+   
+   @GetMapping
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   List<Student> getAllStudents() {
+      return studentService.findAll();
+   }
+   
+   @GetMapping("/{id}")
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   Student getStudent(@PathVariable Long id) {
+      return studentService.find(id);
+   }
+   
+   @PostMapping
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   @ResponseStatus(code = HttpStatus.CREATED)
+   Student createStudent(@RequestBody @Valid StudentDTO student) {
+      return studentService.save(student);
+   }
+   
+   @DeleteMapping("/{id}")
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   @ResponseStatus(HttpStatus.NO_CONTENT)
+   void deleteStudent(@PathVariable Long id) {
+      studentService.delete(id);
+   }
 }
