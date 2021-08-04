@@ -15,4 +15,6 @@ public interface LessonService {
    Lesson update(Lesson lesson);
    
    void delete(Long id);
+   
+   List<LessonDTO> findByProductId(Long productId);
 }

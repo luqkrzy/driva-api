@@ -45,4 +45,10 @@ public class LessonServiceImpl implements LessonService {
    public void delete(Long id) {
 	  lessonRepository.deleteById(id);
    }
+   
+   @Override
+   public List<LessonDTO> findByProductId(Long productId) {
+	  List<Lesson> lessons = lessonRepository.findByProductId_Id(productId);
+	  return lessonMapper.entitiesToLessonDTOs(lessons);
+   }
 }

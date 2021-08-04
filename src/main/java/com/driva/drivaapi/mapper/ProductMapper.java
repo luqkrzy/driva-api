@@ -23,6 +23,7 @@ public class ProductMapper {
    private final ProductTypeRepository productTypeRepository;
    
    public ProductDTO entityToUserDTO(Product product) {
+	  
 	  return new ProductDTO(product);
    }
    

@@ -29,23 +29,6 @@ public class StudentServiceImpl implements StudentService {
    private final StudentMapper studentMapper;
    private final ProductMapper productMapper;
    
-   //    @Override
-   //    public StudentDTO save(StudentDTO studentDTO) {
-   //        if (studentRepository.existsByEmail(studentDTO.getEmail())) {
-   //            throw new StudentAlreadyExistException(String.format("Student with email: %s already exist", studentDTO.getEmail()));
-   //        }
-   //
-   //        Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
-   //        List<ProductDTO> productDTOSs = studentDTO.getProducts();
-   //        if (productDTOSs != null) {
-   //            List<Product> products = productMapper.productDTOsToEntities(productDTOSs);
-   //            productRepository.saveAll(products);
-   //            student.setProducts(products);
-   //        }
-   //
-   //        return studentMapper.entityToStudentDTO(student);
-   //    }
-   
    @Override
    public Student save(StudentDTO studentDTO) {
 	  if (studentRepository.existsByEmail(studentDTO.getEmail())) {
@@ -64,20 +47,18 @@ public class StudentServiceImpl implements StudentService {
    }
    
    @Override
-   public List<Student> findAll() {
-	  return studentRepository.findAll();
+   public List<StudentDTO> findAll() {
+	  List<Student> all = studentRepository.findAll();
+	  return studentMapper.entitiesToStudentDTOs(all);
    }
    
    @Override
-   public StudentDTO findStudentOld(Long id) {
-	  Student student = studentRepository.findById(id).orElseThrow(
-			  () -> new StudentNotFoundException("Student not found, id: " + id));
-	  return studentMapper.entityToStudentDTO(student);
+   public StudentDTO findStudentDTO(Long id) {
+	  return studentMapper.entityToStudentDTO(find(id));
    }
    
    @Override
    public Student find(Long id) {
-   
 	  return studentRepository.findById(id).orElseThrow(
 			  () -> new StudentNotFoundException("Student not found, id: " + id));
    }

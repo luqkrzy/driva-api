@@ -9,7 +9,6 @@ import java.util.List;
  * Service Interface for managing {@link Student}.
  */
 public interface StudentService {
-
     /**
      * Save a student.
      *
@@ -18,9 +17,9 @@ public interface StudentService {
      */
     Student save(StudentDTO studentDTO);
     
-    List<Student> findAll();
+    List<StudentDTO> findAll();
     
-    StudentDTO findStudentOld(Long id);
+    StudentDTO findStudentDTO(Long id);
     
     Student find(Long id);
     

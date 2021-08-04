@@ -30,14 +30,20 @@ public class StudentController {
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   List<Student> getAllStudents() {
+   List<StudentDTO> getAllStudents() {
       return studentService.findAll();
    }
    
+   //   @GetMapping("/{id}")
+   //   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   //   Student getStudent(@PathVariable Long id) {
+   //      return studentService.find(id);
+   //   }
+   
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   Student getStudent(@PathVariable Long id) {
-      return studentService.find(id);
+   StudentDTO getStudent(@PathVariable Long id) {
+      return studentService.findStudentDTO(id);
    }
    
    @PostMapping
