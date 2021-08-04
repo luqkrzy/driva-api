@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -80,8 +81,9 @@ public class User {
    @Column(name = "phone_number")
    private Integer phoneNumber;
    
+   @DateTimeFormat(pattern = "yyyy-MM-dd, HH:mm")
    @Column(name = "created_date", columnDefinition = "timestamp default now()")
-   private Instant createdDate;
+   private LocalDateTime createdDate;
    
    @JsonIgnore
    @NotBlank(message = "password can't be blank")
@@ -89,6 +91,7 @@ public class User {
    @Column(name = "password", length = 120)
    private String password;
    
+
    @ManyToMany(fetch = FetchType.LAZY)
    @JoinTable(name = "user_roles_list",
 		   joinColumns = @JoinColumn(name = "user_id"),
@@ -111,10 +114,10 @@ public class User {
    // @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_user_id"))
    // private Student student;
    
-   //    @OneToMany(mappedBy = "instructorId")
-   //    private List<Lesson> lessons = new ArrayList<>();
-   //   @OneToOne(mappedBy = "instructorId")
-   //   private Lesson lesson;
+   //       @OneToMany(mappedBy = "instructorId")
+   //       private List<Lesson> lessons = new ArrayList<>();
+   //      @OneToOne(mappedBy = "instructorId")
+   //      private Lesson lesson;
    
    @OneToMany(mappedBy = "instructorId")
    private List<WorkSchedule> workSchedules = new ArrayList<>();

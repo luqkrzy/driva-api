@@ -20,27 +20,34 @@ import java.util.List;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @ExceptionHandler(value = UserRoleNotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    protected ExceptionMessage handleUserRoleNotFoundException(UserRoleNotFoundException exception) {
-        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
-    }
-
-    @ExceptionHandler(value = StudentAlreadyExistException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.CONFLICT)
-    protected ExceptionMessage handleUserRoleNotFoundException(StudentAlreadyExistException exception) {
-        return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
-    }
-
-    @ExceptionHandler(value = ProductTypeNotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    protected ExceptionMessage handleUserRoleNotFoundException(ProductTypeNotFoundException exception) {
-        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
-    }
+   
+   @ExceptionHandler(value = UserRoleNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleUserRoleNotFoundException(UserRoleNotFoundException exception) {
+	  return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = StudentAlreadyExistException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.CONFLICT)
+   protected ExceptionMessage handleStudentAlreadyExistException(StudentAlreadyExistException exception) {
+	  return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = UserRoleExistsException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.CONFLICT)
+   protected ExceptionMessage handleUserRoleNotFoundException(UserRoleExistsException exception) {
+	  return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = ProductTypeNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleUserRoleNotFoundException(ProductTypeNotFoundException exception) {
+	  return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
     
     @ExceptionHandler(value = ProductNotFoundException.class)
     @ResponseBody

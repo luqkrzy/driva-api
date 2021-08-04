@@ -19,8 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -50,21 +50,21 @@ public class Lesson {
    //            foreignKey = @ForeignKey(name = "fk_instructor_id"))
    //       private User instructorId;
    
-   //   @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-   //   @JoinColumn(name = "instructor_id", referencedColumnName = "id",
-   //           foreignKey = @ForeignKey(name = "fk_instructor_id"))
-   //   private User instructorId;
+   //      @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+   //      @JoinColumn(name = "instructor_id", referencedColumnName = "id",
+   //              foreignKey = @ForeignKey(name = "fk_instructor_id"))
+   //      private User instructorId;
    
    @NotNull(message = "instructor id can't be null")
    @Column(name = "instructor_id")
    private Long instructorId;
    
    @Column(name = "date")
-   private LocalDate date;
+   private Date date;
    
    @Column(name = "time_start")
-   private Instant timeStart;
+   private LocalDateTime timeStart;
    
    @Column(name = "time_end")
-   private Instant timeEnd;
+   private LocalDateTime timeEnd;
 }

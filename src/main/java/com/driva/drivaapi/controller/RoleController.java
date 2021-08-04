@@ -1,7 +1,7 @@
 package com.driva.drivaapi.controller;
 
-import com.driva.drivaapi.model.lesson.Lesson;
-import com.driva.drivaapi.service.LessonService;
+import com.driva.drivaapi.model.user.Role;
+import com.driva.drivaapi.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,41 +20,41 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/lessons")
-public class LessonController {
+@RequestMapping("api/roles")
+public class RoleController {
    
-   private final LessonService lessonService;
+   private final RoleService roleService;
    
    @GetMapping
-   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   List<Lesson> getAllLessons() {
-      return lessonService.findAll();
+   @PreAuthorize("hasRole('ADMIN')")
+   List<Role> getAllRoles() {
+      return roleService.findAll();
    }
    
    @GetMapping("/{id}")
-   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   Lesson getLesson(@PathVariable Long id) {
-      return lessonService.find(id);
+   @PreAuthorize("hasRole('ADMIN')")
+   Role getRole(@PathVariable Long id) {
+      return roleService.find(id);
    }
    
    @PostMapping
-   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   @PreAuthorize("hasRole('ADMIN')")
    @ResponseStatus(code = HttpStatus.CREATED)
-   Lesson createLesson(@RequestBody Lesson lesson) {
-      return lessonService.save(lesson);
+   Role createRole(@RequestBody @Valid Role role) {
+      return roleService.save(role);
    }
    
    @PutMapping
-   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   @PreAuthorize("hasRole('ADMIN') ")
    @ResponseStatus(code = HttpStatus.OK)
-   Lesson updateLesson(@RequestBody @Valid Lesson lesson) {
-      return lessonService.update(lesson);
+   Role updateRole(@RequestBody @Valid Role role) {
+      return roleService.update(role);
    }
    
    @DeleteMapping("/{id}")
-   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   @PreAuthorize("hasRole('ADMIN')")
    @ResponseStatus(HttpStatus.NO_CONTENT)
-   void deleteLesson(@PathVariable Long id) {
-      lessonService.delete(id);
+   void deleteRole(@PathVariable Long id) {
+      roleService.delete(id);
    }
 }

@@ -2,6 +2,7 @@ package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.product.ProductType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Positive;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ProductDTO {
 
     @Positive(message = "product must be positive digit")

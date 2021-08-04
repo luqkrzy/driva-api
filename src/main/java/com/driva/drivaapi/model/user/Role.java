@@ -27,23 +27,27 @@ import java.util.Set;
 public class Role {
 
     @Id
-    @SequenceGenerator( name = "user_role_sq", sequenceName = "user_role_sq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_id_sq")
-    private Integer id;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    private UserRole name;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> user = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name=" + name +
-                ", user=" + user +
-                '}';
-    }
+	@SequenceGenerator(name = "user_role_sq", sequenceName = "user_role_sq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_id_sq")
+	private Integer id;
+   
+   @Enumerated(EnumType.STRING)
+   @Column(length = 20)
+   private UserRole name;
+   
+   @ManyToMany(mappedBy = "roles")
+   private Set<User> user = new HashSet<>();
+   
+   public Role(UserRole name) {
+	  this.name = name;
+   }
+   
+   @Override
+   public String toString() {
+	  return "Role{" +
+			 "id=" + id +
+			 ", name=" + name +
+			 ", user=" + user +
+			 '}';
+   }
 }
