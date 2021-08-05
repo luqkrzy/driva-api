@@ -2,7 +2,10 @@ package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
+import com.driva.drivaapi.model.product.Product;
+import com.driva.drivaapi.service.InstructorService;
 import com.driva.drivaapi.service.LessonService;
+import com.driva.drivaapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +28,8 @@ import java.util.List;
 public class LessonController {
    
    private final LessonService lessonService;
+   private final ProductService productService;
+   private final InstructorService instructorService;
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
@@ -35,6 +40,7 @@ public class LessonController {
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    LessonDTO getLesson(@PathVariable Long id) {
+      
       return lessonService.find(id);
    }
    
@@ -42,7 +48,8 @@ public class LessonController {
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
    LessonDTO createLesson(@RequestBody @Valid LessonDTO lesson) {
-      return lessonService.save(lesson);
+      final Product product = productService.find(lesson.getProductId());
+      return lessonService.save(lesson, product);
    }
    
    @PutMapping

@@ -1,6 +1,7 @@
 package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.model.lesson.Lesson;
+import com.driva.drivaapi.model.user.pojo.InstructorInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,8 @@ public class LessonDTO {
    @NotBlank(message = "date can't be blank")
    private String timeEnd;
    
+   private Long studentId;
+   
    private InstructorInfo instructorInfo;
    
    public LessonDTO(Lesson lesson) {
@@ -43,5 +46,6 @@ public class LessonDTO {
       this.date = lesson.getDate();
       this.timeStart = lesson.getTimeStart();
       this.timeEnd = lesson.getTimeEnd();
+      this.studentId = lesson.getProductId().getStudentId().getId();
    }
 }

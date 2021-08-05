@@ -6,11 +6,10 @@ import com.driva.drivaapi.mapper.ProductMapper;
 import com.driva.drivaapi.mapper.StudentMapper;
 import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
-import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.repository.ProductRepository;
 import com.driva.drivaapi.repository.StudentRepository;
-import com.driva.drivaapi.service.ProductTypeService;
+import com.driva.drivaapi.service.ProductService;
 import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
    
    private final StudentRepository studentRepository;
    private final ProductRepository productRepository;
-   private final ProductTypeService productTypeService;
+   private final ProductService productService;
    private final StudentMapper studentMapper;
    private final ProductMapper productMapper;
    
@@ -38,11 +37,11 @@ public class StudentServiceImpl implements StudentService {
    
 	  Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
 	  List<ProductDTO> productDTOS = studentDTO.getProducts();
-	  if (productDTOS != null) {
-		 List<Product> products = productMapper.productDTOsToEntities(productDTOS, student.getId());
-		 productRepository.saveAll(products);
-		 student.setProducts(products);
-	  }
+	  //	  if (productDTOS != null) {
+	  //		 List<Product> products = productMapper.productDTOsToEntities(productDTOS, student.getId());
+	  //		 productRepository.saveAll(products);
+	  //		 student.setProducts(products);
+	  //	  }
 	  return student;
    }
    
@@ -67,5 +66,10 @@ public class StudentServiceImpl implements StudentService {
    public void delete(Long id) {
 	  Student student = find(id);
 	  studentRepository.delete(student);
+   }
+   
+   @Override
+   public Student findNameEmailAndPhone(Long id) {
+	  return studentRepository.findNameEmailAndPhone(id);
    }
 }

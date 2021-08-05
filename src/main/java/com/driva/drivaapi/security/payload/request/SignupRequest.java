@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -48,9 +47,9 @@ public class SignupRequest {
     @NotBlank(message = "phone number can't be blank")
     private String phoneNumber;
    
-   @NotNull
-   @DateTimeFormat(pattern = "yyyy-MM-dd, HH:mm")
-   private LocalDateTime createdDate;
+//   @NotNull
+@DateTimeFormat(pattern = "yyyy-MM-dd, HH:mm")
+private LocalDateTime createdDate = LocalDateTime.now();
 
     @NotBlank(message = "password can't be blank")
     @Size(max = 120)

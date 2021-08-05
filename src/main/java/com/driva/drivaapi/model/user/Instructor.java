@@ -3,8 +3,6 @@ package com.driva.drivaapi.model.user;
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.mapper.dto.InstructorDTO;
 import com.driva.drivaapi.model.work.WorkDay;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,9 +30,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "instructor")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Instructor {
    
    @Id

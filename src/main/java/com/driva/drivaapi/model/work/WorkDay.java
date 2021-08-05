@@ -1,8 +1,6 @@
 package com.driva.drivaapi.model.work;
 
 import com.driva.drivaapi.model.user.Instructor;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,13 +28,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "work_day")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class WorkDay {
     
     @Id
     @SequenceGenerator(name = "work_id_sq", sequenceName = "work_id_sq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_id_sq")
-    @Column(name = "id", columnDefinition = "BIGSERIAL")
+    @Column(name = "id")
     private Long id;
     
     //    @JsonManagedReference(value = "instructorWorkDay")

@@ -29,6 +29,7 @@ public class Role {
     @Id
 	@SequenceGenerator(name = "user_role_sq", sequenceName = "user_role_sq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_id_sq")
+	@Column(name = "id")
 	private Integer id;
    
    @Enumerated(EnumType.STRING)

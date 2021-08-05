@@ -1,24 +1,32 @@
 package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.model.user.old.DateTest;
+import com.driva.drivaapi.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/test")
 public class TestController {
+   
+   private final StudentRepository studentRepository;
    
    @GetMapping("/all")
    public String allAccess() {
@@ -69,5 +77,10 @@ public class TestController {
    @PostMapping("/time")
    public void timeTest(@RequestBody DateTest datetest) {
 	  System.out.println(datetest);
+   }
+   
+   @GetMapping("/{id}")
+   TypedQuery<Collection<?>> mixQuery(@PathVariable Long id) {
+	  return studentRepository.mixQuery(id);
    }
 }

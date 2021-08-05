@@ -1,12 +1,12 @@
 package com.driva.drivaapi.mapper;
 
-import com.driva.drivaapi.mapper.dto.InstructorInfo;
+import com.driva.drivaapi.exception.InstrucorNotFoundException;
 import com.driva.drivaapi.mapper.dto.LessonDTO;
-import com.driva.drivaapi.mapper.dto.UserDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
-import com.driva.drivaapi.service.ProductService;
-import com.driva.drivaapi.service.UserService;
+import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.pojo.InstructorInfo;
+import com.driva.drivaapi.repository.InstructorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,18 +18,21 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LessonMapper {
    
-   private final ProductService productService;
-   private final UserService userService;
+   private final InstructorRepository instructorRepository;
    
    public LessonDTO entityToLessonDTO(Lesson lesson) {
-	  final UserDTO instructor = userService.findById(lesson.getInstructorId());
+   
+	  final Instructor instructor = instructorRepository.findById(lesson.getInstructorId()).orElseThrow(
+			  () -> new InstrucorNotFoundException("Instructor not found, id: " + lesson.getInstructorId()));
+   
 	  final InstructorInfo instructorInfo = InstructorInfo.builder()
 														  .fistName(instructor.getFirstName())
 														  .lastName(instructor.getLastName())
-														  .phoneNumber(instructor.getPhoneNumber())
+														  .phoneNumber(Integer.toString(instructor.getPhoneNumber()))
 														  .email(instructor.getEmail())
 														  .build();
 	  final LessonDTO lessonDTO = new LessonDTO(lesson);
+   
 	  lessonDTO.setInstructorInfo(instructorInfo);
 	  return lessonDTO;
    }
@@ -38,8 +41,14 @@ public class LessonMapper {
 	  return lessons.stream().filter(Objects::nonNull).map(this::entityToLessonDTO).collect(Collectors.toList());
    }
    
-   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO) {
-	  final Product product = productService.find(lessonDTO.getProductId());
+   //   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO) {
+   //	  final Product product = productService.find(lessonDTO.getProductId());
+   //	  final Lesson lesson = new Lesson(lessonDTO);
+   //	  lesson.setProductId(product);
+   //	  return lesson;
+   //   }
+   
+   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO, Product product) {
 	  final Lesson lesson = new Lesson(lessonDTO);
 	  lesson.setProductId(product);
 	  return lesson;

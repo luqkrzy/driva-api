@@ -2,7 +2,11 @@ package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.model.product.Product;
+import com.driva.drivaapi.model.product.ProductType;
+import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.service.ProductService;
+import com.driva.drivaapi.service.ProductTypeService;
+import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,15 +29,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/products")
 public class ProductController {
-
+    
     private final ProductService productService;
-
+    private final StudentService studentService;
+    private final ProductTypeService productTypeService;
+    
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     List<Product> getAllProducts() {
         return productService.findAll();
     }
-
+    
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     Product getProduct(@PathVariable Long id) {
@@ -43,8 +49,10 @@ public class ProductController {
     @PostMapping("/students/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
-    Product createProduct(@PathVariable(value = "id") final Long id, @RequestBody @Valid ProductDTO product) {
-        return productService.save(id, product);
+    Product createProduct(@PathVariable(value = "id") final Long id, @RequestBody @Valid ProductDTO productDTO) {
+        final Student student = studentService.find(productDTO.getStudentId());
+        final ProductType productType = productTypeService.find(productDTO.getProductTypeId());
+        return productService.save(productDTO, student, productType);
     }
     
     @DeleteMapping("/{id}")

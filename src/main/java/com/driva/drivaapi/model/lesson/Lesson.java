@@ -3,6 +3,8 @@ package com.driva.drivaapi.model.lesson;
 import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,15 +28,15 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @Table(name = "lesson")
-//@JsonIdentityInfo(
-//		generator = ObjectIdGenerators.PropertyGenerator.class,
-//		property = "id")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Lesson {
    
    @Id
    @SequenceGenerator(name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_id_sq")
-   @Column(name = "id", columnDefinition = "BIGSERIAL")
+   @Column(name = "id")
    private Long id;
    
    @JsonBackReference(value = "productLessons")
@@ -52,6 +54,8 @@ public class Lesson {
    //      @JoinColumn(name = "instructor_id", referencedColumnName = "id",
    //              foreignKey = @ForeignKey(name = "fk_instructor_id"))
    //      private User instructorId;
+   
+   //   private Instructor instructor;
    
    @NotNull(message = "instructor id can't be null")
    @Column(name = "instructor_id")

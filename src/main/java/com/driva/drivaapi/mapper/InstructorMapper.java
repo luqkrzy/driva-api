@@ -3,8 +3,11 @@ package com.driva.drivaapi.mapper;
 import com.driva.drivaapi.mapper.dto.InstructorDTO;
 import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.Student;
+import com.driva.drivaapi.model.user.pojo.InstructorLesson;
 import com.driva.drivaapi.security.service.impl.UserDetailsImpl;
 import com.driva.drivaapi.service.LessonService;
+import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,12 +21,18 @@ import java.util.stream.Collectors;
 public class InstructorMapper {
    
    private final LessonService lessonService;
+   private final StudentService studentService;
    
    public InstructorDTO entityToInstructorDTO(Instructor instructor) {
 	  final InstructorDTO instructorDTO = new InstructorDTO(instructor);
 	  final List<LessonDTO> lessonDTOs = lessonService.findLessonsByInstructorId(instructor.getId());
-	  lessonDTOs.forEach(lessonDTO -> lessonDTO.setInstructorInfo(null));
-	  instructorDTO.setLessons(lessonDTOs);
+   
+	  final List<InstructorLesson> instructorLessons = lessonDTOs.stream().map(
+			  lessonDTO -> {
+				 final Student student = studentService.find(lessonDTO.getStudentId());
+				 return new InstructorLesson(lessonDTO, student);
+			  }).collect(Collectors.toList());
+	  instructorDTO.setLessons(instructorLessons);
 	  return instructorDTO;
    }
    

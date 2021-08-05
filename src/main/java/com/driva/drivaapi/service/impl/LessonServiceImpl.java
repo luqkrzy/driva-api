@@ -4,6 +4,7 @@ import com.driva.drivaapi.exception.LessonNotFoundException;
 import com.driva.drivaapi.mapper.LessonMapper;
 import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
+import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.repository.LessonRepository;
 import com.driva.drivaapi.service.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +39,16 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
-   public LessonDTO save(LessonDTO lesson) {
-	  final Lesson lessonEntity = lessonRepository.save(lessonMapper.lessonDTOtoEntity(lesson));
-	  return lessonMapper.entityToLessonDTO(lessonEntity);
+   public LessonDTO save(LessonDTO lessonDTO, Product product) {
+	  final Lesson lesson = lessonMapper.lessonDTOtoEntity(lessonDTO, product);
+	  return lessonMapper.entityToLessonDTO(lesson);
    }
+   
+   //   @Override
+   //   public LessonDTO save(LessonDTO lesson) {
+   //	  final Lesson lessonEntity = lessonRepository.save(lessonMapper.lessonDTOtoEntity(lesson));
+   //	  return lessonMapper.entityToLessonDTO(lessonEntity);
+   //   }
    
    @Override
    public Lesson update(Lesson lesson) {

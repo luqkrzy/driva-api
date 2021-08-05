@@ -1,7 +1,9 @@
 package com.driva.drivaapi.controller;
 
+import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
 import com.driva.drivaapi.model.user.Student;
+import com.driva.drivaapi.service.ProductService;
 import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,7 @@ import java.util.List;
 public class StudentController {
    
    private final StudentService studentService;
+   private final ProductService productService;
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
@@ -49,8 +52,13 @@ public class StudentController {
    @PostMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
-   Student createStudent(@RequestBody @Valid StudentDTO student) {
-      return studentService.save(student);
+   Student createStudent(@RequestBody @Valid StudentDTO studentDTO) {
+      final Student student = studentService.save(studentDTO);
+      final List<ProductDTO> products = studentDTO.getProducts();
+      if (products != null) {
+         productService.saveAll(products, student);
+      }
+      return studentService.find(student.getId());
    }
    
    @DeleteMapping("/{id}")

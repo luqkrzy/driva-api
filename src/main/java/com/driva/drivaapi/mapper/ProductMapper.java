@@ -1,7 +1,5 @@
 package com.driva.drivaapi.mapper;
 
-import com.driva.drivaapi.exception.ProductTypeNotFoundException;
-import com.driva.drivaapi.exception.StudentNotFoundException;
 import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.product.ProductType;
@@ -23,7 +21,7 @@ public class ProductMapper {
    private final ProductTypeRepository productTypeRepository;
    
    public ProductDTO entityToUserDTO(Product product) {
-	  
+   
 	  return new ProductDTO(product);
    }
    
@@ -33,23 +31,30 @@ public class ProductMapper {
 	  } return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
    }
    
-   public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
-	  if (productDTOs == null) {
-		 return null;
-	  }
-	  return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
-   }
+   //   public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
+   //	  if (productDTOs == null) {
+   //		 return null;
+   //	  }
+   //	  return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
+   //   }
    
-   public Product productDTOtoEntity(Long studentId, ProductDTO productDTO) {
-	  ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId()).orElseThrow(
-			  () -> new ProductTypeNotFoundException(
-					  String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
-	  Student student = studentRepository.findById(studentId).orElseThrow(
-			  () -> new StudentNotFoundException(String.format("Student with id: %d does not exist", studentId)));
-	  
+   public Product productDTOtoEntity(ProductDTO productDTO, Student student, ProductType productType) {
 	  return Product.builder()
 					.productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft())
 					.bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice())
 					.build();
    }
+   
+   //   public Product productDTOtoEntity(Long studentId, ProductDTO productDTO) {
+   //	  ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId()).orElseThrow(
+   //			  () -> new ProductTypeNotFoundException(
+   //					  String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
+   //	  Student student = studentRepository.findById(studentId).orElseThrow(
+   //			  () -> new StudentNotFoundException(String.format("Student with id: %d does not exist", studentId)));
+   //
+   //	  return Product.builder()
+   //					.productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft())
+   //					.bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice())
+   //					.build();
+   //   }
 }

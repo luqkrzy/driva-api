@@ -44,7 +44,7 @@ public class Product {
    @Id
    @SequenceGenerator(name = "product_id_sq", sequenceName = "product_id_sq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_sq")
-   @Column(name = "id", columnDefinition = "BIGSERIAL")
+   @Column(name = "id")
    private Long id;
    
    //    @JsonBackReference(value = "prodType")

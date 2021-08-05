@@ -50,6 +50,7 @@ public class ProductDTO {
     public ProductDTO(Product product) {
         this.id = product.getId();
         this.productTypeId = product.getProductType().getId();
+        this.studentId = product.getStudentId().getId();
         this.hoursLeft = product.getHoursLeft();
         this.bookOnline = product.getBookOnline();
         this.isPaid = product.getIsPaid();

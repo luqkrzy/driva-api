@@ -2,6 +2,7 @@ package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.pojo.InstructorLesson;
 import com.driva.drivaapi.model.work.WorkDay;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,7 +50,7 @@ public class InstructorDTO {
    
    private List<WorkDay> workSchedule;
    
-   private List<LessonDTO> lessons;
+   private List<InstructorLesson> lessons;
    
    public InstructorDTO(Instructor instructor) {
       this.id = instructor.getId();

@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -48,8 +49,9 @@ import java.util.Set;
 public class User {
    
    @Id
+   @SequenceGenerator(name = "user_id_sq", sequenceName = "user_id_sq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sq")
-   @Column(name = "id", columnDefinition = "BIGSERIAL")
+   @Column(name = "id")
    private Long id;
    
    @NotBlank(message = "first name can't be blank")
