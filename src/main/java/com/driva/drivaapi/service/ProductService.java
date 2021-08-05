@@ -16,9 +16,9 @@ public interface ProductService {
    
    ProductDTO findToProductDTO(Long id);
    
-   Product save(StudentProductDTO studentProductDTO, Student student, ProductType productType);
+   ProductDTO save(StudentProductDTO studentProductDTO, Student student, ProductType productType);
    
-   List<Product> saveAll(List<StudentProductDTO> studentProductDTOS, Student student);
+   List<ProductDTO> saveAll(List<StudentProductDTO> studentProductDTOS, Student student);
    
    StudentProductDTO findToStudentProductDTO(Long id);
    

@@ -57,8 +57,10 @@ public class ProductMapper {
    public ProductDTO entityToProductDTO(Product product) {
 	  final ProductDTO productDTO = new ProductDTO(product);
 	  final List<Lesson> lessons = product.getLessons();
-	  final List<StudentLesson> studentLessons = lessonMapper.entitiesToStudentLessonDTOs(lessons);
-	  productDTO.setLessons(studentLessons);
+	  if (lessons != null) {
+		 final List<StudentLesson> studentLessons = lessonMapper.entitiesToStudentLessonDTOs(lessons);
+		 productDTO.setLessons(studentLessons);
+	  }
 	  return productDTO;
    }
 }

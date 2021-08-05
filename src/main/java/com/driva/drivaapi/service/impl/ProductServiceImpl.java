@@ -33,13 +33,14 @@ public class ProductServiceImpl implements ProductService {
    }
    
    @Override
-   public Product save(StudentProductDTO studentProductDTO, Student student, ProductType productType) {
+   public ProductDTO save(StudentProductDTO studentProductDTO, Student student, ProductType productType) {
 	  final Product product = productMapper.studentProductDTOtoEntity(studentProductDTO, student, productType);
-	  return productRepository.save(product);
+	  final Product savedProduct = productRepository.save(product);
+	  return productMapper.entityToProductDTO(savedProduct);
    }
    
    @Override
-   public List<Product> saveAll(List<StudentProductDTO> studentProductDTOS, Student student) {
+   public List<ProductDTO> saveAll(List<StudentProductDTO> studentProductDTOS, Student student) {
 	  return studentProductDTOS.stream().map(
 									   productDTO ->
 											   save(productDTO, student, productTypeService.find(productDTO.getProductTypeId())))

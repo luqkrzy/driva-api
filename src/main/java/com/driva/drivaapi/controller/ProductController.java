@@ -56,8 +56,8 @@ public class ProductController {
     @PostMapping("/students/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
-    Product createProduct(@PathVariable(value = "id") final Long id,
-                          @RequestBody @Valid StudentProductDTO studentProductDTO) {
+    ProductDTO createProduct(@PathVariable(value = "id") final Long id,
+                             @RequestBody @Valid StudentProductDTO studentProductDTO) {
         final Student student = studentService.find(studentProductDTO.getStudentId());
         final ProductType productType = productTypeService.find(studentProductDTO.getProductTypeId());
         return productService.save(studentProductDTO, student, productType);
