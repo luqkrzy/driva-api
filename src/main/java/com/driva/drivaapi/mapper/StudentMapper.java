@@ -1,7 +1,7 @@
 package com.driva.drivaapi.mapper;
 
-import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
+import com.driva.drivaapi.mapper.dto.StudentProductDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.security.service.impl.UserDetailsImpl;
@@ -40,13 +40,13 @@ public class StudentMapper {
    
    public StudentDTO entityToStudentDTO(Student student) {
 	  List<Product> products = student.getProducts();
-	  List<ProductDTO> productDTOs = productMapper.entitiesToProductDTOs(products);
-	  for (ProductDTO productDTO : productDTOs) {
-		 productDTO.setLessons(lessonService.findByProductIdToStudentLesson(productDTO.getId()));
+	  List<StudentProductDTO> studentProductDTOS = productMapper.entitiesToProductDTOs(products);
+	  for (StudentProductDTO studentProductDTO : studentProductDTOS) {
+		 studentProductDTO.setLessons(lessonService.findByProductIdToStudentLesson(studentProductDTO.getId()));
 	  }
-	  
-	  StudentDTO studentDTO = new StudentDTO(student, productDTOs);
-	  studentDTO.setProducts(productDTOs);
+   
+	  StudentDTO studentDTO = new StudentDTO(student, studentProductDTOS);
+	  studentDTO.setProducts(studentProductDTOS);
 	  return studentDTO;
    }
    

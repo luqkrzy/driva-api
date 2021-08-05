@@ -4,8 +4,8 @@ import com.driva.drivaapi.exception.StudentAlreadyExistException;
 import com.driva.drivaapi.exception.StudentNotFoundException;
 import com.driva.drivaapi.mapper.ProductMapper;
 import com.driva.drivaapi.mapper.StudentMapper;
-import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
+import com.driva.drivaapi.mapper.dto.StudentProductDTO;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.repository.ProductRepository;
 import com.driva.drivaapi.repository.StudentRepository;
@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
 	  }
    
 	  Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
-	  List<ProductDTO> productDTOS = studentDTO.getProducts();
+	  List<StudentProductDTO> studentProductDTOS = studentDTO.getProducts();
 	  //	  if (productDTOS != null) {
 	  //		 List<Product> products = productMapper.productDTOsToEntities(productDTOS, student.getId());
 	  //		 productRepository.saveAll(products);

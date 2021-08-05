@@ -1,6 +1,7 @@
 package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.mapper.dto.ProductDTO;
+import com.driva.drivaapi.mapper.dto.StudentProductDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.product.ProductType;
 import com.driva.drivaapi.model.user.Student;
@@ -40,19 +41,26 @@ public class ProductController {
         return productService.findAll();
     }
     
+    //    @GetMapping("/{id}")
+    //    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    //    StudentProductDTO getProduct(@PathVariable Long id) {
+    //        return productService.findToStudentProductDTO(id);
+    //    }
+    
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    Product getProduct(@PathVariable Long id) {
-        return productService.find(id);
+    ProductDTO getProduct(@PathVariable Long id) {
+        return productService.findToProductDTO(id);
     }
     
     @PostMapping("/students/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
-    Product createProduct(@PathVariable(value = "id") final Long id, @RequestBody @Valid ProductDTO productDTO) {
-        final Student student = studentService.find(productDTO.getStudentId());
-        final ProductType productType = productTypeService.find(productDTO.getProductTypeId());
-        return productService.save(productDTO, student, productType);
+    Product createProduct(@PathVariable(value = "id") final Long id,
+                          @RequestBody @Valid StudentProductDTO studentProductDTO) {
+        final Student student = studentService.find(studentProductDTO.getStudentId());
+        final ProductType productType = productTypeService.find(studentProductDTO.getProductTypeId());
+        return productService.save(studentProductDTO, student, productType);
     }
     
     @DeleteMapping("/{id}")

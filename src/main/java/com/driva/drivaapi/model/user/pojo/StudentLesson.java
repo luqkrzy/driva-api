@@ -30,6 +30,6 @@ public class StudentLesson {
       this.instructorId = instructor.getId();
       this.instructorEmail = instructor.getEmail();
       this.instructorFullName = instructor.getFirstName() + ' ' + instructor.getLastName();
-      this.instructorPhone = instructor.getPhoneNumber().toString();
+      this.instructorPhone = Integer.toString(instructor.getPhoneNumber());
    }
 }

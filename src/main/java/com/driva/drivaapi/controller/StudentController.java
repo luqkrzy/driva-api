@@ -1,7 +1,7 @@
 package com.driva.drivaapi.controller;
 
-import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
+import com.driva.drivaapi.mapper.dto.StudentProductDTO;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.service.ProductService;
 import com.driva.drivaapi.service.StudentService;
@@ -54,7 +54,7 @@ public class StudentController {
    @ResponseStatus(code = HttpStatus.CREATED)
    Student createStudent(@RequestBody @Valid StudentDTO studentDTO) {
       final Student student = studentService.save(studentDTO);
-      final List<ProductDTO> products = studentDTO.getProducts();
+      final List<StudentProductDTO> products = studentDTO.getProducts();
       if (products != null) {
          productService.saveAll(products, student);
       }

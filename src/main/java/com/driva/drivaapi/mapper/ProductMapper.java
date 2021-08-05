@@ -1,11 +1,12 @@
 package com.driva.drivaapi.mapper;
 
 import com.driva.drivaapi.mapper.dto.ProductDTO;
+import com.driva.drivaapi.mapper.dto.StudentProductDTO;
+import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.product.ProductType;
 import com.driva.drivaapi.model.user.Student;
-import com.driva.drivaapi.repository.ProductTypeRepository;
-import com.driva.drivaapi.repository.StudentRepository;
+import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +18,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductMapper {
    
-   private final StudentRepository studentRepository;
-   private final ProductTypeRepository productTypeRepository;
+   private final LessonMapper lessonMapper;
    
-   public ProductDTO entityToUserDTO(Product product) {
-   
-	  return new ProductDTO(product);
+   public StudentProductDTO entityToStudentProductDTO(Product product) {
+	  return new StudentProductDTO(product);
    }
    
-   public List<ProductDTO> entitiesToProductDTOs(List<Product> products) {
+   public List<StudentProductDTO> entitiesToProductDTOs(List<Product> products) {
 	  if (products == null) {
 		 return null;
-	  } return products.stream().filter(Objects::nonNull).map(this::entityToUserDTO).collect(Collectors.toList());
+	  } return products.stream().filter(Objects::nonNull).map(this::entityToStudentProductDTO)
+					   .collect(Collectors.toList());
    }
    
    //   public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
@@ -38,27 +38,20 @@ public class ProductMapper {
    //	  return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
    //   }
    
-   public Product productDTOtoEntity(ProductDTO productDTO, Student student, ProductType productType) {
+   public Product studentProductDTOtoEntity(StudentProductDTO studentProductDTO, Student student,
+											ProductType productType) {
 	  return Product.builder()
-					.productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft())
-					.bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice())
+					.productType(productType).studentId(student).hoursLeft(studentProductDTO.getHoursLeft())
+					.bookOnline(studentProductDTO.getBookOnline()).isPaid(studentProductDTO.getIsPaid()).price(
+					  studentProductDTO.getPrice())
 					.build();
    }
    
-   //   public Product productDTOtoEntity(Long studentId, ProductDTO productDTO) {
-   //	  ProductType productType = productTypeRepository.findById(productDTO.getProductTypeId()).orElseThrow(
-   //			  () -> new ProductTypeNotFoundException(
-   //					  String.format("Product type with id: %d does not exist", productDTO.getProductTypeId())));
-   //	  Student student = studentRepository.findById(studentId).orElseThrow(
-   //			  () -> new StudentNotFoundException(String.format("Student with id: %d does not exist", studentId)));
-   //
-   //	  return Product.builder()
-   //					.productType(productType).studentId(student).hoursLeft(productDTO.getHoursLeft())
-   //					.bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice())
-   //					.build();
-   //   }
-   
-   public Product productDTOtoEntity() {
-	  return null;
+   public ProductDTO entityToProductDTO(Product product) {
+	  final ProductDTO productDTO = new ProductDTO(product);
+	  final List<Lesson> lessons = product.getLessons();
+	  final List<StudentLesson> studentLessons = lessonMapper.entitiesToStudentLessonDTOs(lessons);
+	  productDTO.setLessons(studentLessons);
+	  return productDTO;
    }
 }

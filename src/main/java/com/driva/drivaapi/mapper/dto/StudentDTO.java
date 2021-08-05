@@ -50,11 +50,11 @@ public class StudentDTO {
    
    private Long userId;
    
-   private List<ProductDTO> products;
+   private List<StudentProductDTO> products;
    
-   public StudentDTO(Student student, List<ProductDTO> productDTOs) {
+   public StudentDTO(Student student, List<StudentProductDTO> studentProductDTOS) {
 	  this.id = student.getId();
-	  this.products = productDTOs;
+	  this.products = studentProductDTOS;
 	  this.firstName = student.getFirstName();
 	  this.lastName = student.getLastName();
 	  this.email = student.getEmail();
