@@ -6,6 +6,7 @@ import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.pojo.GeneralLesson;
 import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import com.driva.drivaapi.repository.LessonRepository;
 import com.driva.drivaapi.service.LessonService;
@@ -28,10 +29,22 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
-   public LessonDTO find(Long id) {
+   public Lesson find(Long id) {
+	  return lessonRepository.findById(id).orElseThrow(
+			  () -> new LessonNotFoundException("Lesson does not exist, id: " + id));
+   }
+   
+   @Override
+   public LessonDTO findToLessonDTO(Long id) {
 	  final Lesson lesson = lessonRepository.findById(id).orElseThrow(
 			  () -> new LessonNotFoundException("Lesson does not exist, id: " + id));
 	  return lessonMapper.entityToLessonDTO(lesson);
+   }
+   
+   @Override
+   public GeneralLesson findToGeneralLesson(Long id) {
+	  final Lesson lesson = find(id);
+	  return lessonMapper.entityToGeneralLesson(lesson);
    }
    
    @Override
@@ -66,5 +79,11 @@ public class LessonServiceImpl implements LessonService {
    public List<StudentLesson> findByProductIdToStudentLesson(Long productId) {
 	  List<Lesson> lessons = lessonRepository.findByProductId_Id(productId);
 	  return lessonMapper.entitiesToStudentLessonDTOs(lessons);
+   }
+   
+   @Override
+   public List<GeneralLesson> findAllToGeneralLessons() {
+	  final List<Lesson> lessons = lessonRepository.findAll();
+	  return lessonMapper.entitiesToGeneralLessons(lessons);
    }
 }

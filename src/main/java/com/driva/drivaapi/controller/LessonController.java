@@ -4,6 +4,7 @@ import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.pojo.GeneralLesson;
 import com.driva.drivaapi.service.InstructorService;
 import com.driva.drivaapi.service.LessonService;
 import com.driva.drivaapi.service.ProductService;
@@ -34,15 +35,14 @@ public class LessonController {
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   List<LessonDTO> getAllLessons() {
-      return lessonService.findAll();
+   List<GeneralLesson> getAllLessons() {
+      return lessonService.findAllToGeneralLessons();
    }
    
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   LessonDTO getLesson(@PathVariable Long id) {
-      
-      return lessonService.find(id);
+   GeneralLesson getLesson(@PathVariable Long id) {
+      return lessonService.findToGeneralLesson(id);
    }
    
    @PostMapping
