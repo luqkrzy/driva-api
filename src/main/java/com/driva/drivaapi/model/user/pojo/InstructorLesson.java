@@ -1,6 +1,6 @@
 package com.driva.drivaapi.model.user.pojo;
 
-import com.driva.drivaapi.mapper.dto.LessonDTO;
+import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
 import com.driva.drivaapi.model.user.Student;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +20,12 @@ public class InstructorLesson {
    private String studentEmail;
    private String studentPhone;
    
-   public InstructorLesson(LessonDTO lessonDTO, Student student) {
-      this.lessonId = lessonDTO.getId();
-      this.productId = lessonDTO.getProductId();
-      this.date = lessonDTO.getDate();
-      this.timeStart = lessonDTO.getTimeStart();
-      this.timeEnd = lessonDTO.getTimeEnd();
+   public InstructorLesson(LessonStudentDTO lessonStudentDTO, Student student) {
+      this.lessonId = lessonStudentDTO.getId();
+      this.productId = lessonStudentDTO.getProductId();
+      this.date = lessonStudentDTO.getDate();
+      this.timeStart = lessonStudentDTO.getTimeStart();
+      this.timeEnd = lessonStudentDTO.getTimeEnd();
       this.studentEmail = student.getEmail();
       this.studentFullName = student.getFirstName() + ' ' + student.getLastName();
    }

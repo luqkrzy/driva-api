@@ -26,9 +26,13 @@ public class InstructorServiceImpl implements InstructorService {
    
    @Override
    public InstructorDTO find(Long id) {
-	  final Instructor instructor = instructorRepository.findById(id).orElseThrow(
+	  return instructorMapper.entityToInstructorDTO(findEntity(id));
+   }
+   
+   @Override
+   public Instructor findEntity(Long id) {
+	  return instructorRepository.findById(id).orElseThrow(
 			  () -> new InstrucorNotFoundException("Couldn't find Instructor, id: " + id));
-	  return instructorMapper.entityToInstructorDTO(instructor);
    }
    
    @Override

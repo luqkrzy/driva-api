@@ -13,7 +13,7 @@ import javax.validation.constraints.Positive;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LessonDTO {
+public class LessonInstructorDTO {
    
    @Positive(message = "product must be positive digit")
    private Long id;
@@ -39,10 +39,10 @@ public class LessonDTO {
    
    private InstructorInfo instructorInfo;
    
-   public LessonDTO(Lesson lesson) {
+   public LessonInstructorDTO(Lesson lesson) {
       this.id = lesson.getId();
       this.productId = lesson.getProductId().getId();
-      this.instructorId = lesson.getInstructorId();
+      this.instructorId = lesson.getInstructorId().getId();
       this.date = lesson.getDate();
       this.timeStart = lesson.getTimeStart();
       this.timeEnd = lesson.getTimeEnd();

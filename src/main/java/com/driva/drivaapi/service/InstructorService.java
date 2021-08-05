@@ -10,6 +10,8 @@ public interface InstructorService {
    
    InstructorDTO find(Long id);
    
+   Instructor findEntity(Long id);
+   
    Instructor save(InstructorDTO instructor);
    
    Instructor update(InstructorDTO instructor);

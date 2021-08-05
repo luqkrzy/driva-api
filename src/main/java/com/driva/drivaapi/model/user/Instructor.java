@@ -2,6 +2,7 @@ package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.mapper.dto.InstructorDTO;
+import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.work.WorkDay;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -72,6 +73,10 @@ public class Instructor {
    
    @Column(name = "user_id")
    private Long userId;
+   
+   //   @JsonManagedReference(value = "instructorLesson")
+   @OneToMany(mappedBy = "instructorId")
+   private List<Lesson> lessons;
    
    //   @JsonManagedReference(value = "instructorWorkDay")
    @OneToMany(mappedBy = "instructorId")

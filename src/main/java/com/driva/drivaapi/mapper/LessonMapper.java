@@ -1,7 +1,6 @@
 package com.driva.drivaapi.mapper;
 
-import com.driva.drivaapi.exception.InstrucorNotFoundException;
-import com.driva.drivaapi.mapper.dto.LessonDTO;
+import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
@@ -20,24 +19,32 @@ public class LessonMapper {
    
    private final InstructorRepository instructorRepository;
    
-   public LessonDTO entityToLessonDTO(Lesson lesson) {
+   //   public LessonDTO entityToLessonDTO(Lesson lesson) {
+   //
+   //	  final Instructor instructor = instructorRepository.findById(lesson.getInstructorId()).orElseThrow(
+   //			  () -> new InstrucorNotFoundException("Instructor not found, id: " + lesson.getInstructorId()));
+   //
+   //	  final InstructorInfo instructorInfo = InstructorInfo.builder()
+   //														  .fistName(instructor.getFirstName())
+   //														  .lastName(instructor.getLastName())
+   //														  .phoneNumber(Integer.toString(instructor.getPhoneNumber()))
+   //														  .email(instructor.getEmail())
+   //														  .build();
+   //	  final LessonDTO lessonDTO = new LessonDTO(lesson);
+   //
+   //	  lessonDTO.setInstructorInfo(instructorInfo);
+   //	  return lessonDTO;
+   //   }
    
-	  final Instructor instructor = instructorRepository.findById(lesson.getInstructorId()).orElseThrow(
-			  () -> new InstrucorNotFoundException("Instructor not found, id: " + lesson.getInstructorId()));
-   
-	  final InstructorInfo instructorInfo = InstructorInfo.builder()
-														  .fistName(instructor.getFirstName())
-														  .lastName(instructor.getLastName())
-														  .phoneNumber(Integer.toString(instructor.getPhoneNumber()))
-														  .email(instructor.getEmail())
-														  .build();
-	  final LessonDTO lessonDTO = new LessonDTO(lesson);
-   
-	  lessonDTO.setInstructorInfo(instructorInfo);
-	  return lessonDTO;
+   public LessonStudentDTO entityToLessonDTO(Lesson lesson) {
+	  final Instructor instructor = lesson.getInstructorId();
+	  final InstructorInfo instructorInfo = new InstructorInfo(instructor);
+	  final LessonStudentDTO lessonStudentDTO = new LessonStudentDTO(lesson);
+	  lessonStudentDTO.setInstructorInfo(instructorInfo);
+	  return lessonStudentDTO;
    }
    
-   public List<LessonDTO> entitiesToLessonDTOs(List<Lesson> lessons) {
+   public List<LessonStudentDTO> entitiesToLessonDTOs(List<Lesson> lessons) {
 	  return lessons.stream().filter(Objects::nonNull).map(this::entityToLessonDTO).collect(Collectors.toList());
    }
    
@@ -48,9 +55,10 @@ public class LessonMapper {
    //	  return lesson;
    //   }
    
-   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO, Product product) {
-	  final Lesson lesson = new Lesson(lessonDTO);
+   public Lesson lessonDTOtoEntity(LessonStudentDTO lessonStudentDTO, Product product, Instructor instructor) {
+	  final Lesson lesson = new Lesson(lessonStudentDTO);
 	  lesson.setProductId(product);
+	  lesson.setInstructorId(instructor);
 	  return lesson;
    }
    

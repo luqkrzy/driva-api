@@ -45,7 +45,7 @@ public class ProductDTO {
     
     private ProductType productType;
     
-    private List<LessonDTO> lessons;
+    private List<LessonStudentDTO> lessons;
     
     public ProductDTO(Product product) {
         this.id = product.getId();
