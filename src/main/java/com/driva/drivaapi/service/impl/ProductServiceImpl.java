@@ -27,8 +27,9 @@ public class ProductServiceImpl implements ProductService {
    private final ProductMapper productMapper;
    
    @Override
-   public List<Product> findAll() {
-	  return productRepository.findAll();
+   public List<ProductDTO> findAll() {
+	  final List<Product> products = productRepository.findAll();
+	  return productMapper.entitiesToProductDTOs(products);
    }
    
    @Override

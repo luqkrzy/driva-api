@@ -40,7 +40,7 @@ public class StudentMapper {
    
    public StudentDTO entityToStudentDTO(Student student) {
 	  List<Product> products = student.getProducts();
-	  List<StudentProductDTO> studentProductDTOS = productMapper.entitiesToProductDTOs(products);
+	  List<StudentProductDTO> studentProductDTOS = productMapper.entitiesToStudentProductDTOs(products);
 	  for (StudentProductDTO studentProductDTO : studentProductDTOS) {
 		 studentProductDTO.setLessons(lessonService.findByProductIdToStudentLesson(studentProductDTO.getId()));
 	  }

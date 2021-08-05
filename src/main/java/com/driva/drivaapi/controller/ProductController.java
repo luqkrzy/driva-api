@@ -37,7 +37,7 @@ public class ProductController {
     
     @GetMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    List<Product> getAllProducts() {
+    List<ProductDTO> getAllProducts() {
         return productService.findAll();
     }
     

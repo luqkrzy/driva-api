@@ -24,10 +24,17 @@ public class ProductMapper {
 	  return new StudentProductDTO(product);
    }
    
-   public List<StudentProductDTO> entitiesToProductDTOs(List<Product> products) {
+   public List<StudentProductDTO> entitiesToStudentProductDTOs(List<Product> products) {
 	  if (products == null) {
 		 return null;
 	  } return products.stream().filter(Objects::nonNull).map(this::entityToStudentProductDTO)
+					   .collect(Collectors.toList());
+   }
+   
+   public List<ProductDTO> entitiesToProductDTOs(List<Product> products) {
+	  if (products == null) {
+		 return null;
+	  } return products.stream().filter(Objects::nonNull).map(this::entityToProductDTO)
 					   .collect(Collectors.toList());
    }
    

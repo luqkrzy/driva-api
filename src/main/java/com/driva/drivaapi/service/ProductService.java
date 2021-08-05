@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProductService {
    
-   List<Product> findAll();
+   List<ProductDTO> findAll();
    
    Product find(Long id);
    
