@@ -38,13 +38,6 @@ public class ProductMapper {
 					   .collect(Collectors.toList());
    }
    
-   //   public List<Product> productDTOsToEntities(List<ProductDTO> productDTOs, Long studentId) {
-   //	  if (productDTOs == null) {
-   //		 return null;
-   //	  }
-   //	  return productDTOs.stream().map(pDTO -> productDTOtoEntity(studentId, pDTO)).collect(Collectors.toList());
-   //   }
-   
    public Product studentProductDTOtoEntity(StudentProductDTO studentProductDTO, Student student,
 											ProductType productType) {
 	  return Product.builder()

@@ -1,5 +1,6 @@
 package com.driva.drivaapi.model.work;
 
+import com.driva.drivaapi.mapper.dto.WorkDayDTO;
 import com.driva.drivaapi.model.user.Instructor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,8 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -27,8 +30,10 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "work_day")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "work_day",
+		uniqueConstraints = {
+				@UniqueConstraint(name = "user_username_unique", columnNames = "date")
+		})
 public class WorkDay {
    
    @Id
@@ -37,27 +42,31 @@ public class WorkDay {
    @Column(name = "id")
    private Long id;
    
-   //   @JsonManagedReference(value = "instructorWorkDay")
    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
    @JoinColumn(name = "instructor_id", referencedColumnName = "id",
-           foreignKey = @ForeignKey(name = "fk_instructor_id"), nullable = false)
+		   foreignKey = @ForeignKey(name = "fk_instructor_id"), nullable = false)
    private Instructor instructorId;
    
-   @Min(message = "min val 1", value = 1)
-   @Max(message = "max val 31", value = 31)
-   @NotNull(message = "timeEnd can't be null")
-   @Column(name = "day")
-   private Integer day;
+   @NotBlank(message = "timeEnd can't be null")
+   @Column(name = "date", nullable = false)
+   private String date;
    
-   @Min(message = "min val 1", value = 0)
-   @Max(message = "max val 31", value = 24)
+   @Min(message = "min val 0", value = 0)
+   @Max(message = "max val 24", value = 24)
    @NotNull(message = "timeStart can't be null")
-   @Column(name = "time_start")
+   @Column(name = "time_start", nullable = false)
    private Integer timeStart;
    
-   @Min(message = "min val 1", value = 0)
-   @Max(message = "max val 31", value = 24)
+   @Min(message = "min val 0", value = 0)
+   @Max(message = "max val 24", value = 24)
    @NotNull(message = "timeEnd can't be null")
-   @Column(name = "time_end")
+   @Column(name = "time_end", nullable = false)
    private Integer timeEnd;
+   
+   public WorkDay(WorkDayDTO workDayDTO) {
+	  this.id = workDayDTO.getId();
+	  this.date = workDayDTO.getDate();
+	  this.timeStart = workDayDTO.getTimeStart();
+	  this.timeEnd = workDayDTO.getTimeEnd();
+   }
 }

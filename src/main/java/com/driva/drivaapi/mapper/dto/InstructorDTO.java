@@ -48,7 +48,7 @@ public class InstructorDTO {
    
    private Long userId;
    
-   private List<WorkDay> workSchedule;
+   private List<WorkDay> workDays;
    
    private List<InstructorLesson> lessons;
    
@@ -61,6 +61,6 @@ public class InstructorDTO {
       this.createdBy = instructor.getCreatedBy();
       this.createdDate = instructor.getCreatedDate();
       this.userId = instructor.getUserId();
-      this.workSchedule = instructor.getWorkSchedule();
+      this.workDays = instructor.getWorkSchedule();
    }
 }

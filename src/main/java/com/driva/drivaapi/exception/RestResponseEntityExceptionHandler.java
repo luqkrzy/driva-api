@@ -38,7 +38,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
    @ExceptionHandler(value = UserRoleExistsException.class)
    @ResponseBody
    @ResponseStatus(HttpStatus.CONFLICT)
-   protected ExceptionMessage handleUserRoleNotFoundException(UserRoleExistsException exception) {
+   protected ExceptionMessage handleUserRoleExistException(UserRoleExistsException exception) {
       return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
    }
    
@@ -49,11 +49,18 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
    }
    
+   @ExceptionHandler(value = WorkDayNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   protected ExceptionMessage handleWorkDayNotFoundException(WorkDayNotFoundException exception) {
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
+   
    @ExceptionHandler(value = InstructorNotFoundException.class)
    @ResponseBody
    @ResponseStatus(HttpStatus.NOT_FOUND)
    protected ExceptionMessage handleInstructorFoundException(InstructorNotFoundException exception) {
-	  return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
    }
    
    @ExceptionHandler(value = ProductNotFoundException.class)
@@ -81,26 +88,27 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     protected ExceptionMessage handleUserRoleNotFoundException(AccessDeniedException exception) {
-        return new ExceptionMessage(HttpStatus.UNAUTHORIZED, exception.getMessage());
+       return new ExceptionMessage(HttpStatus.UNAUTHORIZED, exception.getMessage());
     }
-
-    @ExceptionHandler(value = UsernameNotFoundException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionMessage handleUsernameNotFoundException(final UsernameNotFoundException exception) {
-        return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
-    }
-
-
-    @NonNull
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull final MethodArgumentNotValidException ex, @NonNull final HttpHeaders headers, @NonNull final HttpStatus status, @NonNull final WebRequest request) {
-        logger.info(ex.getClass().getName());
-        final List<String> errors = new ArrayList<>();
-        final List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-    
-        fieldErrors.forEach(fieldError -> errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage()));
-        final ApiException apiException = new ApiException(errors, HttpStatus.BAD_REQUEST);
-        return handleExceptionInternal(ex, apiException, headers, HttpStatus.BAD_REQUEST, request);
-    }
-
+   
+   @ExceptionHandler(value = UsernameNotFoundException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.NOT_FOUND)
+   public ExceptionMessage handleUsernameNotFoundException(final UsernameNotFoundException exception) {
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   }
+   
+   @NonNull
+   protected ResponseEntity<Object> handleMethodArgumentNotValid(@NonNull final MethodArgumentNotValidException ex,
+                                                                 @NonNull final HttpHeaders headers,
+                                                                 @NonNull final HttpStatus status,
+                                                                 @NonNull final WebRequest request) {
+      logger.info(ex.getClass().getName());
+      final List<String> errors = new ArrayList<>();
+      final List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+      
+      fieldErrors.forEach(fieldError -> errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage()));
+      final ApiException apiException = new ApiException(errors, HttpStatus.BAD_REQUEST);
+      return handleExceptionInternal(ex, apiException, headers, HttpStatus.BAD_REQUEST, request);
+   }
 }
