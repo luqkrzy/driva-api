@@ -41,7 +41,7 @@ public class LessonDTO {
    
    public LessonDTO(Lesson lesson) {
       this.id = lesson.getId();
-      this.productId = lesson.getId();
+      this.productId = lesson.getProductId().getId();
       this.instructorId = lesson.getInstructorId();
       this.date = lesson.getDate();
       this.timeStart = lesson.getTimeStart();

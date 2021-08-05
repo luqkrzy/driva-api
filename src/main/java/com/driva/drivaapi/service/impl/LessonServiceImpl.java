@@ -41,7 +41,8 @@ public class LessonServiceImpl implements LessonService {
    @Override
    public LessonDTO save(LessonDTO lessonDTO, Product product) {
 	  final Lesson lesson = lessonMapper.lessonDTOtoEntity(lessonDTO, product);
-	  return lessonMapper.entityToLessonDTO(lesson);
+	  final Lesson savedLesson = lessonRepository.save(lesson);
+	  return lessonMapper.entityToLessonDTO(savedLesson);
    }
    
    //   @Override
