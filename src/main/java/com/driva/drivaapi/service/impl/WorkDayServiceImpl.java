@@ -1,5 +1,6 @@
 package com.driva.drivaapi.service.impl;
 
+import com.driva.drivaapi.exception.DateAlreadyExistException;
 import com.driva.drivaapi.exception.WorkDayNotFoundException;
 import com.driva.drivaapi.mapper.WorkDayMapper;
 import com.driva.drivaapi.mapper.dto.WorkDayDTO;
@@ -52,6 +53,9 @@ public class WorkDayServiceImpl implements WorkDayService {
    @Override
    public WorkDayDTO save(WorkDayDTO workday) {
 	  final WorkDay workDayDTO = workDayMapper.workDayDTOtoEntity(workday);
+	  if (workDayRepository.findByDate(workday.getDate()) != null) {
+		 throw new DateAlreadyExistException("Day already saved");
+	  }
 	  final WorkDay workDay = workDayRepository.save(workDayDTO);
 	  return workDayMapper.entityToWorkDayDTO(workDay);
    }

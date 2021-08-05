@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Table(name = "work_day",
 		uniqueConstraints = {
-				@UniqueConstraint(name = "user_username_unique", columnNames = "date")
+				@UniqueConstraint(name = "work_day_unique", columnNames = "date")
 		})
 public class WorkDay {
    
@@ -68,5 +68,9 @@ public class WorkDay {
 	  this.date = workDayDTO.getDate();
 	  this.timeStart = workDayDTO.getTimeStart();
 	  this.timeEnd = workDayDTO.getTimeEnd();
+   }
+   
+   public WorkDayDTO toDTO() {
+	  return new WorkDayDTO(this);
    }
 }

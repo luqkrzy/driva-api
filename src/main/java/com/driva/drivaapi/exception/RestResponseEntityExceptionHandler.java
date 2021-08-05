@@ -25,14 +25,21 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
    @ResponseBody
    @ResponseStatus(HttpStatus.NOT_FOUND)
    protected ExceptionMessage handleUserRoleNotFoundException(UserRoleNotFoundException exception) {
-	  return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
    }
    
    @ExceptionHandler(value = StudentAlreadyExistException.class)
    @ResponseBody
    @ResponseStatus(HttpStatus.CONFLICT)
    protected ExceptionMessage handleStudentAlreadyExistException(StudentAlreadyExistException exception) {
-	  return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+      return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = DateAlreadyExistException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.CONFLICT)
+   protected ExceptionMessage handleDateAlreadyExistException(DateAlreadyExistException exception) {
+      return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
    }
    
    @ExceptionHandler(value = UserRoleExistsException.class)
