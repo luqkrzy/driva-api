@@ -1,24 +1,27 @@
 package com.driva.drivaapi.service;
 
-import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.pojo.StudentLesson;
 
 import java.util.List;
 
 public interface LessonService {
-   List<LessonStudentDTO> findAll();
+   List<LessonDTO> findAll();
    
-   LessonStudentDTO find(Long id);
+   LessonDTO find(Long id);
    
-   List<LessonStudentDTO> findLessonsByInstructorId(Long id);
+   List<LessonDTO> findLessonsByInstructorId(Long id);
    
-   LessonStudentDTO save(LessonStudentDTO lesson, Product product, Instructor instructor);
+   LessonDTO save(LessonDTO lesson, Product product, Instructor instructor);
    
    Lesson update(Lesson lesson);
    
    void delete(Long id);
    
-   List<LessonStudentDTO> findByProductId(Long productId);
+   List<LessonDTO> findByProductId(Long productId);
+   
+   List<StudentLesson> findByProductIdToStudentLesson(Long productId);
 }

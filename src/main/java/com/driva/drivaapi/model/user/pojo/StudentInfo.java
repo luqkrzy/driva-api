@@ -9,6 +9,7 @@ import lombok.Setter;
 @Builder
 public class StudentInfo {
    
+   private Long id;
    private String fistName;
    private String lastName;
    private String email;

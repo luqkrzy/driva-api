@@ -2,10 +2,11 @@ package com.driva.drivaapi.service.impl;
 
 import com.driva.drivaapi.exception.LessonNotFoundException;
 import com.driva.drivaapi.mapper.LessonMapper;
-import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
+import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import com.driva.drivaapi.repository.LessonRepository;
 import com.driva.drivaapi.service.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -21,33 +22,30 @@ public class LessonServiceImpl implements LessonService {
    private final LessonMapper lessonMapper;
    
    @Override
-   public List<LessonStudentDTO> findAll() {
+   public List<LessonDTO> findAll() {
 	  final List<Lesson> lessons = lessonRepository.findAll();
 	  return lessonMapper.entitiesToLessonDTOs(lessons);
    }
    
    @Override
-   public LessonStudentDTO find(Long id) {
+   public LessonDTO find(Long id) {
 	  final Lesson lesson = lessonRepository.findById(id).orElseThrow(
 			  () -> new LessonNotFoundException("Lesson does not exist, id: " + id));
 	  return lessonMapper.entityToLessonDTO(lesson);
    }
    
    @Override
-   public List<LessonStudentDTO> findLessonsByInstructorId(Long id) {
+   public List<LessonDTO> findLessonsByInstructorId(Long id) {
 	  final List<Lesson> lessons = lessonRepository.findByInstructorId_Id(id);
 	  return lessonMapper.entitiesToLessonDTOs(lessons);
    }
    
    @Override
-   public LessonStudentDTO save(LessonStudentDTO lessonStudentDTO, Product product, Instructor instructor) {
-	  
-	  final Lesson lesson = lessonMapper.lessonDTOtoEntity(lessonStudentDTO, product, instructor);
+   public LessonDTO save(LessonDTO lessonDTO, Product product, Instructor instructor) {
+	  final Lesson lesson = lessonMapper.lessonDTOtoEntity(lessonDTO, product, instructor);
 	  final Lesson savedLesson = lessonRepository.save(lesson);
-	  
 	  return lessonMapper.entityToLessonDTO(savedLesson);
    }
-   
    
    @Override
    public Lesson update(Lesson lesson) {
@@ -60,8 +58,13 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
-   public List<LessonStudentDTO> findByProductId(Long productId) {
+   public List<LessonDTO> findByProductId(Long productId) {
 	  List<Lesson> lessons = lessonRepository.findByProductId_Id(productId);
 	  return lessonMapper.entitiesToLessonDTOs(lessons);
+   }
+   
+   public List<StudentLesson> findByProductIdToStudentLesson(Long productId) {
+	  List<Lesson> lessons = lessonRepository.findByProductId_Id(productId);
+	  return lessonMapper.entitiesToStudentLessonDTOs(lessons);
    }
 }

@@ -1,7 +1,7 @@
 package com.driva.drivaapi.mapper;
 
 import com.driva.drivaapi.mapper.dto.InstructorDTO;
-import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.user.Instructor;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.model.user.pojo.InstructorLesson;
@@ -25,9 +25,9 @@ public class InstructorMapper {
    
    public InstructorDTO entityToInstructorDTO(Instructor instructor) {
 	  final InstructorDTO instructorDTO = new InstructorDTO(instructor);
-	  final List<LessonStudentDTO> lessonStudentDTOS = lessonService.findLessonsByInstructorId(instructor.getId());
+	  final List<LessonDTO> lessonDTOS = lessonService.findLessonsByInstructorId(instructor.getId());
    
-	  final List<InstructorLesson> instructorLessons = lessonStudentDTOS.stream().map(
+	  final List<InstructorLesson> instructorLessons = lessonDTOS.stream().map(
 			  lessonDTO -> {
 				 final Student student = studentService.find(lessonDTO.getStudentId());
 				 return new InstructorLesson(lessonDTO, student);

@@ -2,7 +2,6 @@ package com.driva.drivaapi.model.product;
 
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.user.Student;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -54,12 +53,7 @@ public class Product {
    //            foreignKey = @ForeignKey(name = "fk_product_type_id"), nullable = false)
    //    private ProductType productTypeId;
    
-   @JsonBackReference(value = "studentProducts")
-   @NotNull(message = "student id can't be null")
-   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, optional = false)
-   @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id",
-           foreignKey = @ForeignKey(name = "fk_student_id"))
-   private Student studentId;
+//   @JsonBackReference(value = "studentProducts")
    
    @Positive(message = "hours should be a positive digit")
    @NotNull(message = "hours left  can't null")
@@ -91,6 +85,12 @@ public class Product {
    //           joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")},
    //           inverseJoinColumns = {@JoinColumn(name = "product_type_id", referencedColumnName = "id")})
    //   private ProductType productType;
+   
+   @NotNull(message = "student id can't be null")
+   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, optional = false)
+   @JoinColumn(name = "student_id", nullable = false, referencedColumnName = "id",
+           foreignKey = @ForeignKey(name = "fk_student_id"))
+   private Student studentId;
    
    @JsonManagedReference(value = "productLessons")
    @OneToMany(mappedBy = "productId")

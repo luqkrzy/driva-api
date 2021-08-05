@@ -49,11 +49,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
    }
    
-   @ExceptionHandler(value = InstrucorNotFoundException.class)
+   @ExceptionHandler(value = InstructorNotFoundException.class)
    @ResponseBody
    @ResponseStatus(HttpStatus.NOT_FOUND)
-   protected ExceptionMessage handleInstructorFoundException(InstrucorNotFoundException exception) {
-      return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+   protected ExceptionMessage handleInstructorFoundException(InstructorNotFoundException exception) {
+	  return new ExceptionMessage(HttpStatus.NOT_FOUND, exception.getMessage());
    }
    
    @ExceptionHandler(value = ProductNotFoundException.class)

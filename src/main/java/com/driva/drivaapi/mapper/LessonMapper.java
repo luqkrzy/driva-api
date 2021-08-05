@@ -1,10 +1,11 @@
 package com.driva.drivaapi.mapper;
 
-import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
 import com.driva.drivaapi.model.user.pojo.InstructorInfo;
+import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import com.driva.drivaapi.repository.InstructorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -36,16 +37,17 @@ public class LessonMapper {
    //	  return lessonDTO;
    //   }
    
-   public LessonStudentDTO entityToLessonDTO(Lesson lesson) {
+   public LessonDTO entityToLessonDTO(Lesson lesson) {
 	  final Instructor instructor = lesson.getInstructorId();
 	  final InstructorInfo instructorInfo = new InstructorInfo(instructor);
-	  final LessonStudentDTO lessonStudentDTO = new LessonStudentDTO(lesson);
-	  lessonStudentDTO.setInstructorInfo(instructorInfo);
-	  return lessonStudentDTO;
+	  final LessonDTO lessonDTO = new LessonDTO(lesson);
+	  lessonDTO.setInstructorInfo(instructorInfo);
+	  return lessonDTO;
    }
    
-   public List<LessonStudentDTO> entitiesToLessonDTOs(List<Lesson> lessons) {
-	  return lessons.stream().filter(Objects::nonNull).map(this::entityToLessonDTO).collect(Collectors.toList());
+   public List<LessonDTO> entitiesToLessonDTOs(List<Lesson> lessons) {
+	  return lessons.stream().filter(Objects::nonNull).map(this::entityToLessonDTO)
+					.collect(Collectors.toList());
    }
    
    //   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO) {
@@ -55,11 +57,21 @@ public class LessonMapper {
    //	  return lesson;
    //   }
    
-   public Lesson lessonDTOtoEntity(LessonStudentDTO lessonStudentDTO, Product product, Instructor instructor) {
-	  final Lesson lesson = new Lesson(lessonStudentDTO);
+   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO, Product product, Instructor instructor) {
+	  final Lesson lesson = new Lesson(lessonDTO);
 	  lesson.setProductId(product);
 	  lesson.setInstructorId(instructor);
 	  return lesson;
+   }
+   
+   public List<StudentLesson> entitiesToStudentLessonDTOs(List<Lesson> lessons) {
+	  return lessons.stream().filter(Objects::nonNull).map(this::entityToStudentLessonDTO)
+					.collect(Collectors.toList());
+   }
+   
+   public StudentLesson entityToStudentLessonDTO(Lesson lesson) {
+	  final Instructor instructor = lesson.getInstructorId();
+	  return new StudentLesson(lesson, instructor);
    }
    
    //   public Lesson updateLesson(LessonDTO lessonDTO, User lesson) {

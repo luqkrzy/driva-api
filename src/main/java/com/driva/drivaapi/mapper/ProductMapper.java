@@ -57,4 +57,8 @@ public class ProductMapper {
    //					.bookOnline(productDTO.getBookOnline()).isPaid(productDTO.getIsPaid()).price(productDTO.getPrice())
    //					.build();
    //   }
+   
+   public Product productDTOtoEntity() {
+	  return null;
+   }
 }

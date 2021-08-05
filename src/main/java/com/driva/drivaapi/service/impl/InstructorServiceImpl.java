@@ -1,6 +1,6 @@
 package com.driva.drivaapi.service.impl;
 
-import com.driva.drivaapi.exception.InstrucorNotFoundException;
+import com.driva.drivaapi.exception.InstructorNotFoundException;
 import com.driva.drivaapi.mapper.InstructorMapper;
 import com.driva.drivaapi.mapper.dto.InstructorDTO;
 import com.driva.drivaapi.model.user.Instructor;
@@ -32,7 +32,7 @@ public class InstructorServiceImpl implements InstructorService {
    @Override
    public Instructor findEntity(Long id) {
 	  return instructorRepository.findById(id).orElseThrow(
-			  () -> new InstrucorNotFoundException("Couldn't find Instructor, id: " + id));
+			  () -> new InstructorNotFoundException("Couldn't find Instructor, id: " + id));
    }
    
    @Override
@@ -50,7 +50,7 @@ public class InstructorServiceImpl implements InstructorService {
 	  if (instructorRepository.existsById(id)) {
 		 instructorRepository.deleteById(id);
 	  } else {
-		 throw new InstrucorNotFoundException("Couldn't find Instructor, id: " + id);
+		 throw new InstructorNotFoundException("Couldn't find Instructor, id: " + id);
 	  }
    }
 }

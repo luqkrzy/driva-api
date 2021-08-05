@@ -3,7 +3,6 @@ package com.driva.drivaapi.model.user;
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,9 +33,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "student")
 @Builder
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Student {
 
     @Id
@@ -77,7 +74,7 @@ public class Student {
     @Column(name = "user_id")
     private Long userId;
     
-    @JsonManagedReference(value = "studentProducts")
+    //    @JsonManagedReference(value = "studentProducts")
     @OneToMany(mappedBy = "studentId")
     private List<Product> products;
     

@@ -1,6 +1,6 @@
 package com.driva.drivaapi.controller;
 
-import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
@@ -34,13 +34,13 @@ public class LessonController {
    
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   List<LessonStudentDTO> getAllLessons() {
+   List<LessonDTO> getAllLessons() {
       return lessonService.findAll();
    }
    
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   LessonStudentDTO getLesson(@PathVariable Long id) {
+   LessonDTO getLesson(@PathVariable Long id) {
       
       return lessonService.find(id);
    }
@@ -48,10 +48,10 @@ public class LessonController {
    @PostMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
-   LessonStudentDTO createLesson(@RequestBody @Valid LessonStudentDTO lessonStudentDTO) {
-      final Product product = productService.find(lessonStudentDTO.getProductId());
-      final Instructor instructor = instructorService.findEntity(lessonStudentDTO.getInstructorId());
-      return lessonService.save(lessonStudentDTO, product, instructor);
+   LessonDTO createLesson(@RequestBody @Valid LessonDTO lessonDTO) {
+      final Product product = productService.find(lessonDTO.getProductId());
+      final Instructor instructor = instructorService.findEntity(lessonDTO.getInstructorId());
+      return lessonService.save(lessonDTO, product, instructor);
    }
    
    @PutMapping

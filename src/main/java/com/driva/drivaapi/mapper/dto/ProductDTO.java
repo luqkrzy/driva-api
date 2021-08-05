@@ -2,6 +2,7 @@ package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.product.ProductType;
+import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +46,7 @@ public class ProductDTO {
     
     private ProductType productType;
     
-    private List<LessonStudentDTO> lessons;
+    private List<StudentLesson> lessons;
     
     public ProductDTO(Product product) {
         this.id = product.getId();

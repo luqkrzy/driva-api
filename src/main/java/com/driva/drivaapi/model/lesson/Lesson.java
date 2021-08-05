@@ -1,9 +1,11 @@
 package com.driva.drivaapi.model.lesson;
 
-import com.driva.drivaapi.mapper.dto.LessonStudentDTO;
+import com.driva.drivaapi.mapper.dto.LessonDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +28,7 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @Table(name = "lesson")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Lesson {
    
    @Id
@@ -65,11 +67,11 @@ public class Lesson {
    @Column(name = "time_end")
    private String timeEnd;
    
-   public Lesson(LessonStudentDTO lessonStudentDTO) {
-	  this.id = lessonStudentDTO.getId();
+   public Lesson(LessonDTO lessonDTO) {
+	  this.id = lessonDTO.getId();
 	  //	  this.instructorId = lessonDTO.getInstructorId();
-	  this.date = lessonStudentDTO.getDate();
-	  this.timeStart = lessonStudentDTO.getTimeStart();
-	  this.timeEnd = lessonStudentDTO.getTimeEnd();
+	  this.date = lessonDTO.getDate();
+	  this.timeStart = lessonDTO.getTimeStart();
+	  this.timeEnd = lessonDTO.getTimeEnd();
    }
 }

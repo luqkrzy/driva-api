@@ -2,12 +2,10 @@ package com.driva.drivaapi.model.user.pojo;
 
 import com.driva.drivaapi.model.user.Instructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class InstructorInfo {
    
    private Long id;
