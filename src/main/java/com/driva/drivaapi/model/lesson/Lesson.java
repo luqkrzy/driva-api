@@ -32,9 +32,9 @@ import javax.persistence.Table;
 public class Lesson {
    
    @Id
-   @SequenceGenerator(name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_id_sq")
-   @Column(name = "id")
+   @SequenceGenerator(name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
+   @Column(name = "id", updatable = false)
    private Long id;
    
    @JsonBackReference(value = "productLessons")

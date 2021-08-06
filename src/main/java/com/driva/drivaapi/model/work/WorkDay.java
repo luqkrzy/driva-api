@@ -37,9 +37,9 @@ import javax.validation.constraints.NotNull;
 public class WorkDay {
    
    @Id
-   @SequenceGenerator(name = "work_id_sq", sequenceName = "work_id_sq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_id_sq")
-   @Column(name = "id")
+   @SequenceGenerator(name = "work_id_sq", sequenceName = "work_id_sq", allocationSize = 1)
+   @Column(name = "id", updatable = false)
    private Long id;
    
    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

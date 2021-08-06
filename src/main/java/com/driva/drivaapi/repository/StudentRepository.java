@@ -5,8 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.TypedQuery;
-import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -18,5 +17,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
    Student findNameEmailAndPhone(Long id);
    
    @Query("select s,p, l from Student s, Product p, Lesson l where s.id =:id")
-   TypedQuery<Collection<?>> mixQuery(Long id);
+   List<Object[]> mixQuery(Long id);
 }

@@ -37,8 +37,9 @@ import java.util.List;
 public class Instructor {
    
    @Id
-   @SequenceGenerator(name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instructor_id_sq")
+   @SequenceGenerator(name = "instructor_id_sq", sequenceName = "instructor_id_sq", allocationSize = 1)
+   @Column(name = "id", updatable = false)
    private Long id;
    
    @NotBlank(message = "first name can't be blank")

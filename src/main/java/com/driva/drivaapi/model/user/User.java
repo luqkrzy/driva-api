@@ -2,7 +2,6 @@ package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.constant.ValidationRegexConstant;
 import com.driva.drivaapi.mapper.dto.UserDTO;
-import com.driva.drivaapi.model.work.WorkDay;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -31,9 +29,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,9 +45,9 @@ import java.util.Set;
 public class User {
    
    @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_id_sq")
    @SequenceGenerator(name = "user_id_sq", sequenceName = "user_id_sq", allocationSize = 1)
-   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sq")
-   @Column(name = "id")
+   @Column(name = "id", updatable = false)
    private Long id;
    
    @NotBlank(message = "first name can't be blank")
@@ -93,7 +89,6 @@ public class User {
    @Column(name = "password", length = 120)
    private String password;
    
-
    @ManyToMany(fetch = FetchType.LAZY)
    @JoinTable(name = "user_roles_list",
 		   joinColumns = @JoinColumn(name = "user_id"),
@@ -101,28 +96,6 @@ public class User {
 		   foreignKey = @ForeignKey(name = "fk_user_id"),
 		   inverseForeignKey = @ForeignKey(name = "fk_role_id"))
    private Set<Role> roles = new HashSet<>();
-   
-   // @OneToMany(mappedBy = "userId")
-   // private Set<Instructor> instructors;
-   //
-   // @OneToMany(mappedBy = "userId")
-   // private Set<Moderator> moderators;
-   //
-   // @OneToMany(mappedBy = "userId")
-   // private Set<Admin> admins;
-   
-   // @OneToOne
-   // @MapsId
-   // @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_user_id"))
-   // private Student student;
-   
-   //       @OneToMany(mappedBy = "instructorId")
-   //       private List<Lesson> lessons = new ArrayList<>();
-   //      @OneToOne(mappedBy = "instructorId")
-   //      private Lesson lesson;
-   
-   @OneToMany(mappedBy = "instructorId")
-   private List<WorkDay> workSchedules = new ArrayList<>();
    
    public User(UserDTO userDTO) {
 	  this.id = userDTO.getId();

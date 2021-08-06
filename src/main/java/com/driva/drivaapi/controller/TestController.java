@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -79,8 +78,8 @@ public class TestController {
 	  System.out.println(datetest);
    }
    
-   @GetMapping("/{id}")
-   TypedQuery<Collection<?>> mixQuery(@PathVariable Long id) {
+   @GetMapping("/custem/{id}")
+   List<Object[]> mixQuery(@PathVariable Long id) {
 	  return studentRepository.mixQuery(id);
    }
 }
