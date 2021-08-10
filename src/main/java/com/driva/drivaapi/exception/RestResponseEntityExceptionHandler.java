@@ -1,5 +1,6 @@
 package com.driva.drivaapi.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,20 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
    @ResponseBody
    @ResponseStatus(HttpStatus.CONFLICT)
    protected ExceptionMessage handleUserRoleExistException(UserRoleExistsException exception) {
+      return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = ConstraintViolationException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.BAD_REQUEST)
+   protected ExceptionMessage handleConstraintViolationException(ConstraintViolationException exception) {
+      return new ExceptionMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+   }
+   
+   @ExceptionHandler(value = DataIntegrityViolationException.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.CONFLICT)
+   protected ExceptionMessage handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
       return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
    }
    
