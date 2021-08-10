@@ -6,8 +6,6 @@ import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
 import com.driva.drivaapi.model.user.Student;
 import com.driva.drivaapi.model.user.pojo.GeneralLesson;
-import com.driva.drivaapi.model.user.pojo.InstructorInfo;
-import com.driva.drivaapi.model.user.pojo.StudentInfo;
 import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,30 +18,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LessonMapper {
    
-   //   public LessonDTO entityToLessonDTO(Lesson lesson) {
-   //
-   //	  final Instructor instructor = instructorRepository.findById(lesson.getInstructorId()).orElseThrow(
-   //			  () -> new InstrucorNotFoundException("Instructor not found, id: " + lesson.getInstructorId()));
-   //
-   //	  final InstructorInfo instructorInfo = InstructorInfo.builder()
-   //														  .fistName(instructor.getFirstName())
-   //														  .lastName(instructor.getLastName())
-   //														  .phoneNumber(Integer.toString(instructor.getPhoneNumber()))
-   //														  .email(instructor.getEmail())
-   //														  .build();
-   //	  final LessonDTO lessonDTO = new LessonDTO(lesson);
-   //
-   //	  lessonDTO.setInstructorInfo(instructorInfo);
-   //	  return lessonDTO;
-   //   }
-   
    public LessonDTO entityToLessonDTO(Lesson lesson) {
 	  final Instructor instructor = lesson.getInstructorId();
    
 	  final LessonDTO lessonDTO = new LessonDTO(lesson);
 	  if (instructor != null) {
-		 final InstructorInfo instructorInfo = new InstructorInfo(instructor);
-		 lessonDTO.setInstructorInfo(instructorInfo);
+		 lessonDTO.setInstructor(instructor);
 	  }
 	  return lessonDTO;
    }
@@ -52,13 +32,6 @@ public class LessonMapper {
 	  return lessons.stream().filter(Objects::nonNull).map(this::entityToLessonDTO)
 					.collect(Collectors.toList());
    }
-   
-   //   public Lesson lessonDTOtoEntity(LessonDTO lessonDTO) {
-   //	  final Product product = productService.find(lessonDTO.getProductId());
-   //	  final Lesson lesson = new Lesson(lessonDTO);
-   //	  lesson.setProductId(product);
-   //	  return lesson;
-   //   }
    
    public Lesson lessonDTOtoEntity(LessonDTO lessonDTO, Product product, Instructor instructor) {
 	  final Lesson lesson = new Lesson(lessonDTO);
@@ -80,11 +53,13 @@ public class LessonMapper {
    public GeneralLesson entityToGeneralLesson(Lesson lesson) {
 	  final Student student = lesson.getProductId().getStudentId();
 	  final Instructor instructor = lesson.getInstructorId();
-	  final StudentInfo studentInfo = new StudentInfo(student);
-	  final GeneralLesson generalLesson = new GeneralLesson(lesson, studentInfo);
+	  final GeneralLesson generalLesson = new GeneralLesson(lesson);
+	  if (student != null) {
+		 generalLesson.setStudent(student);
+	  }
+   
 	  if (instructor != null) {
-		 final InstructorInfo instructorInfo = new InstructorInfo(instructor);
-		 generalLesson.setInstructorInfo(instructorInfo);
+		 generalLesson.setInstructor(instructor);
 	  }
 	  return generalLesson;
    }
@@ -93,12 +68,4 @@ public class LessonMapper {
 	  return lessons.stream().filter(Objects::nonNull).map(this::entityToGeneralLesson)
 					.collect(Collectors.toList());
    }
-   
-   //   public Lesson updateLesson(LessonDTO lessonDTO, User lesson) {
-   //	  return lesson.updateUser(lessonDTO);
-   //   }
-   
-   //   public LessonMapper(ProductService productService) {
-   //	  this.productService = productService;
-   //   }
 }

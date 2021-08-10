@@ -31,4 +31,6 @@ public interface LessonService {
    List<StudentLesson> findByProductIdToStudentLesson(Long productId);
    
    List<GeneralLesson> findAllToGeneralLessons();
+   
+   List<GeneralLesson> findAllLessonsByProductId(Long id);
 }

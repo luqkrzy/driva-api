@@ -39,6 +39,12 @@ public class LessonController {
       return lessonService.findAllToGeneralLessons();
    }
    
+   @GetMapping("/product/{id}")
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   List<GeneralLesson> getLessonsByProductId(@PathVariable Long id) {
+      return lessonService.findAllLessonsByProductId(id);
+   }
+   
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    GeneralLesson getLesson(@PathVariable Long id) {

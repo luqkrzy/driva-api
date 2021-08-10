@@ -36,9 +36,7 @@ public class LessonServiceImpl implements LessonService {
    
    @Override
    public LessonDTO findToLessonDTO(Long id) {
-	  final Lesson lesson = lessonRepository.findById(id).orElseThrow(
-			  () -> new LessonNotFoundException("Lesson does not exist, id: " + id));
-	  return lessonMapper.entityToLessonDTO(lesson);
+	  return lessonMapper.entityToLessonDTO(find(id));
    }
    
    @Override
@@ -84,6 +82,12 @@ public class LessonServiceImpl implements LessonService {
    @Override
    public List<GeneralLesson> findAllToGeneralLessons() {
 	  final List<Lesson> lessons = lessonRepository.findAll();
+	  return lessonMapper.entitiesToGeneralLessons(lessons);
+   }
+   
+   @Override
+   public List<GeneralLesson> findAllLessonsByProductId(Long id) {
+	  final List<Lesson> lessons = lessonRepository.findAllByProductId_Id(id);
 	  return lessonMapper.entitiesToGeneralLessons(lessons);
    }
 }

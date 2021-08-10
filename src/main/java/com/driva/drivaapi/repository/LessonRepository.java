@@ -12,4 +12,6 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
    List<Lesson> findByProductId_Id(Long productId);
    
    List<Lesson> findByInstructorId_Id(Long instructorID);
+   
+   List<Lesson> findAllByProductId_Id(Long productId);
 }
