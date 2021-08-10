@@ -30,7 +30,7 @@ public class Moderator {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moderator_id_sq")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "moderator_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
     private User userId;

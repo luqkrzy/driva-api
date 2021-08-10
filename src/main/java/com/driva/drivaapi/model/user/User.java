@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -95,6 +97,7 @@ public class User {
 		   inverseJoinColumns = @JoinColumn(name = "role_id"),
 		   foreignKey = @ForeignKey(name = "fk_user_id"),
 		   inverseForeignKey = @ForeignKey(name = "fk_role_id"))
+   @NotFound(action = NotFoundAction.IGNORE)
    private Set<Role> roles = new HashSet<>();
    
    public User(UserDTO userDTO) {

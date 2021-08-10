@@ -45,7 +45,7 @@ public class StudentMapper {
 		 studentProductDTO.setLessons(lessonService.findByProductIdToStudentLesson(studentProductDTO.getId()));
 	  }
    
-	  StudentDTO studentDTO = new StudentDTO(student, studentProductDTOS);
+	  StudentDTO studentDTO = new StudentDTO(student);
 	  studentDTO.setProducts(studentProductDTOS);
 	  return studentDTO;
    }

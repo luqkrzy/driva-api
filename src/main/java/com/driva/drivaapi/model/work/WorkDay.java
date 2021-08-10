@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,9 +44,10 @@ public class WorkDay {
    @Column(name = "id", updatable = false)
    private Long id;
    
-   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+   @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
    @JoinColumn(name = "instructor_id", referencedColumnName = "id",
 		   foreignKey = @ForeignKey(name = "fk_instructor_id"), nullable = false)
+   @NotFound(action = NotFoundAction.IGNORE)
    private Instructor instructorId;
    
    @NotBlank(message = "timeEnd can't be null")

@@ -20,13 +20,12 @@ public class GeneralLesson {
    private StudentInfo studentInfo;
    private InstructorInfo instructorInfo;
    
-   public GeneralLesson(Lesson lesson, StudentInfo studentInfo, InstructorInfo instructorInfo) {
+   public GeneralLesson(Lesson lesson, StudentInfo studentInfo) {
       this.lessonId = lesson.getId();
       this.productId = lesson.getProductId().getId();
       this.date = lesson.getDate();
       this.timeStart = lesson.getTimeStart();
       this.hoursCount = lesson.getHoursCount();
       this.studentInfo = studentInfo;
-      this.instructorInfo = instructorInfo;
    }
 }

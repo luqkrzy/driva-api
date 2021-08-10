@@ -2,14 +2,10 @@ package com.driva.drivaapi.service.impl;
 
 import com.driva.drivaapi.exception.StudentAlreadyExistException;
 import com.driva.drivaapi.exception.StudentNotFoundException;
-import com.driva.drivaapi.mapper.ProductMapper;
 import com.driva.drivaapi.mapper.StudentMapper;
 import com.driva.drivaapi.mapper.dto.StudentDTO;
-import com.driva.drivaapi.mapper.dto.StudentProductDTO;
 import com.driva.drivaapi.model.user.Student;
-import com.driva.drivaapi.repository.ProductRepository;
 import com.driva.drivaapi.repository.StudentRepository;
-import com.driva.drivaapi.service.ProductService;
 import com.driva.drivaapi.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,10 +19,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
    
    private final StudentRepository studentRepository;
-   private final ProductRepository productRepository;
-   private final ProductService productService;
    private final StudentMapper studentMapper;
-   private final ProductMapper productMapper;
    
    @Override
    public Student save(StudentDTO studentDTO) {
@@ -35,14 +28,7 @@ public class StudentServiceImpl implements StudentService {
 				 String.format("Student with email: %s already exist", studentDTO.getEmail()));
 	  }
    
-	  Student student = studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
-	  List<StudentProductDTO> studentProductDTOS = studentDTO.getProducts();
-	  //	  if (productDTOS != null) {
-	  //		 List<Product> products = productMapper.productDTOsToEntities(productDTOS, student.getId());
-	  //		 productRepository.saveAll(products);
-	  //		 student.setProducts(products);
-	  //	  }
-	  return student;
+	  return studentRepository.save(studentMapper.studentDTOtoEntity(studentDTO));
    }
    
    @Override

@@ -30,8 +30,8 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_id_sq")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "fk_user_id"), nullable = false)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", referencedColumnName = "id",
+			foreignKey = @ForeignKey(name = "fk_user_id"), nullable = false)
     private User userId;
 }

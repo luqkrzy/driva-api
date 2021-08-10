@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,9 +34,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "instructor")
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
 public class Instructor {
    
    @Id
@@ -75,12 +75,12 @@ public class Instructor {
    @Column(name = "user_id")
    private Long userId;
    
-   //   @JsonManagedReference(value = "instructorLesson")
-   @OneToMany(mappedBy = "instructorId")
+   @OneToMany(mappedBy = "instructorId", cascade = CascadeType.DETACH)
+   @NotFound(action = NotFoundAction.IGNORE)
    private List<Lesson> lessons;
    
-   //   @JsonManagedReference(value = "instructorWorkDay")
-   @OneToMany(mappedBy = "instructorId")
+   @OneToMany(mappedBy = "instructorId", cascade = CascadeType.DETACH)
+   @NotFound(action = NotFoundAction.IGNORE)
    private List<WorkDay> workSchedule;
    
    public Instructor(InstructorDTO instructorDTO) {

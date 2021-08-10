@@ -3,6 +3,8 @@ package com.driva.drivaapi.model.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +39,7 @@ public class Role {
    private UserRole name;
    
    @ManyToMany(mappedBy = "roles")
+   @NotFound(action = NotFoundAction.IGNORE)
    private Set<User> user = new HashSet<>();
    
    public Role(UserRole name) {

@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
@@ -40,25 +42,17 @@ public class Lesson {
    private Long id;
    
    @JsonBackReference(value = "productLessons")
-   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+   @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
    @JoinColumn(name = "product_id", referencedColumnName = "id",
 		   foreignKey = @ForeignKey(name = "fk_product_id"), nullable = false)
+   @NotFound(action = NotFoundAction.IGNORE)
    private Product productId;
    
-   //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
-   //    @JoinColumn(name = "instructor_id", nullable = false, referencedColumnName = "id",
-   //            foreignKey = @ForeignKey(name = "fk_instructor_id"))
-   //       private User instructorId;
-   
-   //   @JsonBackReference(value = "instructorLesson")
-   @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+   @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
    @JoinColumn(name = "instructor_id", referencedColumnName = "id",
-           foreignKey = @ForeignKey(name = "fangular send date to apik_instructor_id"))
+		   foreignKey = @ForeignKey(name = "fangular send date to apik_instructor_id"))
+   @NotFound(action = NotFoundAction.IGNORE)
    private Instructor instructorId;
-   
-   //   @NotNull(message = "instructor id can't be null")
-   //   @Column(name = "instructor_id")
-   //   private Long instructorId;
    
    @Column(name = "date")
    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -71,9 +65,9 @@ public class Lesson {
    private Integer hoursCount;
    
    public Lesson(LessonDTO lessonDTO) {
-      this.id = lessonDTO.getId();
-      this.date = lessonDTO.getDate();
-      this.hoursCount = lessonDTO.getHoursCount();
-      this.timeStart = lessonDTO.getTimeStart();
+	  this.id = lessonDTO.getId();
+	  this.date = lessonDTO.getDate();
+	  this.hoursCount = lessonDTO.getHoursCount();
+	  this.timeStart = lessonDTO.getTimeStart();
    }
 }

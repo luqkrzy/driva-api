@@ -75,7 +75,7 @@ public class ProductType {
    //    private Product product;
    
    //    @JsonManagedReference(value = "prodType")
-   //    @OneToMany(mappedBy = "productTypeId", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+   //    @OneToMany(mappedBy = "productTypeId", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
    //    private List<Product> products;
    
 }

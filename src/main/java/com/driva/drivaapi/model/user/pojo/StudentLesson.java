@@ -29,9 +29,11 @@ public class StudentLesson {
 	  this.date = lesson.getDate();
 	  this.timeStart = lesson.getTimeStart();
 	  this.hoursCount = lesson.getHoursCount();
-	  this.instructorId = instructor.getId();
-	  this.instructorEmail = instructor.getEmail();
-	  this.instructorFullName = instructor.getFirstName() + ' ' + instructor.getLastName();
-	  this.instructorPhone = Integer.toString(instructor.getPhoneNumber());
+	  if (instructor != null) {
+		 this.instructorId = instructor.getId();
+		 this.instructorEmail = instructor.getEmail();
+		 this.instructorFullName = instructor.getFirstName() + ' ' + instructor.getLastName();
+		 this.instructorPhone = Integer.toString(instructor.getPhoneNumber());
+	  }
    }
 }

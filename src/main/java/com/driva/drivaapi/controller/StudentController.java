@@ -34,37 +34,31 @@ public class StudentController {
    @GetMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    List<StudentDTO> getAllStudents() {
-      return studentService.findAll();
+	  return studentService.findAll();
    }
-   
-   //   @GetMapping("/{id}")
-   //   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-   //   Student getStudent(@PathVariable Long id) {
-   //      return studentService.find(id);
-   //   }
    
    @GetMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    StudentDTO getStudent(@PathVariable Long id) {
-      return studentService.findStudentDTO(id);
+	  return studentService.findStudentDTO(id);
    }
    
    @PostMapping
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.CREATED)
    Student createStudent(@RequestBody @Valid StudentDTO studentDTO) {
-      final Student student = studentService.save(studentDTO);
-      final List<StudentProductDTO> products = studentDTO.getProducts();
-      if (products != null) {
-         productService.saveAll(products, student);
-      }
-      return studentService.find(student.getId());
+	  final Student student = studentService.save(studentDTO);
+	  final List<StudentProductDTO> products = studentDTO.getProducts();
+	  if (products != null) {
+		 productService.saveAll(products, student);
+	  }
+	  return studentService.find(student.getId());
    }
    
    @DeleteMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(HttpStatus.NO_CONTENT)
    void deleteStudent(@PathVariable Long id) {
-      studentService.delete(id);
+	  studentService.delete(id);
    }
 }

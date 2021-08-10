@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LessonMapper {
    
-   
    //   public LessonDTO entityToLessonDTO(Lesson lesson) {
    //
    //	  final Instructor instructor = instructorRepository.findById(lesson.getInstructorId()).orElseThrow(
@@ -40,9 +39,12 @@ public class LessonMapper {
    
    public LessonDTO entityToLessonDTO(Lesson lesson) {
 	  final Instructor instructor = lesson.getInstructorId();
-	  final InstructorInfo instructorInfo = new InstructorInfo(instructor);
+   
 	  final LessonDTO lessonDTO = new LessonDTO(lesson);
-	  lessonDTO.setInstructorInfo(instructorInfo);
+	  if (instructor != null) {
+		 final InstructorInfo instructorInfo = new InstructorInfo(instructor);
+		 lessonDTO.setInstructorInfo(instructorInfo);
+	  }
 	  return lessonDTO;
    }
    
@@ -79,8 +81,12 @@ public class LessonMapper {
 	  final Student student = lesson.getProductId().getStudentId();
 	  final Instructor instructor = lesson.getInstructorId();
 	  final StudentInfo studentInfo = new StudentInfo(student);
-	  final InstructorInfo instructorInfo = new InstructorInfo(instructor);
-	  return new GeneralLesson(lesson, studentInfo, instructorInfo);
+	  final GeneralLesson generalLesson = new GeneralLesson(lesson, studentInfo);
+	  if (instructor != null) {
+		 final InstructorInfo instructorInfo = new InstructorInfo(instructor);
+		 generalLesson.setInstructorInfo(instructorInfo);
+	  }
+	  return generalLesson;
    }
    
    public List<GeneralLesson> entitiesToGeneralLessons(List<Lesson> lessons) {

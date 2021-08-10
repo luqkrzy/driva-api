@@ -9,7 +9,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -74,15 +77,8 @@ public class Student {
     @Column(name = "user_id")
     private Long userId;
     
-    //    @JsonManagedReference(value = "studentProducts")
-    @OneToMany(mappedBy = "studentId")
+    @OneToMany(mappedBy = "studentId", cascade = CascadeType.ALL)
+    @NotFound(action = NotFoundAction.IGNORE)
     private List<Product> products;
-    
-    // @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    // @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_student_id"), nullable = true)
-    // private User userId;
-    
-    // @OneToOne(mappedBy = "student")
-    // private User userId;
 }
 
