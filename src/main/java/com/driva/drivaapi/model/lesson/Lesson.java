@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -51,7 +53,7 @@ public class Lesson {
    //   @JsonBackReference(value = "instructorLesson")
    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
    @JoinColumn(name = "instructor_id", referencedColumnName = "id",
-		   foreignKey = @ForeignKey(name = "fk_instructor_id"))
+           foreignKey = @ForeignKey(name = "fangular send date to apik_instructor_id"))
    private Instructor instructorId;
    
    //   @NotNull(message = "instructor id can't be null")
@@ -59,19 +61,19 @@ public class Lesson {
    //   private Long instructorId;
    
    @Column(name = "date")
-   private String date;
+   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+   private LocalDate date;
    
    @Column(name = "time_start")
-   private String timeStart;
+   private Integer timeStart;
    
-   @Column(name = "time_end")
-   private String timeEnd;
+   @Column(name = "hours_count")
+   private Integer hoursCount;
    
    public Lesson(LessonDTO lessonDTO) {
-	  this.id = lessonDTO.getId();
-	  //	  this.instructorId = lessonDTO.getInstructorId();
-	  this.date = lessonDTO.getDate();
-	  this.timeStart = lessonDTO.getTimeStart();
-	  this.timeEnd = lessonDTO.getTimeEnd();
+      this.id = lessonDTO.getId();
+      this.date = lessonDTO.getDate();
+      this.hoursCount = lessonDTO.getHoursCount();
+      this.timeStart = lessonDTO.getTimeStart();
    }
 }

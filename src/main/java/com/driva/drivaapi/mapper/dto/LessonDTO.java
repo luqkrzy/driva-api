@@ -5,10 +5,11 @@ import com.driva.drivaapi.model.user.pojo.InstructorInfo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -28,24 +29,26 @@ public class LessonDTO {
    
    private Long studentId;
    
-   @NotBlank(message = "date can't be blank")
-   private String date;
+   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+   @NotNull(message = "instructor id can't be blank")
+   private LocalDate date;
    
-   @NotBlank(message = "date can't be blank")
-   private String timeStart;
+   @NotNull(message = "date can't be null")
+   private Integer timeStart;
    
-   @NotBlank(message = "date can't be blank")
-   private String timeEnd;
+   @NotNull(message = "date can't be null")
+   @Positive(message = "hours count must be a positive digit")
+   private Integer hoursCount;
    
    private InstructorInfo instructorInfo;
    
    public LessonDTO(Lesson lesson) {
-      this.id = lesson.getId();
-      this.productId = lesson.getProductId().getId();
-      this.instructorId = lesson.getInstructorId().getId();
-      this.date = lesson.getDate();
-      this.timeStart = lesson.getTimeStart();
-      this.timeEnd = lesson.getTimeEnd();
-      this.studentId = lesson.getProductId().getStudentId().getId();
+	  this.id = lesson.getId();
+	  this.productId = lesson.getProductId().getId();
+	  this.instructorId = lesson.getInstructorId().getId();
+	  this.date = lesson.getDate();
+	  this.timeStart = lesson.getTimeStart();
+	  this.hoursCount = lesson.getHoursCount();
+	  this.studentId = lesson.getProductId().getStudentId().getId();
    }
 }

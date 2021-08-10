@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,8 +15,8 @@ public class InstructorLesson {
    
    private Long lessonId;
    private Long productId;
-   private String date;
-   private String timeStart;
+   private LocalDate date;
+   private Integer timeStart;
    private String timeEnd;
    private Long studentId;
    private String studentFullName;
@@ -26,7 +28,6 @@ public class InstructorLesson {
       this.productId = lessonDTO.getProductId();
       this.date = lessonDTO.getDate();
       this.timeStart = lessonDTO.getTimeStart();
-      this.timeEnd = lessonDTO.getTimeEnd();
       this.studentId = student.getId();
       this.studentEmail = student.getEmail();
       this.studentFullName = student.getFirstName() + ' ' + student.getLastName();
