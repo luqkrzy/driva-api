@@ -17,7 +17,6 @@ public class InstructorLesson {
    private Long productId;
    private LocalDate date;
    private Integer timeStart;
-   private String timeEnd;
    private Long studentId;
    private String studentFullName;
    private String studentEmail;
@@ -31,5 +30,6 @@ public class InstructorLesson {
       this.studentId = student.getId();
       this.studentEmail = student.getEmail();
       this.studentFullName = student.getFirstName() + ' ' + student.getLastName();
+      this.studentPhone = Integer.toString(student.getPhoneNumber());
    }
 }
