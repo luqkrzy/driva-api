@@ -6,7 +6,8 @@ driving school. Main design assumptions are based on use case diagrams and a sim
 ### Technologies
 
 * Java
-* Springboot
+* Spring boot
+* Hibernate
 * Postgresql
 
 ![](pic/system.jpg)
