@@ -41,13 +41,19 @@ public class ProductController {
         return productService.findAll();
     }
     
+    @GetMapping("student/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    List<ProductDTO> getProductsByUserId(@PathVariable Long id) {
+        return productService.findAllByUserId(id);
+    }
+    
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     ProductDTO getProduct(@PathVariable Long id) {
         return productService.findToProductDTO(id);
     }
     
-    @PostMapping("/students/{id}")
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     @ResponseStatus(code = HttpStatus.CREATED)
     ProductDTO createProduct(@RequestBody @Valid StudentProductDTO studentProductDTO) {

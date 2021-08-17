@@ -1,12 +1,12 @@
 package com.driva.drivaapi.mapper.dto;
 
 import com.driva.drivaapi.model.product.Product;
-import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -14,26 +14,35 @@ import java.util.List;
 public class ProductDTO {
    
    private Long id;
-   private Long productTypeId;
    private Long studentId;
    private String studentFullName;
-   private String productTypeName;
    private Integer hoursLeft;
    private Boolean bookOnline;
    private Boolean isPaid;
    private Double price;
    
-   private List<StudentLesson> lessons;
+   @NotNull(message = "product type id can't be null")
+   @Positive(message = "product type must be positive digit")
+   private Long productTypeId;
+   private String productTypeName;
+   private String productTypeDescription;
+   private String productTypeCategory;
+   private Double productTypeBasePrice;
+   private Integer productTypeLessonsHours;
    
    public ProductDTO(Product product) {
 	  this.id = product.getId();
-	  this.productTypeId = product.getProductType().getId();
 	  this.studentId = product.getStudentId().getId();
 	  this.studentFullName = product.getStudentId().getFirstName() + ' ' + product.getStudentId().getLastName();
-	  this.productTypeName = product.getProductType().getName();
 	  this.hoursLeft = product.getHoursLeft();
 	  this.bookOnline = product.getBookOnline();
 	  this.isPaid = product.getIsPaid();
 	  this.price = product.getPrice();
+	  this.productTypeId = product.getProductType().getId();
+	  this.productTypeName = product.getProductType().getName();
+	  this.productTypeDescription = product.getProductType().getDescription();
+	  this.productTypeCategory = product.getProductType().getProductCategory();
+	  this.productTypeBasePrice = product.getProductType().getBasePrice();
+	  this.productTypeLessonsHours = product.getProductType().getLessonsHours();
    }
 }

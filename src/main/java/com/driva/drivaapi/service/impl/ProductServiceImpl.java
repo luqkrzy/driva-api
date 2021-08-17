@@ -70,4 +70,10 @@ public class ProductServiceImpl implements ProductService {
 	  Product product = find(id);
 	  productRepository.delete(product);
    }
+   
+   @Override
+   public List<ProductDTO> findAllByUserId(Long id) {
+	  final List<Product> products = productRepository.findAllByStudentId_Id(id);
+	  return productMapper.entitiesToProductDTOs(products);
+   }
 }

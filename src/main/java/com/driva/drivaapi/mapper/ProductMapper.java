@@ -2,11 +2,9 @@ package com.driva.drivaapi.mapper;
 
 import com.driva.drivaapi.mapper.dto.ProductDTO;
 import com.driva.drivaapi.mapper.dto.StudentProductDTO;
-import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.product.ProductType;
 import com.driva.drivaapi.model.user.Student;
-import com.driva.drivaapi.model.user.pojo.StudentLesson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductMapper {
    
-   private final LessonMapper lessonMapper;
+//   private final LessonMapper lessonMapper;
    
    public StudentProductDTO entityToStudentProductDTO(Product product) {
 	  return new StudentProductDTO(product);
@@ -49,11 +47,11 @@ public class ProductMapper {
    
    public ProductDTO entityToProductDTO(Product product) {
 	  final ProductDTO productDTO = new ProductDTO(product);
-	  final List<Lesson> lessons = product.getLessons();
-	  if (lessons != null) {
-		 final List<StudentLesson> studentLessons = lessonMapper.entitiesToStudentLessonDTOs(lessons);
-		 productDTO.setLessons(studentLessons);
-	  }
+	  //	  final List<Lesson> lessons = product.getLessons();
+	  //	  if (lessons != null) {
+	  //		 final List<StudentLesson> studentLessons = lessonMapper.entitiesToStudentLessonDTOs(lessons);
+	  //		 productDTO.setLessons(studentLessons);
+	  //	  }
 	  return productDTO;
    }
 }

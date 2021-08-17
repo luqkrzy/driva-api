@@ -23,4 +23,6 @@ public interface ProductService {
    StudentProductDTO findToStudentProductDTO(Long id);
    
    void delete(Long id);
+   
+   List<ProductDTO> findAllByUserId(Long id);
 }
