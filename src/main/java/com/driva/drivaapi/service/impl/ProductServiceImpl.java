@@ -76,4 +76,13 @@ public class ProductServiceImpl implements ProductService {
 	  final List<Product> products = productRepository.findAllByStudentId_Id(id);
 	  return productMapper.entitiesToProductDTOs(products);
    }
+   
+   @Override
+   public ProductDTO updateProduct(Long id, StudentProductDTO studentProductDTO) {
+	  final Product product = find(id);
+	  final ProductType productType = productTypeService.find(studentProductDTO.getProductTypeId());
+	  final Product updatedProduct = product.update(studentProductDTO, productType);
+	  final Product save = productRepository.save(updatedProduct);
+	  return productMapper.entityToProductDTO(save);
+   }
 }

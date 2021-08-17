@@ -1,5 +1,6 @@
 package com.driva.drivaapi.model.product;
 
+import com.driva.drivaapi.mapper.dto.StudentProductDTO;
 import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.user.Student;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -79,4 +80,13 @@ public class Product {
    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL)
    @NotFound(action = NotFoundAction.IGNORE)
    private List<Lesson> lessons = new ArrayList<>();
+   
+   public Product update(StudentProductDTO studentProductDTO, ProductType productType) {
+      this.productType = productType;
+      this.hoursLeft = studentProductDTO.getHoursLeft();
+      this.bookOnline = studentProductDTO.getBookOnline();
+      this.isPaid = studentProductDTO.getIsPaid();
+      this.price = studentProductDTO.getPrice();
+      return this;
+   }
 }

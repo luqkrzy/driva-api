@@ -25,4 +25,6 @@ public interface ProductService {
    void delete(Long id);
    
    List<ProductDTO> findAllByUserId(Long id);
+   
+   ProductDTO updateProduct(Long id, StudentProductDTO studentProductDTO);
 }
