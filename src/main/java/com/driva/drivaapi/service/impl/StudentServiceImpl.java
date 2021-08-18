@@ -1,5 +1,6 @@
 package com.driva.drivaapi.service.impl;
 
+import com.driva.drivaapi.exception.EmailAlreadyExist;
 import com.driva.drivaapi.exception.StudentAlreadyExistException;
 import com.driva.drivaapi.exception.StudentNotFoundException;
 import com.driva.drivaapi.mapper.StudentMapper;
@@ -62,6 +63,9 @@ public class StudentServiceImpl implements StudentService {
    @Override
    public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
 	  final Student student = find(id);
+	  if (studentRepository.existsByEmail(studentDTO.getEmail())) {
+		 throw new EmailAlreadyExist("Email already exists");
+	  }
 	  final Student updatedStudent = student.update(studentDTO);
 	  final Student save = studentRepository.save(updatedStudent);
 	  return studentMapper.entityToStudentDTO(save);

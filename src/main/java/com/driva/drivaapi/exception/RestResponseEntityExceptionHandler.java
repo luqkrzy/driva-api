@@ -44,6 +44,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
       return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
    }
    
+   @ExceptionHandler(value = EmailAlreadyExist.class)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.CONFLICT)
+   protected ExceptionMessage handleEmailAlreadyExistException(EmailAlreadyExist exception) {
+      return new ExceptionMessage(HttpStatus.CONFLICT, exception.getMessage());
+   }
+   
    @ExceptionHandler(value = UserRoleExistsException.class)
    @ResponseBody
    @ResponseStatus(HttpStatus.CONFLICT)
