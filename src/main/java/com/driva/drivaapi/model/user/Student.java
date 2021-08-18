@@ -1,6 +1,7 @@
 package com.driva.drivaapi.model.user;
 
 import com.driva.drivaapi.constant.ValidationRegexConstant;
+import com.driva.drivaapi.mapper.dto.StudentDTO;
 import com.driva.drivaapi.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -80,5 +81,13 @@ public class Student {
     @OneToMany(mappedBy = "studentId", cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
     private List<Product> products;
+    
+    public Student update(StudentDTO studentDTO) {
+        this.firstName = studentDTO.getFirstName();
+        this.lastName = studentDTO.getLastName();
+        this.email = studentDTO.getEmail();
+        this.phoneNumber = Integer.parseInt(studentDTO.getPhoneNumber());
+        return this;
+    }
 }
 

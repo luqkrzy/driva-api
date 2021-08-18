@@ -58,4 +58,12 @@ public class StudentServiceImpl implements StudentService {
    public Student findNameEmailAndPhone(Long id) {
 	  return studentRepository.findNameEmailAndPhone(id);
    }
+   
+   @Override
+   public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
+	  final Student student = find(id);
+	  final Student updatedStudent = student.update(studentDTO);
+	  final Student save = studentRepository.save(updatedStudent);
+	  return studentMapper.entityToStudentDTO(save);
+   }
 }

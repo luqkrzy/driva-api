@@ -26,4 +26,6 @@ public interface StudentService {
     void delete(Long id);
     
     Student findNameEmailAndPhone(Long id);
+    
+    StudentDTO updateStudent(Long id, StudentDTO studentDTO);
 }
