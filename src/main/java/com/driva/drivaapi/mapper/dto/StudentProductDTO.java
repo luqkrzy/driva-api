@@ -26,7 +26,7 @@ public class StudentProductDTO {
    private Long studentId;
    
    @Positive(message = "hours should be a positive digit")
-   @NotNull(message = "hours left  can't null")
+//   @NotNull(message = "hours left  can't null")
    private Integer hoursLeft;
    
    @Column(name = "book_online")
@@ -58,7 +58,6 @@ public class StudentProductDTO {
 	  this.bookOnline = product.getBookOnline();
 	  this.isPaid = product.getIsPaid();
 	  this.price = product.getPrice();
-	  //        this.productType = product.getProductType();
 	  this.productTypeName = product.getProductType().getName();
 	  this.productTypeDescription = product.getProductType().getDescription();
 	  this.productTypeCategory = product.getProductType().getProductCategory();

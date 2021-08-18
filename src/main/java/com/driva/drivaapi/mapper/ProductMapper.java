@@ -39,7 +39,7 @@ public class ProductMapper {
    public Product studentProductDTOtoEntity(StudentProductDTO studentProductDTO, Student student,
 											ProductType productType) {
 	  return Product.builder()
-					.productType(productType).studentId(student).hoursLeft(studentProductDTO.getHoursLeft())
+					.productType(productType).studentId(student).hoursLeft(productType.getLessonsHours())
 					.bookOnline(studentProductDTO.getBookOnline()).isPaid(studentProductDTO.getIsPaid()).price(
 					  studentProductDTO.getPrice())
 					.build();
