@@ -62,6 +62,12 @@ public class StudentController {
 	  return studentService.updateStudent(id, studentDTO);
    }
    
+   @GetMapping("/exist/{email}")
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   Boolean doesEmailExist(@PathVariable String email) {
+	  return studentService.doesEmailExist(email);
+   }
+   
    @DeleteMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(HttpStatus.NO_CONTENT)

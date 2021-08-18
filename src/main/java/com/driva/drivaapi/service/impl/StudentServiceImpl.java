@@ -70,4 +70,9 @@ public class StudentServiceImpl implements StudentService {
 	  final Student save = studentRepository.save(updatedStudent);
 	  return studentMapper.entityToStudentDTO(save);
    }
+   
+   @Override
+   public Boolean doesEmailExist(String email) {
+	  return studentRepository.existsByEmail(email);
+   }
 }

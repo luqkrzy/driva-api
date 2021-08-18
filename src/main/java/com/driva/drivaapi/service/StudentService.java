@@ -28,4 +28,6 @@ public interface StudentService {
     Student findNameEmailAndPhone(Long id);
     
     StudentDTO updateStudent(Long id, StudentDTO studentDTO);
+    
+    Boolean doesEmailExist(String email);
 }
