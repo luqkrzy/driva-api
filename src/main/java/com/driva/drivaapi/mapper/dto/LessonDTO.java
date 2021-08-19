@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class LessonDTO {
    
-   @Positive(message = "product must be positive digit")
+   @Positive(message = "lesson must be positive digit")
    private Long id;
    
    @NotNull(message = "product id can't be blank")
@@ -26,13 +26,13 @@ public class LessonDTO {
    private Long studentId;
    
    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-   @NotNull(message = "instructor id can't be blank")
+   @NotNull(message = "date id can't be blank")
    private LocalDate date;
    
-   @NotNull(message = "date can't be null")
+   @NotNull(message = "time start can't be null")
    private Integer timeStart;
    
-   @NotNull(message = "date can't be null")
+   @NotNull(message = "hours count can't be null")
    @Positive(message = "hours count must be a positive digit")
    private Integer hoursCount;
    

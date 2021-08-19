@@ -1,7 +1,6 @@
 package com.driva.drivaapi.controller;
 
 import com.driva.drivaapi.mapper.dto.LessonDTO;
-import com.driva.drivaapi.model.lesson.Lesson;
 import com.driva.drivaapi.model.product.Product;
 import com.driva.drivaapi.model.user.Instructor;
 import com.driva.drivaapi.model.user.pojo.GeneralLesson;
@@ -13,9 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -60,11 +59,12 @@ public class LessonController {
       return lessonService.save(lessonDTO, product, instructor);
    }
    
-   @PutMapping
+   @PatchMapping("/{id}")
    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
    @ResponseStatus(code = HttpStatus.OK)
-   Lesson updateLesson(@RequestBody @Valid Lesson lesson) {
-      return lessonService.update(lesson);
+   LessonDTO updateLesson(@PathVariable Long id, @RequestBody @Valid LessonDTO lessonDTO) {
+      final Instructor instructor = instructorService.findEntity(lessonDTO.getInstructorId());
+      return lessonService.update(id, lessonDTO, instructor);
    }
    
    @DeleteMapping("/{id}")

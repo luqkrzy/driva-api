@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class GeneralLesson {
    
-   private Long lessonId;
+   private Long id;
    private Long productId;
    private LocalDate date;
    private Integer timeStart;
@@ -33,7 +33,7 @@ public class GeneralLesson {
    private String instructorPhoneNumber;
    
    public GeneralLesson(Lesson lesson) {
-	  this.lessonId = lesson.getId();
+	  this.id = lesson.getId();
 	  this.productId = lesson.getProductId().getId();
 	  this.date = lesson.getDate();
 	  this.timeStart = lesson.getTimeStart();

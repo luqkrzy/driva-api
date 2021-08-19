@@ -59,8 +59,12 @@ public class LessonServiceImpl implements LessonService {
    }
    
    @Override
-   public Lesson update(Lesson lesson) {
-	  return lessonRepository.save(lesson);
+   public LessonDTO update(Long id, LessonDTO lessonDTO, Instructor instructor) {
+	  final Lesson lesson = find(id);
+	  Lesson updatedLesson = lesson.update(lessonDTO);
+	  updatedLesson.setInstructorId(instructor);
+	  final Lesson save = lessonRepository.save(updatedLesson);
+	  return lessonMapper.entityToLessonDTO(save);
    }
    
    @Override

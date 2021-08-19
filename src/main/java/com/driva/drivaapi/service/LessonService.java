@@ -22,7 +22,7 @@ public interface LessonService {
    
    LessonDTO save(LessonDTO lesson, Product product, Instructor instructor);
    
-   Lesson update(Lesson lesson);
+   LessonDTO update(Long id, LessonDTO lessonDTO, Instructor instructor);
    
    void delete(Long id);
    

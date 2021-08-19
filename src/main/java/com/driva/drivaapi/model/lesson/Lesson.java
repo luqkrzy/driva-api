@@ -65,9 +65,16 @@ public class Lesson {
    private Integer hoursCount;
    
    public Lesson(LessonDTO lessonDTO) {
-	  this.id = lessonDTO.getId();
-	  this.date = lessonDTO.getDate();
-	  this.hoursCount = lessonDTO.getHoursCount();
-	  this.timeStart = lessonDTO.getTimeStart();
+      this.id = lessonDTO.getId();
+      this.date = lessonDTO.getDate();
+      this.hoursCount = lessonDTO.getHoursCount();
+      this.timeStart = lessonDTO.getTimeStart();
+   }
+   
+   public Lesson update(LessonDTO lessonDTO) {
+      this.date = lessonDTO.getDate();
+      this.hoursCount = lessonDTO.getHoursCount();
+      this.timeStart = lessonDTO.getTimeStart();
+      return this;
    }
 }
