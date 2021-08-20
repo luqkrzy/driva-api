@@ -14,7 +14,7 @@ public interface InstructorService {
    
    Instructor save(InstructorDTO instructor);
    
-   Instructor update(InstructorDTO instructor);
+   InstructorDTO update(Long id, InstructorDTO instructor);
    
    void delete(Long id);
    

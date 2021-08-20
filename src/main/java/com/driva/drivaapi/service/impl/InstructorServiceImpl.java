@@ -45,8 +45,11 @@ public class InstructorServiceImpl implements InstructorService {
    }
    
    @Override
-   public Instructor update(InstructorDTO instructor) {
-	  return null;
+   public InstructorDTO update(Long id, InstructorDTO instructorDTO) {
+	  final Instructor instructor = findEntity(id);
+	  Instructor updatedInstructor = instructor.update(instructorDTO);
+	  final Instructor save = instructorRepository.save(updatedInstructor);
+	  return instructorMapper.entityToInstructorDTO(save);
    }
    
    @Override

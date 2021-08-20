@@ -93,4 +93,12 @@ public class Instructor {
       this.email = instructorDTO.getEmail();
       this.phoneNumber = Integer.parseInt(instructorDTO.getPhoneNumber());
    }
+   
+   public Instructor update(InstructorDTO instructorDTO) {
+      this.firstName = instructorDTO.getFirstName();
+      this.lastName = instructorDTO.getLastName();
+      this.email = instructorDTO.getEmail();
+      this.phoneNumber = Integer.parseInt(instructorDTO.getPhoneNumber());
+      return this;
+   }
 }
