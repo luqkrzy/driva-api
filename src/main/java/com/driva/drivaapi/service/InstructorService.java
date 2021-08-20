@@ -17,4 +17,6 @@ public interface InstructorService {
    Instructor update(InstructorDTO instructor);
    
    void delete(Long id);
+   
+   Boolean doesEmailExist(String email);
 }

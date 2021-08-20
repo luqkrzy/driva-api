@@ -1,5 +1,6 @@
 package com.driva.drivaapi.service.impl;
 
+import com.driva.drivaapi.exception.EmailAlreadyExist;
 import com.driva.drivaapi.exception.InstructorNotFoundException;
 import com.driva.drivaapi.mapper.InstructorMapper;
 import com.driva.drivaapi.mapper.dto.InstructorDTO;
@@ -37,6 +38,9 @@ public class InstructorServiceImpl implements InstructorService {
    
    @Override
    public Instructor save(InstructorDTO instructor) {
+	  if (doesEmailExist(instructor.getEmail())) {
+		 throw new EmailAlreadyExist("Email already exists: " + instructor.getEmail());
+	  }
 	  return instructorRepository.save(instructorMapper.instructorDTOtoEntity(instructor));
    }
    
@@ -52,5 +56,10 @@ public class InstructorServiceImpl implements InstructorService {
 	  } else {
 		 throw new InstructorNotFoundException("Couldn't find Instructor, id: " + id);
 	  }
+   }
+   
+   @Override
+   public Boolean doesEmailExist(String email) {
+	  return instructorRepository.existsByEmail(email);
    }
 }

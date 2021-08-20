@@ -58,4 +58,10 @@ public class InstructorController {
    void deleteInstructor(@PathVariable Long id) {
       instructorService.delete(id);
    }
+   
+   @GetMapping("/exist/{email}")
+   @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+   Boolean doesEmailExist(@PathVariable String email) {
+      return instructorService.doesEmailExist(email);
+   }
 }
