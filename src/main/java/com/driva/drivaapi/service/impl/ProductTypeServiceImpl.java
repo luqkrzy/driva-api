@@ -40,7 +40,9 @@ public class ProductTypeServiceImpl implements ProductTypeService {
    }
    
    @Override
-   public ProductType update(ProductType productType) {
-	  return null;
+   public ProductType update(Long id, ProductType productType) {
+	  final ProductType type = find(id);
+	  ProductType updatedProductType = type.update(productType);
+	  return productTypeRepository.save(updatedProductType);
    }
 }

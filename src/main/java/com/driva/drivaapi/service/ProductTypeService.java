@@ -14,5 +14,5 @@ public interface ProductTypeService {
    
    void delete(Long id);
    
-   ProductType update(ProductType productType);
+   ProductType update(Long id, ProductType productType);
 }
